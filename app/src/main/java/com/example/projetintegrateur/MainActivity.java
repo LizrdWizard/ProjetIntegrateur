@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     Signature des membres de l'équipe
     Jasmin  : Jasmin Dubuc
-    Bright  :
+    Bright  : Bright Ogbeiwi
     Jérémie :
     Yassine :
      */
