@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     Jasmin  : Jasmin Dubuc
     Bright  : Bright Ogbeiwi
     Jérémie :
-    Yassine :
+    Yassine : Yassine Adibe
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
