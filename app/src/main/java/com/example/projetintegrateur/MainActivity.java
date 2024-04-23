@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Signature des membres de l'équipe
     Jasmin  : Jasmin Dubuc
     Bright  : Bright Ogbeiwi
-    Jérémie :
+    Jérémie : Jeremie Gaudet
     Yassine : Yassine Adibe
      */
     @Override
