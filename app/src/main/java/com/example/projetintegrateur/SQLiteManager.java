@@ -10,10 +10,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static SQLiteManager sqLiteManager;
     private static final String DATABASE_NAME = "SherbOrdi";
     private static final int DATABASE_VERSION = 1;
-    
     //NOMS TABLES
     private static final String CAT_TABLE_NAME = "Catégories";
-    
     //NOMS FIELDS
     private static final String ID_FIELD = "id";
     private static final String NOM_FIELD = "nom";
@@ -42,7 +40,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(ID_FIELD)
                 .append(" TEXT, ")
                 .append(NOM_FIELD)
-                .append(" TEXT, ")
+                .append(" TEXT, ");
         sqLiteDatabase.execSQL(sql.toString());
     }
 
@@ -63,7 +61,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         database.insert(CAT_TABLE_NAME, null, contentValues);
     }
 
-    public void populateProgrammeListeArray() {
+    public void populateCategorieListeArray() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         Categorie.categorieArrayList.clear();
