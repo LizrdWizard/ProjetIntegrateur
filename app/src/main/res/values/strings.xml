@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">ProjetIntegrateur</string>
+    <string name="pageInventaire">Inventaire</string>
+    <string name="pageAjouterProduit">Ajouter produit</string>
+
+    <string name="bouttonImage">Sélectionner image</string>
+    <string name="bouttonNouveauProduit">Ajouter nouveau produit</string>
+    <string name="bouttonAjouterProduit">Ajouter produit</string>
+    <string name="bouttonRetour">Retour</string>
+
+    <string name="showCategorie">Catégorie : </string>
+    <string name="showInventaire">En inventaire : </string>
+    <string name="showPrix">Prix : </string>
+    <string name="showMax">Max : </string>
+    <string name="showMin">Min : </string>
+    <string name="showDescription">Description : </string>
+    <string name="showNom">Nom : </string>
+    <string name="showQuantite">Quantité : </string>
 </resources>
