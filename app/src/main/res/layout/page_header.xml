@@ -18,8 +18,9 @@
             tools:ignore="MissingConstraints">
 
             <ImageButton
-                android:layout_width="55dp"
-                android:layout_height="match_parent">
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp">
             </ImageButton>
 
             <TextView
@@ -28,14 +29,14 @@
                 android:padding="10dp"
                 android:text="@string/pageInventaire"
                 android:textAlignment="center"
-                android:layout_gravity="center_horizontal"
-                android:textSize="24sp" />
+                android:textSize="28sp" />
 
             <ImageButton
-                android:layout_width="55dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:gravity="right">
+                android:gravity="right"
+                android:layout_marginStart="-15dp">
             </ImageButton>
 
         </LinearLayout>
