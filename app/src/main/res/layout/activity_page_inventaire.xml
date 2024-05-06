@@ -14,6 +14,8 @@
 
         <include layout="@layout/page_header"/>
 
+
+
         <include layout="@layout/page_footer"/>
 
     </LinearLayout>
