@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pageProduit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/page_header"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="602dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/showSujet"
+                        android:textAlignment="textEnd"></TextView>
+
+                    <EditText
+                        android:id="@+id/editPrix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:layout_marginLeft="20dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/showDate"
+                        android:textAlignment="textEnd"></TextView>
+
+                    <EditText
+                        android:id="@+id/editNom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:layout_marginLeft="20dp"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/showEtat"
+                        android:textAlignment="textEnd"
+                        tools:ignore="RtlCompat" />
+
+                    <Spinner
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp">
+                    </Spinner>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:text="@string/showDescription"
+                        android:layout_gravity="start"
+                        android:textAlignment="textEnd"
+                        tools:ignore="RtlCompat">
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/editDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:layout_marginLeft="20dp"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/showMontant"
+                        android:textAlignment="textEnd"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/bouttonModifierReparation"></Button>
+
+        </LinearLayout>
+
+        <include layout="@layout/page_footer"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

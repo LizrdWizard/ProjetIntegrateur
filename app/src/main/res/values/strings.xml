@@ -6,11 +6,19 @@
     <string name="bouttonImage">Sélectionner image</string>
     <string name="bouttonNouveauProduit">Ajouter nouveau produit</string>
     <string name="bouttonAjouterProduit">Ajouter produit</string>
+    <string name="bouttonAjouterReparation">Ajouter à la réparation</string>
+    <string name="bouttonModifierReparation">Modifier la réparation</string>
     <string name="bouttonRetour">Retour</string>
 
     <string name="showCategorie">Catégorie : </string>
     <string name="showInventaire">En inventaire : </string>
+    <string name="showComplete">Complété : </string>
+    <string name="showID">ID : </string>
     <string name="showPrix">Prix : </string>
+    <string name="showSujet">Sujet : </string>
+    <string name="showDate">Date initale : </string>
+    <string name="showEtat">État : </string>
+    <string name="showMontant">Montant : </string>
     <string name="showMax">Max : </string>
     <string name="showMin">Min : </string>
     <string name="showDescription">Description : </string>
