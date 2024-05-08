@@ -51,11 +51,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/bouttonImage"
+                        android:layout_marginLeft="15dp"
                         android:textColor="@null"
                         android:theme="@style/bouttonLight">
-
                     </Button>
-
                 </LinearLayout>
 
             </LinearLayout>

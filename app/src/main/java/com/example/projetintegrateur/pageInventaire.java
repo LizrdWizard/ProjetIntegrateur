@@ -25,6 +25,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class pageInventaire extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

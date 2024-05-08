@@ -20,5 +20,5 @@ public class Categorie {
     public String toString() {
         return this.nom;
     }
-    public static int provinceSize() {return categorieArrayList.size();}
+    public static int categorieSize() {return categorieArrayList.size();}
 }
