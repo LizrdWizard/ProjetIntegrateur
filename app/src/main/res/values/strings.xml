@@ -9,6 +9,7 @@
     <string name="bouttonAjouterReparation">Ajouter à la réparation</string>
     <string name="bouttonModifierReparation">Modifier la réparation</string>
     <string name="bouttonRetour">Retour</string>
+    <string name="bouttonFiltrer">Filtrer</string>
 
     <string name="showCategorie">Catégorie : </string>
     <string name="showInventaire">En inventaire : </string>

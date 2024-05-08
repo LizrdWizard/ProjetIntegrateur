@@ -16,6 +16,7 @@
 package com.example.projetintegrateur;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +24,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class pageInventaire extends AppCompatActivity {
 
-
+    ListView produitsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +40,21 @@ public class pageInventaire extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        initWidget();
+        loadFromDBToMemory();
+        setProduitAdapter(Produit.produitArrayList);
+    }
+
+    private void initWidget() {produitsView = (ListView) findViewById(R.id.listInventaire);}
+    private void loadFromDBToMemory() {
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+        sqLiteManager.populateCategorieListeArray();
+        sqLiteManager.populateProduitListArray();
+    }
+
+    private void setProduitAdapter(ArrayList<Produit> listeProduit) {
+        ProduitAdapter produitAdapter = new ProduitAdapter(getApplicationContext(), listeProduit);
+        produitsView.setAdapter(produitAdapter);
     }
 }
