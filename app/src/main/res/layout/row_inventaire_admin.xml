@@ -29,7 +29,8 @@
                 android:id="@+id/rowNom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/showNom">
+                android:text="@string/showNom"
+                android:layout_marginTop="3dp">
             </TextView>
 
             <TextView
@@ -37,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/showDescription"
-                android:layout_marginTop="3dp">
+                android:layout_marginTop="3dp"
+                android:maxLines="2">
             </TextView>
 
             <LinearLayout
@@ -48,7 +50,7 @@
 
                 <TextView
                     android:id="@+id/rowMontant"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="@string/showMax">
                 </TextView>
@@ -58,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="end"
-                    android:layout_marginLeft="180dp"
+                    android:layout_marginLeft="100dp"
                     android:text="@string/showQuantite">
                 </TextView>
 

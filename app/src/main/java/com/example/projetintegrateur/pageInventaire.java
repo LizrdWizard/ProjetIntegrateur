@@ -16,6 +16,7 @@
 package com.example.projetintegrateur;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -26,8 +27,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class pageInventaire extends AppCompatActivity {
-
+public class pageInventaire extends AppCompatActivity implements View.OnClickListener {
     ListView produitsView;
 
     @Override
@@ -56,5 +56,10 @@ public class pageInventaire extends AppCompatActivity {
     private void setProduitAdapter(ArrayList<Produit> listeProduit) {
         ProduitAdapter produitAdapter = new ProduitAdapter(getApplicationContext(), listeProduit);
         produitsView.setAdapter(produitAdapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

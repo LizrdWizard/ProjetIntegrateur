@@ -66,13 +66,26 @@ public class Produit {
         return null;
     }
     public byte[] getPhotoByte() {
-        Bitmap bmp = this.photo;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
+
+        try {
+            Bitmap bmp = this.photo;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            return stream.toByteArray();
+        }
+        catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     public static Bitmap toBitmap(byte[] photo) {
-        return BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        try {
+            return BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        }
+        catch(NullPointerException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     public static int produitSize() {return produitArrayList.size();}
 }

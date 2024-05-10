@@ -19,6 +19,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String PHOTO_FIELD = "photo";
     private static final String IDCATEGORIE_FIELD = "idCategorie";
     private static final String COUNTER = "Counter";
+    //À ENLEVER APRÈS CAMÉRA
+    public static Bitmap PHOTO_TEMP;
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -117,6 +120,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        db.execSQL("DROP TABLE IF EXISTS" + PRODUIT_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS" + CAT_TABLE_NAME);
+        onCreate(db);
     }
 
     public void ajouterCategorieDatabase(SQLiteDatabase database, Categorie categorie) {
@@ -151,6 +157,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
         if (database == null) {
             database = this.getWritableDatabase();
         }
+
+        //En attendant la fonction caméra
+        produit.setPhoto(PHOTO_TEMP);
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_FIELD, produit.getId());

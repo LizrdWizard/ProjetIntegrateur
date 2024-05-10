@@ -15,6 +15,7 @@
 package com.example.projetintegrateur;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.icu.math.BigDecimal;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +51,10 @@ public class ProduitAdapter extends ArrayAdapter<Produit> {
 
         nom.setText(produit.getNom());
         description.setText(produit.getDescription());
-        montant.setText(produit.getPrix().toString());
-        quantite.setText(String.valueOf(produit.getQuantite()));
+        montant.setText(produit.getPrix().setScale(2, BigDecimal.ROUND_UP).toString());
+        image.setImageBitmap(produit.getPhoto());
+        quantite.setText(convertView.getContext().getString(R.string.showQuantite));
+        quantite.append(" " + String.valueOf(produit.getQuantite()));
         image.setImageBitmap(produit.getPhoto());
 
         return convertView;
