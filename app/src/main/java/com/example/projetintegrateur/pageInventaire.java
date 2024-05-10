@@ -15,8 +15,10 @@
 
 package com.example.projetintegrateur;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -30,6 +32,9 @@ import java.util.ArrayList;
 public class pageInventaire extends AppCompatActivity implements View.OnClickListener {
     ListView produitsView;
 
+    Button buttonAjouterProduit;
+    Button buttonFiltrer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,11 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        buttonAjouterProduit = (Button) findViewById(R.id.bouttonAjouterProduit);
+        buttonFiltrer = (Button) findViewById(R.id.bouttonFiltrer);
+        buttonAjouterProduit.setOnClickListener(this);
+        buttonFiltrer.setOnClickListener(this);
 
         initWidget();
         loadFromDBToMemory();
@@ -61,5 +71,9 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
+        if (v.getId() == R.id.bouttonAjouterProduit) {
+            Intent intent = new Intent(pageInventaire.this, pageProduit.class);
+            startActivity(intent);
+        }
     }
 }

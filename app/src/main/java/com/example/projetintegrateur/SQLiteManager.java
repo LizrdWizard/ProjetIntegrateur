@@ -112,8 +112,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         ajouterProduitDatabase(sqLiteDatabase, new Produit(3, "Graphic Processing Unit1", BigDecimal.valueOf(799.99), "Deux barettes de 16Gb DDR5", 1, null, 3));
         ajouterProduitDatabase(sqLiteDatabase, new Produit(4, "Bose QC45", BigDecimal.valueOf(349.99), "Noise cancelling, bluetooth, adjustable", 4, null, 4));
         ajouterProduitDatabase(sqLiteDatabase, new Produit(5, "Écran LG", BigDecimal.valueOf(599.99), "4k resolution avec 120Hz, très fiable", 6, null, 5));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(2, "Clavier modulaire", BigDecimal.valueOf(199.99), "Clavier modulaire et qui peut afficher toutes les couleurs de l'arc en ciel", 9, null, 6));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(2, "Souris sans fil", BigDecimal.valueOf(1999.99), "Aim-hack intégré. Last-hit les minions pour toi", 1, null, 7));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(6, "Clavier modulaire", BigDecimal.valueOf(199.99), "Clavier modulaire et qui peut afficher toutes les couleurs de l'arc en ciel", 9, null, 6));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(7, "Souris sans fil", BigDecimal.valueOf(1999.99), "Aim-hack intégré. Last-hit les minions pour toi", 1, null, 7));
 
     }
 
@@ -160,9 +160,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         //En attendant la fonction caméra
         produit.setPhoto(PHOTO_TEMP);
-
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_FIELD, produit.getId());
+
+        //Les produits initialisés dans cette classe on toujours le bon Id
+        //Les produits ajoutés plus tard utilisent Produit.produitSize() + 1 pour déterminer leur Id
+        if (produit.getId() != 0) {contentValues.put(ID_FIELD, produit.getId());}
+        else {contentValues.put(ID_FIELD, Produit.produitSize() + 1);}
+
         contentValues.put(NOM_FIELD, produit.getNom());
         contentValues.put(PRIX_FIELD, produit.getPrix().floatValue());
         contentValues.put(DESCRIPTION_FIELD, produit.getDescription());

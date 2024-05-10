@@ -30,6 +30,8 @@ public class Produit {
     private Bitmap photo;
     private int idCategorie;
 
+    public Produit() {}
+
     public Produit(int id, String nom, BigDecimal prix, String description, int quantite, Bitmap photo, int idCategorie) {
         this.id = id;
         this.nom = nom;
