@@ -36,7 +36,8 @@
                         android:layout_margin="15dp"
                         android:text="@string/bouttonRetour"
                         android:textColor="@null"
-                        android:theme="@style/bouttonLight"></Button>
+                        android:theme="@style/bouttonLight"
+                        ></Button>
 
                 </LinearLayout>
 
@@ -118,7 +119,9 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/bouttonAjouterReparation"></Button>
+                android:text="@string/bouttonAjouterReparation"
+                android:textColor="@null"
+                android:theme="@style/bouttonLight"></Button>
 
         </LinearLayout>
 

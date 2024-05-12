@@ -3,6 +3,7 @@
     <string name="pageInventaire">Inventaire</string>
     <string name="pageAjouterProduit">Ajouter produit</string>
 
+    <string name="OK">OK</string>
     <string name="bouttonGallery">Sélectionner image</string>
     <string name="bouttonNouveauProduit">Ajouter nouveau produit</string>
     <string name="bouttonAjouterProduit">Ajouter produit</string>
