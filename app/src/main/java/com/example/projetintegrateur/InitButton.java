@@ -11,20 +11,17 @@ public class InitButton{
         if(R.id.buttonRetour == v.getId()){
             ((Activity) c).finish();
         }
-        else if(R.id.buttonCoucou == v.getId()){
-           intent = new Intent(c, pageCommande.class);
-        }
         else if(R.id.boutonFooter1 == v.getId()){
-            //intent = new Intent(c, pageCommande.class);
+            intent = new Intent(c, pageInventaire.class);
         }
         else if(R.id.boutonFooter2 == v.getId()){
-            //intent = new Intent(c, pageCommande.class);
+            //intent = new Intent(c, pageCompte.class);
         }
         else if(R.id.boutonFooter3 == v.getId()){
-            //intent = new Intent(c, pageCommande.class);
+            //intent = new Intent(c, pageReparation.class);
         }
         else if(R.id.boutonFooter4 == v.getId()){
-            // intent = new Intent(c, pageCommande.class);
+             intent = new Intent(c, pageCommande.class);
         }
         else if(R.id.boutonFooter5 == v.getId()){
             // intent = new Intent(c, pageCommande.class);
