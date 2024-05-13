@@ -9,6 +9,7 @@
     <string name="bouttonAjouterReparation">Ajouter à la réparation</string>
     <string name="bouttonModifierReparation">Modifier la réparation</string>
     <string name="bouttonRetour">Retour</string>
+    <string name="bouttonCommander">Commander</string>
 
     <string name="showCategorie">Catégorie : </string>
     <string name="showInventaire">En inventaire : </string>
@@ -24,4 +25,5 @@
     <string name="showDescription">Description : </string>
     <string name="showNom">Nom : </string>
     <string name="showQuantite">Quantité : </string>
+    <string name="total">Total : </string>
 </resources>

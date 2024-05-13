@@ -32,10 +32,12 @@
                 android:textSize="28sp" />
 
             <ImageButton
+                android:id="@+id/butttonImage"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:gravity="right"
+                android:onClick="bRetour"
                 android:layout_marginStart="-15dp">
             </ImageButton>
 
