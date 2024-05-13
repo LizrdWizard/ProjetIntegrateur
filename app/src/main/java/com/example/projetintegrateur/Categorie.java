@@ -1,3 +1,17 @@
+/****************************************
+ Fichier : Catégorie
+ Auteur : Jasmin Dubuc
+ Fonctionnalité : Page qui décrit la classe Catégorie, à lier avec la classe Produit et à utiliser avec la database
+ Date : 2024-08-03
+
+ Vérification :
+ *Date*               *Nom*             *Approuvé*
+ =========================================================
+
+ Historique de modifications :
+
+ =========================================================
+ ****************************************/
 package com.example.projetintegrateur;
 
 import java.util.ArrayList;
@@ -20,5 +34,13 @@ public class Categorie {
     public String toString() {
         return this.nom;
     }
-    public static int provinceSize() {return categorieArrayList.size();}
+
+    public static Categorie getCategorieById(int idCategorie) {
+        for (Categorie categorie : categorieArrayList) {
+            if (categorie.getId() == idCategorie)
+                return categorie;
+        }
+        return null;
+    }
+    public static int categorieSize() {return categorieArrayList.size();}
 }
