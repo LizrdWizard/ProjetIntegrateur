@@ -1,5 +1,8 @@
 package com.example.projetintegrateur;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +32,8 @@ import androidx.core.view.WindowInsetsCompat;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
+
+
 
 public class pageProduit extends AppCompatActivity implements View.OnClickListener {
     public static final int CAMERA_PERM_CODE = 101;
@@ -74,6 +80,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         buttonRetour.setOnClickListener(this);
         buttonPhoto.setOnClickListener(this);
         buttonAjouterProduit.setOnClickListener(this);
+
     }
 
     @Override
@@ -90,13 +97,14 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             askCameraPermissions();
         }
         else if (v.getId() == R.id.buttonAjouterProduit) {
-            try {
-                Produit nouveauProduit = new Produit();
-                imageProduit.buildDrawingCache();
+            Produit nouveauProduit = new Produit();
+            imageProduit.buildDrawingCache();
 
-                if (editNom.toString().isEmpty() || editPrix.toString().isEmpty() || editDescription.toString().isEmpty() || editQuantite.toString().isEmpty()) {
-                    throw new EmptyField();
-                }
+            if (TextUtils.isEmpty(editNom.getText().toString()) || TextUtils.isEmpty(editPrix.getText().toString()) || TextUtils.isEmpty(editDescription.getText().toString())|| TextUtils.isEmpty(editQuantite.getText().toString())) {
+                showDialog();
+            }
+            else {
+
                 nouveauProduit.setNom(editNom.getText().toString());
                 nouveauProduit.setPrix(Float.valueOf(editPrix.getText().toString()));
                 nouveauProduit.setDescription(editDescription.getText().toString());
@@ -105,11 +113,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
                 nouveauProduit.setPhoto(imageProduit.getDrawingCache());
 
                 sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
-                Intent intent = new Intent(pageProduit.this, pageInventaire.class);
-                startActivity(intent);
-            }
-            catch (EmptyField e) {
-                e.printStackTrace();
+                buttonRetour.performClick();
             }
         }
     }
@@ -172,5 +176,12 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         imageProduit.setVisibility(View.VISIBLE);
 
     }
+    private void showDialog(){
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.popup_produit);
+        dialog.show();
 
+        Button buttonOK;
+
+    }
 }
