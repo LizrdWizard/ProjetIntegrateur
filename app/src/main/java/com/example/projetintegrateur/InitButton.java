@@ -19,7 +19,7 @@ public class InitButton{
             //intent = new Intent(c, pageCompte.class);
         }
         else if(R.id.boutonFooter3 == v.getId()){
-            //intent = new Intent(c, pageReparation.class);
+            intent = new Intent(c, pageReparation.class);
         }
         else if(R.id.boutonFooter4 == v.getId()){
              intent = new Intent(c, pageCommande.class);

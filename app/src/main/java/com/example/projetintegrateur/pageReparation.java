@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class pageReparation extends AppCompatActivity {
+    private InitButton initButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,9 @@ public class pageReparation extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        initButton = new InitButton();
+    }
+    public void bRetour(View v){
+        initButton.click(pageReparation.this, v);
     }
 }
