@@ -14,7 +14,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class pageMain extends AppCompatActivity{
-
     /*
     Signature des membres de l'équipe
     Jasmin  : Jasmin Dubuc
@@ -22,7 +21,6 @@ public class pageMain extends AppCompatActivity{
     Jérémie : Jeremie Gaudet
     Yassine : Yassine Adibe
      */
-
     private InitButton initButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
