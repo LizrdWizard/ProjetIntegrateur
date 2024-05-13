@@ -13,6 +13,27 @@
         android:theme="@style/Theme.ProjetIntegrateur"
         tools:targetApi="31">
         <activity
+            android:name=".pageCompte2FA"
+            android:exported="false" />
+        <activity
+            android:name=".pageCompteEditPW"
+            android:exported="false" />
+        <activity
+            android:name=".pageCompteEditCoord"
+            android:exported="false" />
+        <activity
+            android:name=".pageCompteMenu"
+            android:exported="false" />
+        <activity
+            android:name=".pageCompteConfirmation"
+            android:exported="false" />
+        <activity
+            android:name=".pageCompteConnection"
+            android:exported="false" />
+        <activity
+            android:name=".pageCompteCreation"
+            android:exported="false" />
+        <activity
             android:name=".pageProduit"
             android:exported="false" />
         <activity
