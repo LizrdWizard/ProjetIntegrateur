@@ -170,7 +170,11 @@
                         android:layout_height="100dp"
                         android:ems="10"
                         android:inputType="text"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginLeft="20dp"
+                        android:lines="5"
+                        android:gravity="top|start"
+                        android:scrollbars="vertical"
+                        android:maxLength="15"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -211,12 +215,5 @@
         <include layout="@layout/page_footer"/>
 
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/editTextNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
