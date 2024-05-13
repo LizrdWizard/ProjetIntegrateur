@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 public class pageInventaire extends AppCompatActivity implements View.OnClickListener {
     ListView produitsView;
-
     Button buttonAjouterProduit;
     Button buttonFiltrer;
 

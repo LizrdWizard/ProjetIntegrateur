@@ -92,26 +92,24 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         else if (v.getId() == R.id.buttonAjouterProduit) {
             try {
                 Produit nouveauProduit = new Produit();
+                imageProduit.buildDrawingCache();
 
                 if (editNom.toString().isEmpty() || editPrix.toString().isEmpty() || editDescription.toString().isEmpty() || editQuantite.toString().isEmpty()) {
                     throw new EmptyField();
                 }
-                nouveauProduit.setNom(editNom.toString());
-                nouveauProduit.setPrix(new BigDecimal(editPrix.toString()));
-                nouveauProduit.setDescription(editDescription.toString());
-                nouveauProduit.setQuantite(Integer.parseInt(editQuantite.toString()));
+                nouveauProduit.setNom(editNom.getText().toString());
+                nouveauProduit.setPrix(Float.valueOf(editPrix.getText().toString()));
+                nouveauProduit.setDescription(editDescription.getText().toString());
+                nouveauProduit.setQuantite(Integer.parseInt(editQuantite.getText().toString()));
                 nouveauProduit.setIdCategorie(spinnerCategorie.getSelectedItemPosition());
-                nouveauProduit.setPhoto(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageGallery));
+                nouveauProduit.setPhoto(imageProduit.getDrawingCache());
 
                 sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
-                buttonRetour.performClick();
+                Intent intent = new Intent(pageProduit.this, pageInventaire.class);
+                startActivity(intent);
             }
             catch (EmptyField e) {
                 e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }
     }
@@ -159,16 +157,20 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+        Bitmap image = null;
         assert data != null;
+
         if(requestCode == CAMERA_REQUEST_CODE){
-            Bitmap image = (Bitmap) data.getExtras().get("data");
-            imageProduit.setImageBitmap(image);
-            imageProduit.setVisibility(View.VISIBLE);
+            image = (Bitmap) data.getExtras().get("data");
         }
         else if (requestCode == GALLERY_REQUEST_CODE) {
             imageGallery = data.getData();
-            imageProduit.setImageURI(imageGallery);
+            try {image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageGallery);}
+            catch (IOException e) {e.printStackTrace();}
         }
+        imageProduit.setImageBitmap(image);
+        imageProduit.setVisibility(View.VISIBLE);
+
     }
 
 }

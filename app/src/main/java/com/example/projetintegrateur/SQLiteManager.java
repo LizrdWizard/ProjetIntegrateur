@@ -107,13 +107,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append("));");
         sqLiteDatabase.execSQL(sql.toString());
 
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(1, "Processeur1", BigDecimal.valueOf(349.99), "Bon processeur pour le prix, super fort", 5, null, 1));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(2, "Barrettes de RAM1", BigDecimal.valueOf(99.99), "Deux barettes de 16Gb DDR5", 3, null, 2));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(3, "Graphic Processing Unit1", BigDecimal.valueOf(799.99), "Deux barettes de 16Gb DDR5", 1, null, 3));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(4, "Bose QC45", BigDecimal.valueOf(349.99), "Noise cancelling, bluetooth, adjustable", 4, null, 4));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(5, "Écran LG", BigDecimal.valueOf(599.99), "4k resolution avec 120Hz, très fiable", 6, null, 5));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(6, "Clavier modulaire", BigDecimal.valueOf(199.99), "Clavier modulaire et qui peut afficher toutes les couleurs de l'arc en ciel", 9, null, 6));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(7, "Souris sans fil", BigDecimal.valueOf(1999.99), "Aim-hack intégré. Last-hit les minions pour toi", 1, null, 7));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(1, "Processeur1", 349.99F, "Bon processeur pour le prix, super fort", 5, null, 1));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(2, "Barrettes de RAM1", 99.99F, "Deux barettes de 16Gb DDR5", 3, null, 2));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(3, "Graphic Processing Unit1", 799.99F, "Deux barettes de 16Gb DDR5", 1, null, 3));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(4, "Bose QC45", 349.99F, "Noise cancelling, bluetooth, adjustable", 4, null, 4));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(5, "Écran LG", 599.99F, "4k resolution avec 120Hz, très fiable", 6, null, 5));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(6, "Clavier modulaire", 199.99F, "Clavier modulaire et qui peut afficher toutes les couleurs de l'arc en ciel", 9, null, 6));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(7, "Souris sans fil", 1999.99F, "Aim-hack intégré. Last-hit les minions pour toi", 1, null, 7));
 
     }
 
@@ -157,9 +157,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
         if (database == null) {
             database = this.getWritableDatabase();
         }
-
-        //En attendant la fonction caméra
-        produit.setPhoto(PHOTO_TEMP);
         ContentValues contentValues = new ContentValues();
 
         //Les produits initialisés dans cette classe on toujours le bon Id
@@ -193,7 +190,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                     byte[] image = result.getBlob(6);
                     int idCategorie = result.getInt(7);
 
-                    Produit.produitArrayList.add(new Produit(id, nom, BigDecimal.valueOf(prix), description, quantite, Produit.toBitmap(image), idCategorie));
+                    Produit.produitArrayList.add(new Produit(id, nom, prix, description, quantite, Produit.toBitmap(image), idCategorie));
                 }
             }
         }

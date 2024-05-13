@@ -51,11 +51,10 @@ public class ProduitAdapter extends ArrayAdapter<Produit> {
 
         nom.setText(produit.getNom());
         description.setText(produit.getDescription());
-        montant.setText(produit.getPrix().setScale(2, BigDecimal.ROUND_UP).toString());
+        montant.setText(produit.getPrix().toString());
         image.setImageBitmap(produit.getPhoto());
         quantite.setText(convertView.getContext().getString(R.string.showQuantite));
         quantite.append(" " + String.valueOf(produit.getQuantite()));
-        image.setImageBitmap(produit.getPhoto());
 
         return convertView;
     }

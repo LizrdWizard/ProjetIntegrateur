@@ -24,7 +24,7 @@ public class Produit {
     public static ArrayList<Produit> produitArrayList = new ArrayList<>();
     private int id;
     private String nom;
-    private BigDecimal prix;
+    private Float prix;
     private String description;
     private int quantite;
     private Bitmap photo;
@@ -32,7 +32,7 @@ public class Produit {
 
     public Produit() {}
 
-    public Produit(int id, String nom, BigDecimal prix, String description, int quantite, Bitmap photo, int idCategorie) {
+    public Produit(int id, String nom, Float prix, String description, int quantite, Bitmap photo, int idCategorie) {
         this.id = id;
         this.nom = nom;
         this.prix = prix;
@@ -46,8 +46,8 @@ public class Produit {
     public void setId(int id) {this.id = id;}
     public String getNom() {return nom;}
     public void setNom(String nom) {this.nom = nom;}
-    public BigDecimal getPrix() {return prix;}
-    public void setPrix(BigDecimal prix) {this.prix = prix;}
+    public Float getPrix() {return prix;}
+    public void setPrix(Float prix) {this.prix = prix;}
     public String getDescription() {return description;}
     public void setDescription(String description) {this.description = description;}
     public int getQuantite() {return quantite;}
