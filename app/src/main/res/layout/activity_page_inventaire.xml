@@ -142,12 +142,7 @@
                 <ListView
                     android:id="@+id/listInventaire"
                     android:layout_width="match_parent"
-<<<<<<< HEAD
                     android:layout_height="wrap_content">
-=======
-                    android:layout_height="460dp">
-
->>>>>>> 1ec7b3f1028ac52947996b783384083aa4d9ab91
                 </ListView>
 
             </LinearLayout>

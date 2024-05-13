@@ -8,7 +8,6 @@ public class InitButton{
     private Intent intent;
     InitButton(){}
 
-
     public void click(Context c, View v) {
         if(R.id.buttonRetour == v.getId()){
             ((Activity) c).finish();
