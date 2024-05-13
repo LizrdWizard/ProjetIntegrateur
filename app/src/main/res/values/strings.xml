@@ -10,12 +10,9 @@
     <string name="bouttonAjouterReparation">Ajouter à la réparation</string>
     <string name="bouttonModifierReparation">Modifier la réparation</string>
     <string name="bouttonRetour">Retour</string>
-<<<<<<< HEAD
     <string name="bouttonCommander">Commander</string>
-=======
     <string name="bouttonFiltrer">Filtrer</string>
     <string name="bouttonPhoto">Prendre photo</string>
->>>>>>> 1ec7b3f1028ac52947996b783384083aa4d9ab91
 
     <string name="showCategorie">Catégorie : </string>
     <string name="showInventaire">En inventaire : </string>

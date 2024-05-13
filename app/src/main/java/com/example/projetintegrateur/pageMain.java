@@ -5,11 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-<<<<<<< HEAD
 import android.widget.TextView;
-=======
 import android.widget.Button;
->>>>>>> 1ec7b3f1028ac52947996b783384083aa4d9ab91
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,24 +35,13 @@ public class pageMain extends AppCompatActivity{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-<<<<<<< HEAD
         initButton = new InitButton();
     }
     public void bRetour(View v){
         initButton.click(pageMain.this, v);
-=======
 
         //À ENLEVER APRÈS CAMÉRA
         SQLiteManager.PHOTO_TEMP = BitmapFactory.decodeResource(this.getApplicationContext().getResources(), R.drawable.luffyyeah);
 
-        Button pageInventaire = (Button) findViewById(R.id.bouttonInventaire);
-        pageInventaire.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(pageMain.this, pageInventaire.class);
-                startActivity(intent);
-            }
-        });
->>>>>>> 1ec7b3f1028ac52947996b783384083aa4d9ab91
     }
 }
