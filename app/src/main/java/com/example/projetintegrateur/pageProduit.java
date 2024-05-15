@@ -63,6 +63,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     Spinner spinnerCategorie;
     Uri imageGallery;
     int idProduit;
+    boolean pictureChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         initWidget();
         preparerDb();
         preparerSpinnerCategorie();
+        pictureChanged = false;
 
         idProduit = getIntent().getIntExtra("id", 0);
         if (idProduit != 0) {
@@ -189,18 +191,24 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         Bitmap image = null;
-        assert data != null;
+        if(data != null) {
 
-        if(requestCode == CAMERA_REQUEST_CODE){
-            image = (Bitmap) data.getExtras().get("data");
+            if (requestCode == CAMERA_REQUEST_CODE) {
+                image = (Bitmap) data.getExtras().get("data");
+            }
+            else if (requestCode == GALLERY_REQUEST_CODE) {
+                imageGallery = data.getData();
+                try {
+                    image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageGallery);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            imageProduit.setImageBitmap(image);
+            imageProduit.setVisibility(View.VISIBLE);
+            pictureChanged = true;
         }
-        else if (requestCode == GALLERY_REQUEST_CODE) {
-            imageGallery = data.getData();
-            try {image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageGallery);}
-            catch (IOException e) {e.printStackTrace();}
-        }
-        imageProduit.setImageBitmap(image);
-        imageProduit.setVisibility(View.VISIBLE);
     }
     private void showDialog(){
         Dialog dialog = new Dialog(this);
@@ -208,9 +216,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         dialog.show();
 
         Button buttonOK;
-
     }
-
     private void viewProduit(){
         Produit produit = Produit.getProduitById(idProduit);
         buttonAjouterProduit.setVisibility(View.INVISIBLE);
@@ -260,30 +266,33 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
     private void updaterProduit(){
         Produit vieuxProduit = Produit.getProduitById(idProduit);
-        Produit produitUpdate = new Produit();
         imageProduit.buildDrawingCache();
 
-        produitUpdate.setId(vieuxProduit.getId());
+        if (!editNom.getText().toString().isEmpty() || !editPrix.getText().toString().isEmpty() || !editDescription.getText().toString().isEmpty() || !editQuantite.getText().toString().isEmpty() || spinnerCategorie.getSelectedItemPosition() != vieuxProduit.getIdCategorie() || pictureChanged) {
+            Produit produitUpdate = new Produit();
+            produitUpdate.setId(vieuxProduit.getId());
+            //Nom
+            if (editNom.getText().toString().isEmpty()) {produitUpdate.setNom(vieuxProduit.getNom());}
+            else {produitUpdate.setNom(editNom.getText().toString());}
+            //Prix
+            if (editPrix.getText().toString().isEmpty()) {produitUpdate.setPrix(vieuxProduit.getPrix());}
+            else {produitUpdate.setPrix(Float.valueOf(editPrix.getText().toString()));}
+            //Description
+            if (editDescription.getText().toString().isEmpty()) {produitUpdate.setDescription(vieuxProduit.getDescription());}
+            else {produitUpdate.setDescription(editDescription.getText().toString());}
+            //Quantite
+            if (editQuantite.getText().toString().isEmpty()) {produitUpdate.setQuantite(vieuxProduit.getQuantite());}
+            else {produitUpdate.setQuantite(Integer.parseInt(editQuantite.getText().toString()));}
+            //Categorie
+            if (spinnerCategorie.getSelectedItemPosition() == vieuxProduit.getIdCategorie()) {vieuxProduit.setIdCategorie(vieuxProduit.getIdCategorie());}
+            else {produitUpdate.setIdCategorie(spinnerCategorie.getSelectedItemPosition());}
 
-        //Nom
-        if (editNom.getText().toString().isEmpty()){produitUpdate.setNom(vieuxProduit.getNom());}
-        else {produitUpdate.setNom(editNom.getText().toString());}
-        //Prix
-        if(editPrix.getText().toString().isEmpty()){produitUpdate.setPrix(vieuxProduit.getPrix());}
-        else{produitUpdate.setPrix(Float.valueOf(editPrix.getText().toString()));}
-        //Description
-        if(editDescription.getText().toString().isEmpty()){produitUpdate.setDescription(vieuxProduit.getDescription());}
-        else {produitUpdate.setDescription(editDescription.getText().toString());}
-        //Quantite
-        if(editQuantite.getText().toString().isEmpty()){produitUpdate.setQuantite(vieuxProduit.getQuantite());}
-        else{produitUpdate.setQuantite(vieuxProduit.getQuantite());}
-        //Categorie
-        if(spinnerCategorie.getSelectedItemPosition() == vieuxProduit.getIdCategorie()){vieuxProduit.setIdCategorie(vieuxProduit.getIdCategorie());}
-        else{produitUpdate.setIdCategorie(spinnerCategorie.getSelectedItemPosition());}
-
-        produitUpdate.setPhoto(imageProduit.getDrawingCache());
-        sqLiteManager.updaterProduitDatabase(sqLiteDatabase, produitUpdate);
-
-        buttonRetour.performClick();
+            produitUpdate.setPhoto(imageProduit.getDrawingCache());
+            sqLiteManager.updaterProduitDatabase(sqLiteDatabase, produitUpdate);
+            buttonRetour.performClick();
+        }
+        else{
+            showDialog();
+        }
     }
 }

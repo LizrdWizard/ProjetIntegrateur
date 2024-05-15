@@ -21,6 +21,8 @@ public class pageMain extends AppCompatActivity{
     Jérémie : Jeremie Gaudet
     Yassine : Yassine Adibe
      */
+
+
     private InitButton initButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class pageMain extends AppCompatActivity{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         initButton = new InitButton();
 
     }

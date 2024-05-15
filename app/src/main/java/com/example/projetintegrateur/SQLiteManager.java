@@ -106,15 +106,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(IDCATEGORIE_FIELD)
                 .append("));");
         sqLiteDatabase.execSQL(sql.toString());
-
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(1, "Processeur1", 349.99F, "Bon processeur pour le prix, super fort", 5, null, 1));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(2, "Barrettes de RAM1", 99.99F, "Deux barettes de 16Gb DDR5", 3, null, 2));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(3, "Graphic Processing Unit1", 799.99F, "Deux barettes de 16Gb DDR5", 1, null, 3));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(4, "Bose QC45", 349.99F, "Noise cancelling, bluetooth, adjustable", 4, null, 4));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(5, "Écran LG", 599.99F, "4k resolution avec 120Hz, très fiable", 6, null, 5));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(6, "Clavier modulaire", 199.99F, "Clavier modulaire et qui peut afficher toutes les couleurs de l'arc en ciel", 9, null, 6));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(7, "Souris sans fil", 1999.99F, "Aim-hack intégré. Last-hit les minions pour toi", 1, null, 7));
-
     }
 
     @Override
@@ -129,6 +120,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         if (database == null) {
             database = this.getWritableDatabase();
         }
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_FIELD, categorie.getId());
         contentValues.put(NOM_FIELD, categorie.getNom());
