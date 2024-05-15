@@ -61,8 +61,6 @@
                             android:textColor="@null"
                             android:theme="@style/bouttonLight">
                         </Button>
-
-
                     </LinearLayout>
 
                     <Button
@@ -104,6 +102,15 @@
                         android:ems="10"
                         android:inputType="numberDecimal"
                         android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:id="@+id/viewPrix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:visibility="gone"
+                        android:layout_marginLeft="20dp">
+                    </TextView>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -126,6 +133,14 @@
                         android:inputType="text"
                         android:layout_marginLeft="20dp"/>
 
+                    <TextView
+                        android:id="@+id/viewNom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:visibility="gone"
+                        android:layout_marginLeft="20dp">
+                    </TextView>
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -134,7 +149,7 @@
 
                     <TextView
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:text="@string/showCategorie"
                         android:layout_gravity="center_vertical"
                         android:textAlignment="textEnd"
@@ -147,7 +162,17 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp">
+
                     </Spinner>
+
+                    <TextView
+                        android:id="@+id/viewCategorie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp">
+                    </TextView>
 
                 </LinearLayout>
                 <LinearLayout
@@ -173,8 +198,15 @@
                         android:layout_marginLeft="20dp"
                         android:lines="5"
                         android:gravity="top|start"
-                        android:scrollbars="vertical"
-                        android:maxLength="15"/>
+                        android:scrollbars="vertical" />
+
+                    <TextView
+                        android:id="@+id/viewDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:visibility="gone"
+                        android:layout_marginLeft="20dp">
+                    </TextView>
 
                 </LinearLayout>
                 <LinearLayout
@@ -198,16 +230,36 @@
                         android:inputType="number"
                         android:layout_marginLeft="20dp"/>
 
+                    <TextView
+                        android:id="@+id/viewQuantite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:visibility="gone"
+                        android:layout_marginLeft="20dp">
+                    </TextView>
+
                 </LinearLayout>
+
             </LinearLayout>
 
             <Button
-                android:id="@+id/buttonAjouterProduit"
+                android:id="@+id/buttonProduit"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="@string/bouttonAjouterProduit"
                 android:layout_gravity="center"
                 android:textColor="@null"
+                android:theme="@style/bouttonLight">
+            </Button>
+
+            <Button
+                android:id="@+id/buttonModifier"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bouttonModifier"
+                android:layout_gravity="center"
+                android:textColor="@null"
+                android:visibility="invisible"
                 android:theme="@style/bouttonLight">
             </Button>
         </LinearLayout>

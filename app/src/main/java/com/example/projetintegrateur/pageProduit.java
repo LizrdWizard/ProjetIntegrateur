@@ -10,13 +10,17 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -28,7 +32,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -44,14 +47,21 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     SQLiteDatabase sqLiteDatabase;
     Button buttonRetour;
     Button buttonPhoto;
-    ImageView imageProduit;
+    Button buttonGallerie;
+    Button buttonAjouterProduit;
     EditText editPrix;
     EditText editNom;
-    Spinner spinnerCategorie;
     EditText editDescription;
     EditText editQuantite;
-    Button buttonAjouterProduit;
+    TextView viewPrix;
+    TextView viewNom;
+    TextView viewCategorie;
+    TextView viewDescription;
+    TextView viewQuantite;
+    ImageView imageProduit;
+    Spinner spinnerCategorie;
     Uri imageGallery;
+    int idProduit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,25 +74,36 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             return insets;
         });
 
+        initWidget();
+        preparerDb();
+        preparerSpinnerCategorie();
+
+        idProduit = getIntent().getIntExtra("id", 0);
+        if (idProduit != 0) {
+            viewProduit();
+        }
+    }
+    private void initWidget() {
         buttonRetour = (Button) findViewById(R.id.buttonRetour);
         buttonPhoto = (Button) findViewById(R.id.buttonPhoto);
-        buttonAjouterProduit = (Button) findViewById(R.id.buttonAjouterProduit);
-        spinnerCategorie = (Spinner) findViewById(R.id.spinnerCategorie);
-        imageProduit = (ImageView) findViewById(R.id.imageProduit);
+        buttonAjouterProduit = (Button) findViewById(R.id.buttonProduit);
+        buttonGallerie = (Button) findViewById(R.id.buttonGallery);
         editPrix = (EditText) findViewById(R.id.editPrix);
         editNom = (EditText) findViewById(R.id.editNom);
         editQuantite = (EditText) findViewById(R.id.editQuantite);
         editDescription = (EditText) findViewById(R.id.editDescription);
-
-        preparerDb();
-        preparerSpinnerCategorie();
+        spinnerCategorie = (Spinner) findViewById(R.id.spinnerCategorie);
+        imageProduit = (ImageView) findViewById(R.id.imageProduit);
+        viewNom = (TextView) findViewById(R.id.viewNom);
+        viewPrix = (TextView) findViewById(R.id.viewPrix);
+        viewCategorie = (TextView) findViewById(R.id.viewCategorie);
+        viewDescription = (TextView) findViewById(R.id.viewDescription);
+        viewQuantite = (TextView) findViewById(R.id.viewQuantite);
 
         buttonRetour.setOnClickListener(this);
         buttonPhoto.setOnClickListener(this);
         buttonAjouterProduit.setOnClickListener(this);
-
     }
-
     @Override
     public void onClick(View v) {
 
@@ -96,7 +117,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         else if (v.getId() == R.id.buttonPhoto) {
             askCameraPermissions();
         }
-        else if (v.getId() == R.id.buttonAjouterProduit) {
+        else if (v.getId() == R.id.buttonProduit) {
             Produit nouveauProduit = new Produit();
             imageProduit.buildDrawingCache();
 
@@ -183,5 +204,34 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         Button buttonOK;
 
+    }
+
+    private void viewProduit(){
+        Produit produit = Produit.getProduitById(idProduit);
+        buttonAjouterProduit.setVisibility(View.INVISIBLE);
+        buttonPhoto.setVisibility(View.INVISIBLE);
+        buttonGallerie.setVisibility(View.INVISIBLE);
+
+        editPrix.setVisibility(View.GONE);
+        viewPrix.setVisibility(View.VISIBLE);
+        viewPrix.setText(String.valueOf(produit.getPrix()));
+
+        editNom.setVisibility(View.GONE);
+        viewNom.setVisibility(View.VISIBLE);
+        viewNom.setText(produit.getNom());
+
+        spinnerCategorie.setVisibility(View.GONE);
+        viewCategorie.setVisibility(View.VISIBLE);
+        viewCategorie.setText(Categorie.getCategorieById(produit.getIdCategorie()).toString());
+
+        editDescription.setVisibility(View.GONE);
+        viewDescription.setVisibility(View.VISIBLE);
+        viewDescription.setText(produit.getDescription());
+
+        editQuantite.setVisibility(View.GONE);
+        viewQuantite.setVisibility(View.VISIBLE);
+        viewQuantite.setText(String.valueOf(produit.getQuantite()));
+
+        imageProduit.setImageBitmap(produit.getPhoto());
     }
 }

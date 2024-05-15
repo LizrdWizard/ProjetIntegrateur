@@ -67,7 +67,8 @@
                                     android:layout_gravity="center_vertical"
                                     android:text="@string/showComplete"
                                     android:textAlignment="textEnd"
-                                    tools:ignore="RtlCompat"></TextView>
+                                    tools:ignore="RtlCompat">
+                                </TextView>
 
                                 <CheckBox
                                     android:id="@+id/checkInventaire"

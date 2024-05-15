@@ -19,9 +19,6 @@
 
             <include layout="@layout/page_header" />
 
-
-
-
         </LinearLayout>
 
         <include
