@@ -33,6 +33,7 @@ public class pageMain extends AppCompatActivity{
             return insets;
         });
         initButton = new InitButton();
+
     }
     public void bRetour(View v){initButton.click(pageMain.this, v);}
 }
