@@ -174,6 +174,28 @@ public class SQLiteManager extends SQLiteOpenHelper {
         database.insert(PRODUIT_TABLE_NAME, null, contentValues);
     }
 
+    public void updaterProduitDatabase(SQLiteDatabase database, Produit produit) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        StringBuilder sql;
+        sql = new StringBuilder()
+                .append(ID_FIELD)
+                .append(" = '")
+                .append(produit.getId())
+                .append("'");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(NOM_FIELD, produit.getNom());
+        contentValues.put(PRIX_FIELD, produit.getPrix());
+        contentValues.put(DESCRIPTION_FIELD, produit.getDescription());
+        contentValues.put(QUANTITE_FIELD, produit.getQuantite());
+        contentValues.put(PHOTO_FIELD, produit.getPhotoByte());
+        contentValues.put(IDCATEGORIE_FIELD, produit.getIdCategorie());
+
+        database.update(PRODUIT_TABLE_NAME, contentValues, sql.toString(), null);
+    }
+
     public void populateProduitListArray() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 

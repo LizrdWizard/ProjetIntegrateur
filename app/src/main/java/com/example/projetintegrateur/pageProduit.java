@@ -49,6 +49,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     Button buttonPhoto;
     Button buttonGallerie;
     Button buttonAjouterProduit;
+    Button buttonModifier;
     EditText editPrix;
     EditText editNom;
     EditText editDescription;
@@ -80,7 +81,8 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         idProduit = getIntent().getIntExtra("id", 0);
         if (idProduit != 0) {
-            viewProduit();
+            //viewProduit();
+            viewProduitAdmin();
         }
     }
     private void initWidget() {
@@ -88,6 +90,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         buttonPhoto = (Button) findViewById(R.id.buttonPhoto);
         buttonAjouterProduit = (Button) findViewById(R.id.buttonProduit);
         buttonGallerie = (Button) findViewById(R.id.buttonGallery);
+        buttonModifier = (Button) findViewById(R.id.buttonModifier);
         editPrix = (EditText) findViewById(R.id.editPrix);
         editNom = (EditText) findViewById(R.id.editNom);
         editQuantite = (EditText) findViewById(R.id.editQuantite);
@@ -103,6 +106,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         buttonRetour.setOnClickListener(this);
         buttonPhoto.setOnClickListener(this);
         buttonAjouterProduit.setOnClickListener(this);
+        buttonModifier.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -136,6 +140,9 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
                 sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
                 buttonRetour.performClick();
             }
+        }
+        else if (v.getId() == R.id.buttonModifier) {
+            updaterProduit();
         }
     }
 
@@ -173,9 +180,8 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         if (requestCode == CAMERA_PERM_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
-            } else {
-                Toast.makeText(this, "Camera Permission is Required to use Camera", Toast.LENGTH_SHORT).show();
             }
+            else {Toast.makeText(this, "Camera Permission is Required to use Camera", Toast.LENGTH_SHORT).show();}
         }
     }
 
@@ -195,7 +201,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         }
         imageProduit.setImageBitmap(image);
         imageProduit.setVisibility(View.VISIBLE);
-
     }
     private void showDialog(){
         Dialog dialog = new Dialog(this);
@@ -211,6 +216,9 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         buttonAjouterProduit.setVisibility(View.INVISIBLE);
         buttonPhoto.setVisibility(View.INVISIBLE);
         buttonGallerie.setVisibility(View.INVISIBLE);
+        buttonAjouterProduit.setEnabled(false);
+        buttonPhoto.setEnabled(false);
+        buttonGallerie.setEnabled(false);
 
         editPrix.setVisibility(View.GONE);
         viewPrix.setVisibility(View.VISIBLE);
@@ -233,5 +241,49 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         viewQuantite.setText(String.valueOf(produit.getQuantite()));
 
         imageProduit.setImageBitmap(produit.getPhoto());
+    }
+
+    private void viewProduitAdmin(){
+        Produit produit = Produit.getProduitById(idProduit);
+        editPrix.setHint(String.valueOf(produit.getPrix()));
+        editNom.setHint(produit.getNom());
+        spinnerCategorie.setSelection(produit.getIdCategorie());
+        editDescription.setHint(produit.getDescription());
+        editQuantite.setHint(String.valueOf(produit.getQuantite()));
+        imageProduit.setImageBitmap(produit.getPhoto());
+
+        buttonAjouterProduit.setVisibility(View.INVISIBLE);
+        buttonAjouterProduit.setEnabled(false);
+        buttonModifier.setVisibility(View.VISIBLE);
+        buttonModifier.setEnabled(true);
+    }
+
+    private void updaterProduit(){
+        Produit vieuxProduit = Produit.getProduitById(idProduit);
+        Produit produitUpdate = new Produit();
+        imageProduit.buildDrawingCache();
+
+        produitUpdate.setId(vieuxProduit.getId());
+
+        //Nom
+        if (editNom.getText().toString().isEmpty()){produitUpdate.setNom(vieuxProduit.getNom());}
+        else {produitUpdate.setNom(editNom.getText().toString());}
+        //Prix
+        if(editPrix.getText().toString().isEmpty()){produitUpdate.setPrix(vieuxProduit.getPrix());}
+        else{produitUpdate.setPrix(Float.valueOf(editPrix.getText().toString()));}
+        //Description
+        if(editDescription.getText().toString().isEmpty()){produitUpdate.setDescription(vieuxProduit.getDescription());}
+        else {produitUpdate.setDescription(editDescription.getText().toString());}
+        //Quantite
+        if(editQuantite.getText().toString().isEmpty()){produitUpdate.setQuantite(vieuxProduit.getQuantite());}
+        else{produitUpdate.setQuantite(vieuxProduit.getQuantite());}
+        //Categorie
+        if(spinnerCategorie.getSelectedItemPosition() == vieuxProduit.getIdCategorie()){vieuxProduit.setIdCategorie(vieuxProduit.getIdCategorie());}
+        else{produitUpdate.setIdCategorie(spinnerCategorie.getSelectedItemPosition());}
+
+        produitUpdate.setPhoto(imageProduit.getDrawingCache());
+        sqLiteManager.updaterProduitDatabase(sqLiteDatabase, produitUpdate);
+
+        buttonRetour.performClick();
     }
 }

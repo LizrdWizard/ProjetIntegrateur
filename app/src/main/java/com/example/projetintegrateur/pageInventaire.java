@@ -91,7 +91,7 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         produitsView.setAdapter(produitAdapter);
     }
     public void preparerSpinnerCategorie() {
-        ArrayList<Categorie> categorieHolder = Categorie.categorieArrayList;
+        ArrayList<Categorie> categorieHolder = new ArrayList<>(Categorie.categorieArrayList);
         categorieHolder.add(0, new Categorie(0, "Toutes"));
         ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorieHolder);
         spinnerCategorie.setAdapter(categorieAdapter);

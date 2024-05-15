@@ -260,6 +260,7 @@
                 android:layout_gravity="center"
                 android:textColor="@null"
                 android:visibility="invisible"
+                android:enabled="false"
                 android:theme="@style/bouttonLight">
             </Button>
         </LinearLayout>
