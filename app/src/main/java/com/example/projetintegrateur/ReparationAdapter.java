@@ -41,7 +41,7 @@ public class ReparationAdapter extends ArrayAdapter<Reparation> implements View.
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         this.reparation = getItem(position);
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_inventaire_admin, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_reparation_admin, parent, false);
         }
 
         TextView nom = convertView.findViewById(R.id.rowNom);

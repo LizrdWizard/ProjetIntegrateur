@@ -62,11 +62,11 @@
                         android:textAlignment="textEnd"></TextView>
 
                     <EditText
-                        android:id="@+id/editPrix"
+                        android:id="@+id/editSujet"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:ems="10"
-                        android:inputType="numberDecimal"
+                        android:inputType="text"
                         android:layout_marginLeft="20dp"/>
                 </LinearLayout>
 
