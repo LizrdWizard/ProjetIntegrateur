@@ -7,7 +7,7 @@
     <string name="bouttonGallery">Sélectionner image</string>
     <string name="bouttonNouveauProduit">Ajouter nouveau produit</string>
     <string name="bouttonAjouterProduit">Ajouter produit</string>
-    <string name="bouttonAjouterReparation">Ajouter à la réparation</string>
+    <string name="bouttonAjouterReparation">Ajouter Réparation</string>
     <string name="bouttonModifierReparation">Modifier la réparation</string>
     <string name="bouttonRetour">Retour</string>
     <string name="bouttonCommander">Commander</string>

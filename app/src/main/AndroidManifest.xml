@@ -25,6 +25,12 @@
             android:name=".pageCommande"
             android:exported="false" />
         <activity
+            android:name=".pageAjouterReparation"
+            android:exported="false" />
+        <activity
+            android:name=".pageReparation"
+            android:exported="false" />
+        <activity
             android:name=".pageProduit"
             android:exported="false" />
         <activity

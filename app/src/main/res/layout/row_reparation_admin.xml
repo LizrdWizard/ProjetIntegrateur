@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+
+    <LinearLayout
+        android:id="@+id/rowReparation"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rowNom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/showNom"
+                android:layout_marginTop="3dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/rowDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/showDescription"
+                android:layout_marginTop="3dp"
+                android:maxLines="2">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="3dp">
+
+                <TextView
+                    android:id="@+id/rowID"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/showID">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/rowStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/showEtat">
+                </TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

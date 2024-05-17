@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pageProduit">
+    tools:context=".pageReparation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:id="@+id/buttonRetour"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -92,6 +93,37 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/showEtat"
+                        android:textAlignment="textEnd"
+                        tools:ignore="RtlCompat" />
+
+                    <Spinner
+                        android:id="@+id/spinnerStatus"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"></Spinner>
+                    <TextView
+                        android:id="@+id/viewStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp">
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -116,12 +148,24 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/buttonReparation"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/bouttonAjouterReparation"
                 android:textColor="@null"
                 android:theme="@style/bouttonLight"></Button>
+            <Button
+                android:id="@+id/buttonModifier"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bouttonModifier"
+                android:layout_gravity="center"
+                android:textColor="@null"
+                android:visibility="invisible"
+                android:enabled="false"
+                android:theme="@style/bouttonLight">
+            </Button>
 
         </LinearLayout>
 

@@ -1,40 +1,44 @@
+/****************************************
+ Fichier : pageReparation
+ Auteur : Yassine Adibe
+ Fonctionnalité : Page ou l'on peut voir la liste de réparations
+ Date : 2024-05-03
+
+ Vérification :
+ *Date*               *Nom*             *Approuvé*
+ =========================================================
+
+ Historique de modifications :
+ *Date*               *Nom*             *Approuvé*
+ =========================================================
+ ****************************************/
+
 package com.example.projetintegrateur;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 
-public class pageReparation extends AppCompatActivity {
-    private InitButton initButton;
+public class pageReparation extends AppCompatActivity implements View.OnClickListener{
+    ListView reparationView;
+    EditText IDReparation;
+    Spinner spinnerStatus;
+    Button buttonAjouterReparation;
+    Button buttonFiltrer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,69 @@ public class pageReparation extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        initButton = new InitButton();
+
+        initWidget();
+        //loadFromDBToMemory();
+        setReparationAdapter(Reparation.reparationArrayList);
+        preparerSpinnerStatus();
+
+        reparationView.setClickable(true);
+        reparationView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(pageReparation.this, pageAjouterReparation.class);
+                intent.putExtra("id", Reparation.reparationArrayList.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
-    public void bRetour(View v){
-        initButton.click(pageReparation.this, v);
+
+    private void initWidget() {
+        reparationView = (ListView) findViewById(R.id.listInventaire);
+        spinnerStatus = (Spinner) findViewById(R.id.spinnerStatus);
+        buttonAjouterReparation = (Button) findViewById(R.id.bouttonAjouterReparation);
+        buttonFiltrer = (Button) findViewById(R.id.bouttonFiltrer);
+        buttonAjouterReparation.setOnClickListener(this);
+        buttonFiltrer.setOnClickListener(this);
+    }
+    /*private void loadFromDBToMemory() {
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+        sqLiteManager.populateCategorieListeArray();
+        sqLiteManager.populateProduitListArray();
+    }*/
+
+    private void setReparationAdapter(ArrayList<Reparation> listeReparation) {
+        ReparationAdapter reparationAdapter = new ReparationAdapter(getApplicationContext(), listeReparation);
+        reparationView.setAdapter(reparationAdapter);
+    }
+    public void preparerSpinnerStatus() {
+        ArrayList<Status> statusHolder = new ArrayList<>(Status.statusArrayList);
+        statusHolder.add(0, new Status(0, "Toutes"));
+        ArrayAdapter<Status> statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, statusHolder);
+        spinnerStatus.setAdapter(statusAdapter);
+    }
+
+    public ArrayList<Reparation> filtrerReparations() {
+
+        int idStatus = spinnerStatus.getSelectedItemPosition();
+
+        ArrayList<Reparation> listeFiltree = new ArrayList<>();
+
+        for (Reparation reparation : Reparation.reparationArrayList) {
+                if(reparation.getIdStatus() == idStatus || reparation.getIdStatus() == 0) {
+            listeFiltree.add(reparation);}
+        }
+        return listeFiltree;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == R.id.bouttonAjouterReparation) {
+            startActivity(new Intent(pageReparation.this, pageAjouterReparation.class));
+        }
+        else if (v.getId() == R.id.bouttonFiltrer) {
+            setReparationAdapter(filtrerReparations());
+        }
     }
 }

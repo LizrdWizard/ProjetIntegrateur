@@ -36,8 +36,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-
-
 public class pageProduit extends AppCompatActivity implements View.OnClickListener {
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
