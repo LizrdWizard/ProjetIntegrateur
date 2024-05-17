@@ -30,7 +30,8 @@
                 android:padding="10dp"
                 android:text="@string/pageInventaire"
                 android:textAlignment="center"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:textColor="@color/white"/>
 
             <ImageButton
                 android:id="@+id/butttonImage"

@@ -2,8 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="offWhite">#DDAAAAAA</color>
     <color name="navy">#00224D</color>
-    <color name="maroon">#5D0341</color>
+    <color name="maroon">#660c27</color>
+    <color name="darkMaroon">#2e0310</color>
     <color name="deepRed">#A0153E</color>
     <color name="lightRed">#FF204E</color>
     <color name="cyan">#07BDEE</color>

@@ -16,7 +16,6 @@ package com.example.projetintegrateur;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.math.BigDecimal;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,7 @@ public class ProduitAdapter extends ArrayAdapter<Produit> implements View.OnClic
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         this.produit = getItem(position);
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_inventaire_admin, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_inventaire, parent, false);
         }
 
         TextView nom = convertView.findViewById(R.id.rowNom);
