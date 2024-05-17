@@ -45,13 +45,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String IDSTATUS_FIELD = "idStatus";
     private static final String IDPRODUIT_FIELD = "idProduit";
     private static final String COUNTER = "Counter";
-    //À ENLEVER APRÈS CAMÉRA
-    public static Bitmap PHOTO_TEMP;
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public static SQLiteManager instanceOfDatabase(Context context) {
+        //Pour reset
+        //context.deleteDatabase(DATABASE_NAME);
         if (sqLiteManager == null) {
             sqLiteManager = new SQLiteManager(context);
         }

@@ -94,7 +94,8 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
                 nouvelleReparation.setIdStatus(spinnerStatus.getSelectedItemPosition());
 
                 //sqLiteManager.ajouterReparationDatabase(sqLiteDatabase, nouvelleReparation);
-                buttonRetour.performClick();
+                Intent intent = new Intent(pageAjouterReparation.this, pageReparation.class);
+                startActivity(intent);
             }
         }
         else if (v.getId() == R.id.buttonModifier) {

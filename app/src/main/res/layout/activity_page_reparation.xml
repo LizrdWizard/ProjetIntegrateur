@@ -144,8 +144,9 @@
                 </LinearLayout>
 
                 <ListView
-                    android:id="@+id/listInventaire"
+                    android:id="@+id/listReparation"
                     android:layout_width="match_parent"
+                    android:dividerHeight="5dp"
                     android:layout_height="wrap_content">
 
                 </ListView>

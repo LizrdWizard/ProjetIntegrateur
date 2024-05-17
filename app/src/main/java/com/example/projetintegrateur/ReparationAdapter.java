@@ -46,16 +46,13 @@ public class ReparationAdapter extends ArrayAdapter<Reparation> implements View.
 
         TextView nom = convertView.findViewById(R.id.rowNom);
         TextView description = convertView.findViewById(R.id.rowDescription);
-        TextView montant = convertView.findViewById(R.id.rowMontant);
-        TextView quantite = convertView.findViewById(R.id.rowQuantite);
-        ImageView image = convertView.findViewById(R.id.rowImage);
+        TextView ID = convertView.findViewById(R.id.rowID);
+        TextView Status = convertView.findViewById(R.id.rowStatus);
 
         nom.setText(this.reparation.getNom());
         description.setText(this.reparation.getDescription());
-        quantite.setText(convertView.getContext().getString(R.string.showEtat));
-        quantite.append(" " + String.valueOf(this.reparation.getIdStatus()));
-
-        image.setOnClickListener(this);
+        ID.setText(this.reparation.getNom());
+        Status.setText(this.reparation.getDescription());
 
         return convertView;
     }
