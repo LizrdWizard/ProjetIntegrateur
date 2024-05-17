@@ -6,10 +6,10 @@
                 <shape android:shape="rectangle">
                     <solid android:color="@color/darkMaroon"/>
                     <corners android:radius="12dp" />
-                    <padding android:right="7dp"/>
+                    <padding android:left="50dp" android:right="7dp"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/ic_spinner_arrow" android:gravity="center|end" />
+            <item android:drawable="@drawable/ic_spinner_arrow" android:gravity="end" />
         </layer-list>
     </item>
 </selector>

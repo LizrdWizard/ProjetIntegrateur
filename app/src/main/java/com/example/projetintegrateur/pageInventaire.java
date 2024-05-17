@@ -58,7 +58,7 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(pageInventaire.this, pageProduit.class);
-                intent.putExtra("id", Produit.produitArrayList.get(position).getId());
+                intent.putExtra("idProduit", Produit.produitArrayList.get(position).getId());
                 startActivity(intent);
             }
         });

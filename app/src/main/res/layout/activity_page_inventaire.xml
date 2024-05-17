@@ -51,9 +51,11 @@
 
                             <Spinner
                                 android:id="@+id/spinnerCategorie"
-                                android:layout_width="140dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="5dp"
                                 android:layout_marginStart="20dp"
                                 android:background="@drawable/style_spinner"/>
 
@@ -70,7 +72,8 @@
                                 android:text="@string/showInventaire"
                                 android:textAlignment="textEnd"
                                 android:layout_gravity="center_vertical"
-                                android:theme="@style/textWhite">
+                                android:theme="@style/textWhite"
+                                tools:ignore="RtlCompat">
                             </TextView>
 
                             <CheckBox
@@ -139,19 +142,21 @@
                         android:layout_width="160dp"
                         android:layout_height="40dp"
                         android:layout_gravity="end"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginStart="30dp"
                         android:text="@string/bouttonAjouterProduit"
                         android:textColor="@null"
-                        android:theme="@style/bouttonLight"/>
+                        android:theme="@style/bouttonLight"
+                        style="?android:attr/buttonBarButtonStyle" />
 
                     <Button
                         android:id="@+id/bouttonFiltrer"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
-                        android:layout_marginLeft="60dp"
+                        android:layout_marginStart="60dp"
                         android:text="@string/bouttonFiltrer"
                         android:textColor="@null"
-                        android:theme="@style/bouttonLight" />
+                        android:theme="@style/bouttonLight"
+                        style="?android:attr/buttonBarButtonStyle"/>
 
                 </LinearLayout>
 
@@ -160,7 +165,7 @@
                     android:layout_width="385dp"
                     android:layout_height="wrap_content"
                     android:dividerHeight="10dp"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginStart="10dp">
                 </ListView>
 
             </LinearLayout>

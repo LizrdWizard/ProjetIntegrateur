@@ -1,7 +1,5 @@
 package com.example.projetintegrateur;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,19 +8,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,10 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigDecimal;
-
 public class pageProduit extends AppCompatActivity implements View.OnClickListener {
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
@@ -79,7 +70,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         preparerSpinnerCategorie();
         pictureChanged = false;
 
-        idProduit = getIntent().getIntExtra("id", 0);
+        idProduit = getIntent().getIntExtra("idProduit", 0);
         if (idProduit != 0) {
             //viewProduit();
             viewProduitAdmin();
