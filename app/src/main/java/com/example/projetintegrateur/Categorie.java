@@ -42,5 +42,4 @@ public class Categorie {
         }
         return null;
     }
-    public static int categorieSize() {return categorieArrayList.size();}
 }

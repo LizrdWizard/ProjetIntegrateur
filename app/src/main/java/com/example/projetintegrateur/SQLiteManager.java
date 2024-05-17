@@ -29,7 +29,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "SherbOrdi";
     private static final int DATABASE_VERSION = 1;
     //NOMS TABLES
-    private static final String CAT_TABLE_NAME = "Catégories";
+    private static final String CATEGORIE_TABLE_NAME = "Catégories";
     private static final String STATUS_TABLE_NAME = "Status";
     private static final String REPARATION_TABLE_NAME = "Réparation";
 
@@ -45,6 +45,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String IDSTATUS_FIELD = "idStatus";
     private static final String IDPRODUIT_FIELD = "idProduit";
     private static final String COUNTER = "Counter";
+    //À ENLEVER APRÈS CAMÉRA
+    public static Bitmap PHOTO_TEMP;
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -64,7 +66,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         //Table catégories
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
-                .append(CAT_TABLE_NAME)
+                .append(CATEGORIE_TABLE_NAME)
                 .append("(")
                 .append(COUNTER)
                 .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
@@ -115,8 +117,24 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(IDSTATUS_FIELD)
                 .append(" INT, ")
                 .append(IDPRODUIT_FIELD)
-                .append(" INT)");
+                .append(" INT, ")
+                .append(" FOREIGN KEY (")
+                .append(IDSTATUS_FIELD)
+                .append(") REFERENCES ")
+                .append(STATUS_TABLE_NAME)
+                .append("(")
+                .append(IDSTATUS_FIELD)
+                .append("), ")
+                .append(" FOREIGN KEY (")
+                .append(IDPRODUIT_FIELD)
+                .append(") REFERENCES ")
+                .append(PRODUIT_TABLE_NAME)
+                .append("(")
+                .append(IDPRODUIT_FIELD)
+                .append("));");
         sqLiteDatabase.execSQL(sql.toString());
+
+        ajouterReparationDatabase(sqLiteDatabase, new Reparation(1, "Jean guy", "sa marche pas", 2, 1));
 
         //Table produits
         sql = new StringBuilder()
@@ -142,7 +160,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" FOREIGN KEY (")
                 .append(IDCATEGORIE_FIELD)
                 .append(") REFERENCES ")
-                .append(CAT_TABLE_NAME)
+                .append(CATEGORIE_TABLE_NAME)
                 .append("(")
                 .append(IDCATEGORIE_FIELD)
                 .append("));");
@@ -153,7 +171,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS" + PRODUIT_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS" + CAT_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS" + CATEGORIE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS" + STATUS_TABLE_NAME) ;
         db.execSQL("DROP TABLE IF EXISTS" + REPARATION_TABLE_NAME);
         onCreate(db);
@@ -168,7 +186,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(ID_FIELD, categorie.getId());
         contentValues.put(NOM_FIELD, categorie.getNom());
 
-        database.insert(CAT_TABLE_NAME, null, contentValues);
+        database.insert(CATEGORIE_TABLE_NAME, null, contentValues);
     }
     public void ajouterStatusDatabase(SQLiteDatabase database, Status status) {
         if (database == null) {
@@ -187,7 +205,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         Categorie.categorieArrayList.clear();
 
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + CAT_TABLE_NAME, null)) {
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + CATEGORIE_TABLE_NAME, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
                     int id = result.getInt(1);
@@ -223,7 +241,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         //Les produits initialisés dans cette classe on toujours le bon Id
         //Les produits ajoutés plus tard utilisent Produit.produitSize() + 1 pour déterminer leur Id
-        if (produit.getId() != 0) {contentValues.put(ID_FIELD, produit.getId());}
+        if (Produit.produitSize() == 0) {contentValues.put(ID_FIELD, 1);}
         else {contentValues.put(ID_FIELD, Produit.produitSize() + 1);}
 
         contentValues.put(NOM_FIELD, produit.getNom());

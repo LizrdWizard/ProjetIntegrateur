@@ -68,7 +68,7 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initWidget() {
-        reparationView = (ListView) findViewById(R.id.listInventaire);
+        reparationView = (ListView) findViewById(R.id.listReparation);
         spinnerStatus = (Spinner) findViewById(R.id.spinnerStatus);
         buttonAjouterReparation = (Button) findViewById(R.id.bouttonAjouterReparation);
         buttonFiltrer = (Button) findViewById(R.id.bouttonFiltrer);
@@ -89,7 +89,7 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
         ArrayList<Status> statusHolder = new ArrayList<>(Status.statusArrayList);
         statusHolder.add(0, new Status(0, "Toutes"));
         ArrayAdapter<Status> statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, statusHolder);
-        //statusAdapter.setDropDownViewResource(R.layout.my_spinner_list);
+        statusAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerStatus.setAdapter(statusAdapter);
     }
 
