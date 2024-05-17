@@ -47,11 +47,6 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_page_inventaire);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         initWidget();
         loadFromDBToMemory();
@@ -93,7 +88,8 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
     public void preparerSpinnerCategorie() {
         ArrayList<Categorie> categorieHolder = new ArrayList<>(Categorie.categorieArrayList);
         categorieHolder.add(0, new Categorie(0, "Toutes"));
-        ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorieHolder);
+        ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, R.layout.my_spinner_list, categorieHolder);
+        categorieAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerCategorie.setAdapter(categorieAdapter);
     }
 

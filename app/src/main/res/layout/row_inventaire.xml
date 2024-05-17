@@ -6,18 +6,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="85dp"
         android:orientation="horizontal"
+        android:background="@drawable/round_style"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/rowImage"
-            android:layout_width="75dp"
+            android:layout_width="85dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp">
+            android:layout_marginBottom="8dp">
         </ImageView>
 
         <LinearLayout
@@ -25,13 +26,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/rowNom"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/showNom"
-                android:layout_marginTop="3dp">
-            </TextView>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/rowNom"
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/showNom"
+                    android:layout_marginTop="3dp"
+                    android:layout_gravity="center_vertical"
+                    android:theme="@style/textWhite"
+                    android:textStyle="bold">
+                </TextView>
+
+                <Button
+                    android:id="@+id/buttonAjouter"
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"
+                    />
+
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/rowDescription"
@@ -39,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/showDescription"
                 android:layout_marginTop="3dp"
-                android:maxLines="2">
+                android:maxLines="2"
+                android:textColor="@color/white">
             </TextView>
 
             <LinearLayout
@@ -52,7 +75,8 @@
                     android:id="@+id/rowMontant"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="@string/showMax">
+                    android:text="@string/showPrix"
+                    android:textColor="@color/white">
                 </TextView>
 
                 <TextView
@@ -61,7 +85,8 @@
                     android:layout_height="match_parent"
                     android:gravity="end"
                     android:layout_marginLeft="100dp"
-                    android:text="@string/showQuantite">
+                    android:text="@string/showQuantite"
+                    android:textColor="@color/white">
                 </TextView>
 
             </LinearLayout>
