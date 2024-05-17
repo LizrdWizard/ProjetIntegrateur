@@ -52,7 +52,7 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
         });
 
         initWidget();
-        //loadFromDBToMemory();
+        loadFromDBToMemory();
         setReparationAdapter(Reparation.reparationArrayList);
         preparerSpinnerStatus();
 
@@ -75,11 +75,11 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
         buttonAjouterReparation.setOnClickListener(this);
         buttonFiltrer.setOnClickListener(this);
     }
-    /*private void loadFromDBToMemory() {
+    private void loadFromDBToMemory() {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
-        sqLiteManager.populateCategorieListeArray();
-        sqLiteManager.populateProduitListArray();
-    }*/
+        sqLiteManager.populateStatusListArray();
+        sqLiteManager.populateReparationListArray();
+    }
 
     private void setReparationAdapter(ArrayList<Reparation> listeReparation) {
         ReparationAdapter reparationAdapter = new ReparationAdapter(getApplicationContext(), listeReparation);
@@ -89,6 +89,7 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
         ArrayList<Status> statusHolder = new ArrayList<>(Status.statusArrayList);
         statusHolder.add(0, new Status(0, "Toutes"));
         ArrayAdapter<Status> statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, statusHolder);
+        //statusAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerStatus.setAdapter(statusAdapter);
     }
 

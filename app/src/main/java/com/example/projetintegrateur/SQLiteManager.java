@@ -30,6 +30,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     //NOMS TABLES
     private static final String CAT_TABLE_NAME = "Catégories";
+    private static final String STATUS_TABLE_NAME = "Status";
+    private static final String REPARATION_TABLE_NAME = "Réparation";
+
     private static final String PRODUIT_TABLE_NAME = "Produits";
     //NOMS FIELDS
     private static final String ID_FIELD = "id";
@@ -39,6 +42,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String QUANTITE_FIELD = "quantite";
     private static final String PHOTO_FIELD = "photo";
     private static final String IDCATEGORIE_FIELD = "idCategorie";
+    private static final String IDSTATUS_FIELD = "idStatus";
+    private static final String IDPRODUIT_FIELD = "idProduit";
     private static final String COUNTER = "Counter";
     //À ENLEVER APRÈS CAMÉRA
     public static Bitmap PHOTO_TEMP;
@@ -77,6 +82,42 @@ public class SQLiteManager extends SQLiteOpenHelper {
         ajouterCategorieDatabase(sqLiteDatabase, new Categorie(6, "Clavier"));
         ajouterCategorieDatabase(sqLiteDatabase, new Categorie(7, "Souris"));
 
+        //Table status
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(STATUS_TABLE_NAME)
+                .append("(")
+                .append(COUNTER)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(ID_FIELD)
+                .append(" INT, ")
+                .append(NOM_FIELD)
+                .append(" TEXT)");
+        sqLiteDatabase.execSQL(sql.toString());
+
+        ajouterStatusDatabase(sqLiteDatabase, new Status(1, "Pas commencée"));
+        ajouterStatusDatabase(sqLiteDatabase, new Status(2, "En cours"));
+        ajouterStatusDatabase(sqLiteDatabase, new Status(3, "Terminée"));
+
+        //Table réparation
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(REPARATION_TABLE_NAME)
+                .append("(")
+                .append(COUNTER)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(ID_FIELD)
+                .append(" INT, ")
+                .append(NOM_FIELD)
+                .append(" TEXT,")
+                .append(DESCRIPTION_FIELD)
+                .append(" TEXT, ")
+                .append(IDSTATUS_FIELD)
+                .append(" INT, ")
+                .append(IDPRODUIT_FIELD)
+                .append(" INT)");
+        sqLiteDatabase.execSQL(sql.toString());
+
         //Table produits
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
@@ -113,6 +154,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS" + PRODUIT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS" + CAT_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS" + STATUS_TABLE_NAME) ;
+        db.execSQL("DROP TABLE IF EXISTS" + REPARATION_TABLE_NAME);
         onCreate(db);
     }
 
@@ -127,8 +170,19 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         database.insert(CAT_TABLE_NAME, null, contentValues);
     }
+    public void ajouterStatusDatabase(SQLiteDatabase database, Status status) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
 
-    public void populateCategorieListeArray() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID_FIELD, status.getId());
+        contentValues.put(NOM_FIELD, status.getNom());
+
+        database.insert(STATUS_TABLE_NAME, null, contentValues);
+    }
+
+    public void populateCategorieListArray() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         Categorie.categorieArrayList.clear();
@@ -140,6 +194,22 @@ public class SQLiteManager extends SQLiteOpenHelper {
                     String nom = result.getString(2);
                     Categorie categorie = new Categorie(id, nom);
                     Categorie.categorieArrayList.add(categorie);
+                }
+            }
+        }
+    }
+    public void populateStatusListArray() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Status.statusArrayList.clear();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + STATUS_TABLE_NAME, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    int id = result.getInt(1);
+                    String nom = result.getString(2);
+                    Status status = new Status(id, nom);
+                    Status.statusArrayList.add(status);
                 }
             }
         }
@@ -165,6 +235,22 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         database.insert(PRODUIT_TABLE_NAME, null, contentValues);
     }
+    public void ajouterReparationDatabase(SQLiteDatabase database, Reparation reparation) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+        ContentValues contentValues = new ContentValues();
+
+        if (reparation.getId() != 0) {contentValues.put(ID_FIELD, reparation.getId());}
+        else {contentValues.put(ID_FIELD, Reparation.reparationSize() + 1);}
+
+        contentValues.put(NOM_FIELD, reparation.getNom());
+        contentValues.put(DESCRIPTION_FIELD, reparation.getDescription());
+        contentValues.put(IDSTATUS_FIELD, reparation.getIdStatus());
+        contentValues.put(IDPRODUIT_FIELD, reparation.getIdProduit());
+
+        database.insert(REPARATION_TABLE_NAME, null, contentValues);
+    }
 
     public void updaterProduitDatabase(SQLiteDatabase database, Produit produit) {
         if (database == null) {
@@ -188,6 +274,24 @@ public class SQLiteManager extends SQLiteOpenHelper {
         database.update(PRODUIT_TABLE_NAME, contentValues, sql.toString(), null);
     }
 
+    public void updaterReparationDatabase(SQLiteDatabase database, Reparation reparation) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        StringBuilder sql;
+        sql = new StringBuilder()
+                .append(ID_FIELD)
+                .append(" = '")
+                .append(reparation.getId())
+                .append("'");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(NOM_FIELD, reparation.getNom());
+        contentValues.put(IDSTATUS_FIELD, reparation.getIdStatus());
+
+        database.update(REPARATION_TABLE_NAME, contentValues, sql.toString(), null);
+    }
+
     public void populateProduitListArray() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
@@ -205,6 +309,25 @@ public class SQLiteManager extends SQLiteOpenHelper {
                     int idCategorie = result.getInt(7);
 
                     Produit.produitArrayList.add(new Produit(id, nom, prix, description, quantite, Produit.toBitmap(image), idCategorie));
+                }
+            }
+        }
+    }
+    public void populateReparationListArray() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Reparation.reparationArrayList.clear();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + REPARATION_TABLE_NAME, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    int id = result.getInt(1);
+                    String nom = result.getString(2);
+                    String description = result.getString(3);
+                    int idStatus = result.getInt(4);
+                    int idProduit = result.getInt(4);
+
+                    Reparation.reparationArrayList.add(new Reparation(id, nom, description, idStatus, idProduit));
                 }
             }
         }

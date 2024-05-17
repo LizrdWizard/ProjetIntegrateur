@@ -26,14 +26,16 @@ public class Reparation {
     private String nom;
     private String description;
     private int idStatus;
+    private int idProduit;
 
     public Reparation() {}
 
-    public Reparation(int id, String nom, String description,  int idStatus) {
+    public Reparation(int id, String nom, String description,  int idStatus, int idProduit) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.idStatus = idStatus;
+        this.idProduit = idProduit;
     }
 
     public int getId() {return id;}
@@ -44,6 +46,8 @@ public class Reparation {
     public void setDescription(String description) {this.description = description;}
     public int getIdStatus() {return idStatus;}
     public void setIdStatus(int idStatus) {this.idStatus = idStatus;}
+    public int getIdProduit() {return idStatus;}
+    public void setIdProduit(int idStatus) {this.idStatus = idStatus;}
 
     //Autre
     public static Reparation getReparationById(int idReparation) {

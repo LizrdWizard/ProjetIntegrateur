@@ -77,7 +77,7 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
     }
     private void loadFromDBToMemory() {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
-        sqLiteManager.populateCategorieListeArray();
+        sqLiteManager.populateCategorieListArray();
         sqLiteManager.populateProduitListArray();
     }
 
