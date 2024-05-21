@@ -14,14 +14,19 @@
  ****************************************/
 package com.example.projetintegrateur;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class SQLiteManager extends SQLiteOpenHelper {
@@ -32,8 +37,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String CATEGORIE_TABLE_NAME = "Catégories";
     private static final String STATUS_TABLE_NAME = "Status";
     private static final String REPARATION_TABLE_NAME = "Réparation";
-
     private static final String PRODUIT_TABLE_NAME = "Produits";
+    private static final String COMMANDE_TABLE_NAME = "Commande";
+    private static final String STATUSCOMMANDE_TABLE_NAME = "StatusCommande";
     //NOMS FIELDS
     private static final String ID_FIELD = "id";
     private static final String NOM_FIELD = "nom";
@@ -44,9 +50,16 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String IDCATEGORIE_FIELD = "idCategorie";
     private static final String IDSTATUS_FIELD = "idStatus";
     private static final String IDPRODUIT_FIELD = "idProduit";
+    private static final String DATEDEBUT_FIELD = "dateDebut";
+    private static final String DATEFIN_FIELD = "dateFin";
+    private static final String IDCLIENT_FIELD = "idClient";
     private static final String COUNTER = "Counter";
     //À ENLEVER APRÈS CAMÉRA
     public static Bitmap PHOTO_TEMP;
+
+    @SuppressLint("SimpleDateFormat")
+    private static final DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -63,6 +76,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         StringBuilder sql;
+
+
+
         //Table catégories
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
@@ -96,7 +112,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(NOM_FIELD)
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
-
         ajouterStatusDatabase(sqLiteDatabase, new Status(1, "Pas commencée"));
         ajouterStatusDatabase(sqLiteDatabase, new Status(2, "En cours"));
         ajouterStatusDatabase(sqLiteDatabase, new Status(3, "Terminée"));
@@ -133,7 +148,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(IDPRODUIT_FIELD)
                 .append("));");
         sqLiteDatabase.execSQL(sql.toString());
-
         ajouterReparationDatabase(sqLiteDatabase, new Reparation(1, "Jean guy", "sa marche pas", 2, 1));
 
         //Table produits
@@ -165,15 +179,53 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(IDCATEGORIE_FIELD)
                 .append("));");
         sqLiteDatabase.execSQL(sql.toString());
+        //Table Commande
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(COMMANDE_TABLE_NAME)
+                .append("(")
+                .append(COUNTER)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(ID_FIELD)
+                .append(" INT, ")
+                .append(DATEDEBUT_FIELD)
+                .append(" DATE, ")
+                .append(DATEFIN_FIELD)
+                .append(" DATE, ")
+                .append(DESCRIPTION_FIELD)
+                .append(" TEXT, ")
+                .append(IDSTATUS_FIELD)
+                .append(" INT, ")
+                .append(IDCLIENT_FIELD)
+                .append(" INT); ");
+        sqLiteDatabase.execSQL(sql.toString());
+        //Table STATUSCOMMANDE
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(STATUSCOMMANDE_TABLE_NAME)
+                .append("(")
+                .append(COUNTER)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(ID_FIELD)
+                .append(" INT, ")
+                .append(NOM_FIELD)
+                .append(" TEXT );");
+        sqLiteDatabase.execSQL(sql.toString());
+        ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(1, "Pas commencée"));
+        ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(2, "En cours"));
+        ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(3, "Terminée"));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(1,"nom1",null,"machin",2,null,2));
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS" + PRODUIT_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS" + CATEGORIE_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS" + STATUS_TABLE_NAME) ;
-        db.execSQL("DROP TABLE IF EXISTS" + REPARATION_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PRODUIT_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CATEGORIE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + STATUS_TABLE_NAME) ;
+        db.execSQL("DROP TABLE IF EXISTS " + REPARATION_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + COMMANDE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + STATUSCOMMANDE_TABLE_NAME);
         onCreate(db);
     }
 
@@ -350,4 +402,83 @@ public class SQLiteManager extends SQLiteOpenHelper {
             }
         }
     }
+    public void ajouterStatusCommandeDatabase(SQLiteDatabase database, StatusCommande statusCommande) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID_FIELD, statusCommande.getId());
+        contentValues.put(NOM_FIELD, statusCommande.getNom());
+
+        database.insert(STATUSCOMMANDE_TABLE_NAME, null, contentValues);
+    }
+    public void populateStatusCommandeListArray() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        StatusCommande.statusCommandeArrayList.clear();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + STATUSCOMMANDE_TABLE_NAME, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    int id = result.getInt(1);
+                    String nom = result.getString(2);
+                    StatusCommande statusCommande = new StatusCommande(id, nom);
+                    StatusCommande.statusCommandeArrayList.add(statusCommande);
+                }
+            }
+        }
+    }
+    public void ajouterCommandeDatabase(SQLiteDatabase database, Commande commande) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+        ContentValues contentValues = new ContentValues();
+
+        if (Commande.commandeSize() == 0) {contentValues.put(ID_FIELD, 1);}
+        else {contentValues.put(ID_FIELD, Commande.commandeSize() + 1);}
+
+        contentValues.put(DATEDEBUT_FIELD, "commande.getDateDebut()");
+        contentValues.put(DATEFIN_FIELD, "commande.getDateFin()");
+        contentValues.put(DESCRIPTION_FIELD, commande.getDescription());
+        contentValues.put(PHOTO_FIELD, commande.getIdStatus());
+        contentValues.put(IDCATEGORIE_FIELD, commande.getIdClient());
+
+        database.insert(COMMANDE_TABLE_NAME, null, contentValues);
+    }
+    public void populateCommandeListArray() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Commande.commandeArrayList.clear();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + COMMANDE_TABLE_NAME, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    int id = result.getInt(1);
+                    String sDateDebut = result.getString(2);
+                    String sDateFin = result.getString(3);
+                    String description = result.getString(4);
+                    int idStatus = result.getInt(5);
+                    int idClient = result.getInt(6);
+                    Date dateDebut = getDateFromString(sDateDebut);
+                    Date dateFin = getDateFromString(sDateFin);
+                    Commande.commandeArrayList.add(new Commande(id, dateDebut, dateFin, description, idStatus, idClient));
+                }
+            }
+        }
+    }
+    private String getStringFromDate(Date date){
+        if(date == null){
+            return null;
+        }
+        return dateFormat.format(date);
+
+    }
+    private Date getDateFromString(String string){
+        try{
+            return dateFormat.parse(string);
+        } catch(NullPointerException | ParseException e){
+            return null;
+        }
+    }
+
 }
