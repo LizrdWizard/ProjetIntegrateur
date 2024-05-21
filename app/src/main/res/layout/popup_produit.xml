@@ -15,15 +15,5 @@
         android:layout_height="wrap_content"
         android:text="Les champs ne sont pas tous rempli"
         android:theme="@style/importantText" />
-
-    <Button
-        android:id="@+id/buttonOK"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_gravity="end"
-        android:layout_marginLeft="30dp"
-        android:text="@string/OK"
-        android:textColor="@null"
-        android:theme="@style/bouttonLight" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

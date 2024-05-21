@@ -72,8 +72,8 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         idProduit = getIntent().getIntExtra("idProduit", 0);
         if (idProduit != 0) {
-            //viewProduit();
-            viewProduitAdmin();
+            viewProduit();
+            //viewProduitAdmin();
         }
     }
     private void initWidget() {
@@ -103,8 +103,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
 
         if (v.getId() == R.id.buttonRetour) {
-            Intent intent = new Intent(pageProduit.this, pageInventaire.class);
-            startActivity(intent);
+            startActivity(new Intent(pageProduit.this, pageInventaire.class));
         }
         else if (v.getId() == R.id.buttonGallery) {
             chooseImage();
@@ -129,7 +128,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
                 nouveauProduit.setPhoto(imageProduit.getDrawingCache());
 
                 sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
-                buttonRetour.performClick();
+                startActivity(new Intent(pageProduit.this, pageInventaire.class));
             }
         }
         else if (v.getId() == R.id.buttonModifier) {
@@ -203,8 +202,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.popup_produit);
         dialog.show();
-
-        Button buttonOK;
     }
     private void viewProduit(){
         Produit produit = Produit.getProduitById(idProduit);
@@ -278,7 +275,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
             produitUpdate.setPhoto(imageProduit.getDrawingCache());
             sqLiteManager.updaterProduitDatabase(sqLiteDatabase, produitUpdate);
-            buttonRetour.performClick();
+
         }
         else{
             showDialog();

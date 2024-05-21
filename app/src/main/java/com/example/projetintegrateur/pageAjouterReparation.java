@@ -166,7 +166,8 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
             else {reparationUpdate.setIdStatus(spinnerStatus.getSelectedItemPosition());}
 
             //sqLiteManager.updaterReparationDatabase(sqLiteDatabase, reparationUpdate);
-            buttonRetour.performClick();
+            Intent intent = new Intent(pageAjouterReparation.this, pageReparation.class);
+            startActivity(intent);
         }
         else{
             showDialog();

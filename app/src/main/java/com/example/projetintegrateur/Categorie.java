@@ -21,7 +21,6 @@ public class Categorie {
     public static ArrayList<Categorie> categorieArrayList = new ArrayList<>();
     private int id;
     private String nom;
-
     public Categorie(int id, String nom) {
         this.id = id;
         this.nom = nom;
@@ -34,7 +33,6 @@ public class Categorie {
     public String toString() {
         return this.nom;
     }
-
     public static Categorie getCategorieById(int idCategorie) {
         for (Categorie categorie : categorieArrayList) {
             if (categorie.getId() == idCategorie)
