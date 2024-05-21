@@ -32,8 +32,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String CATEGORIE_TABLE_NAME = "Catégories";
     private static final String STATUS_TABLE_NAME = "Status";
     private static final String REPARATION_TABLE_NAME = "Réparation";
-
     private static final String PRODUIT_TABLE_NAME = "Produits";
+    private static final String PRODUITCLIENT_TABLE_NAME ="ProduitClient";
     //NOMS FIELDS
     private static final String ID_FIELD = "id";
     private static final String NOM_FIELD = "nom";
@@ -44,9 +44,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String IDCATEGORIE_FIELD = "idCategorie";
     private static final String IDSTATUS_FIELD = "idStatus";
     private static final String IDPRODUIT_FIELD = "idProduit";
+    private static final String IDCLIENT_FIELD = "idClient";
     private static final String COUNTER = "Counter";
-    //À ENLEVER APRÈS CAMÉRA
-    public static Bitmap PHOTO_TEMP;
+
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -164,6 +164,22 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append("(")
                 .append(IDCATEGORIE_FIELD)
                 .append("));");
+        sqLiteDatabase.execSQL(sql.toString());
+
+
+        //Table produitClient
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(PRODUITCLIENT_TABLE_NAME)
+                .append("(")
+                .append(COUNTER)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(ID_FIELD)
+                .append(" INT, ")
+                .append(IDPRODUIT_FIELD)
+                .append(" INT, ")
+                .append(IDCLIENT_FIELD)
+                .append(" INT)");
         sqLiteDatabase.execSQL(sql.toString());
     }
 
@@ -346,6 +362,36 @@ public class SQLiteManager extends SQLiteOpenHelper {
                     int idProduit = result.getInt(4);
 
                     Reparation.reparationArrayList.add(new Reparation(id, nom, description, idStatus, idProduit));
+                }
+            }
+        }
+    }
+
+    public void ajouterProduitClientDatabase(SQLiteDatabase database, ProduitClient produitClient) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID_FIELD, produitClient.getId());
+        contentValues.put(IDPRODUIT_FIELD, produitClient.getIdProduit());
+        contentValues.put(IDCLIENT_FIELD, produitClient.getIdClient());
+
+        database.insert(PRODUITCLIENT_TABLE_NAME, null, contentValues);
+    }
+
+    public void populateProduitClientListArray() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        ProduitClient.produitClientArrayList.clear();
+        ProduitClient produitClient = new ProduitClient();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + PRODUITCLIENT_TABLE_NAME, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    produitClient.setId(result.getInt(1));
+                    produitClient.setIdProduit(result.getInt(2));
+                    produitClient.setIdClient(result.getInt(3));
+                    ProduitClient.produitClientArrayList.add(produitClient);
                 }
             }
         }

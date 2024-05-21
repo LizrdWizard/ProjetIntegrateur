@@ -33,7 +33,7 @@
 
                 <TextView
                     android:id="@+id/rowNom"
-                    android:layout_width="270dp"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:text="@string/showNom"
                     android:layout_marginTop="3dp"
@@ -44,12 +44,12 @@
 
                 <Button
                     android:id="@+id/buttonAjouter"
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="3dp"
-                    android:layout_marginStart="5dp"
                     android:layout_gravity="center_vertical"
-                    android:visibility="gone"
+                    android:background="@drawable/ic_button_add"
+                    android:visibility="visible"
                     />
 
 
