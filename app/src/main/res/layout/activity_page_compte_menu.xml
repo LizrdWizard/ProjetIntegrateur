@@ -65,7 +65,7 @@
                     android:text="Button" />
 
                 <Button
-                    android:id="@+id/menuAcc_btn_historyRepair"
+                    android:id="@+id/accMenu_btn_historyRepair"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
