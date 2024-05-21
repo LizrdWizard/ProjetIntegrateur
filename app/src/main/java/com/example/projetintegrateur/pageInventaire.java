@@ -41,7 +41,7 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
     CheckBox checkInventaire;
     Button buttonAjouterProduit;
     Button buttonFiltrer;
-
+    InitButton initButton = new InitButton();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,6 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         loadFromDBToMemory();
         setProduitAdapter(Produit.produitArrayList);
         preparerSpinnerCategorie();
-
         produitsView.setClickable(true);
         produitsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,4 +130,9 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
             setProduitAdapter(filtrerProduits());
         }
     }
+    public void bInit(View v){
+
+        initButton.click(pageInventaire.this, v);
+    }
+
 }

@@ -38,5 +38,5 @@ public class pageMain extends AppCompatActivity{
         initButton = new InitButton();
 
     }
-    public void bRetour(View v){initButton.click(pageMain.this, v);}
+    public void bInit(View v){initButton.click(pageMain.this, v);}
 }

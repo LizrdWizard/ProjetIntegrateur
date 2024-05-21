@@ -45,6 +45,7 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
     TextView viewStatus;
     TextView viewDescription;
     Spinner spinnerStatus;
+    InitButton initButton = new InitButton();
     int idReparation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,5 +173,9 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
         else{
             showDialog();
         }
+    }
+    public void bInit(View v){
+
+        initButton.click(pageAjouterReparation.this, v);
     }
 }

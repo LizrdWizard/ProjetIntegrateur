@@ -20,7 +20,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="13dp"
                 android:id="@+id/boutonFooter1"
-                android:onClick="bRetour"/>
+                android:onClick="bInit"/>
 
             <ImageButton
                 android:layout_width="55dp"
@@ -28,7 +28,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="13dp"
                 android:id="@+id/boutonFooter2"
-                android:onClick="bRetour"/>
+                android:onClick="bInit"/>
 
             <ImageButton
                 android:layout_width="55dp"
@@ -36,7 +36,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="13dp"
                 android:id="@+id/boutonFooter3"
-                android:onClick="bRetour"/>
+                android:onClick="bInit"/>
 
             <ImageButton
                 android:layout_width="55dp"
@@ -44,14 +44,14 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="13dp"
                 android:id="@+id/boutonFooter4"
-                android:onClick="bRetour"/>
+                android:onClick="bInit"/>
 
             <ImageButton
                 android:layout_width="55dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:id="@+id/boutonFooter5"
-                android:onClick="bRetour"/>
+                android:onClick="bInit"/>
 
         </LinearLayout>
     </RelativeLayout>

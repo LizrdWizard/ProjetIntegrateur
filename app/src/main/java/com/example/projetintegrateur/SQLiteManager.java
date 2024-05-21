@@ -14,6 +14,7 @@
  ****************************************/
 package com.example.projetintegrateur;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -55,6 +56,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String DATEFIN_FIELD = "dateFin";
     private static final String IDCLIENT_FIELD = "idClient";
     private static final String COUNTER = "Counter";
+
+    @SuppressLint("SimpleDateFormat")
+    private static final DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
