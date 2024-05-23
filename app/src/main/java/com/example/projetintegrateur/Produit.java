@@ -42,6 +42,16 @@ public class Produit {
         this.idCategorie = idCategorie;
     }
 
+    public Produit(Produit produit) {
+        this.id = produit.getId();
+        this.nom = produit.getNom();
+        this.prix = produit.getPrix();
+        this.description = produit.getDescription();
+        this.quantite = produit.getQuantite();
+        this.photo = produit.getPhoto();
+        this.idCategorie = produit.getIdCategorie();
+    }
+
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
     public String getNom() {return nom;}

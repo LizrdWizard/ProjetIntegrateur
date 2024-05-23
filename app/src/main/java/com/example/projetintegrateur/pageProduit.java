@@ -66,14 +66,14 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         });
 
         initWidget();
-        preparerDb();
+        loadFromDbToMemory();
         preparerSpinnerCategorie();
         pictureChanged = false;
 
         idProduit = getIntent().getIntExtra("idProduit", 0);
         if (idProduit != 0) {
-            viewProduit();
-            //viewProduitAdmin();
+            //viewProduit();
+            viewProduitAdmin();
         }
     }
     private void initWidget() {
@@ -133,17 +133,21 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         }
         else if (v.getId() == R.id.buttonModifier) {
             updaterProduit();
+            startActivity(new Intent(pageProduit.this, pageInventaire.class));
         }
     }
 
     public void preparerSpinnerCategorie() {
-        ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Categorie.categorieArrayList);
+        ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, R.layout.my_spinner_list, Categorie.categorieArrayList);
+        categorieAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerCategorie.setAdapter(categorieAdapter);
     }
 
-    public void preparerDb(){
+    public void loadFromDbToMemory(){
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteDatabase = sqLiteManager.getReadableDatabase();
+        sqLiteManager.populateCategorieListArray();
+        sqLiteManager.populateProduitListArray();
     }
 
     private void askCameraPermissions() {
@@ -270,7 +274,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             if (editQuantite.getText().toString().isEmpty()) {produitUpdate.setQuantite(vieuxProduit.getQuantite());}
             else {produitUpdate.setQuantite(Integer.parseInt(editQuantite.getText().toString()));}
             //Categorie
-            if (spinnerCategorie.getSelectedItemPosition() == vieuxProduit.getIdCategorie()) {vieuxProduit.setIdCategorie(vieuxProduit.getIdCategorie());}
+            if (spinnerCategorie.getSelectedItemPosition() == vieuxProduit.getIdCategorie() && vieuxProduit.getIdCategorie() != 0) {produitUpdate.setIdCategorie(vieuxProduit.getIdCategorie());}
             else {produitUpdate.setIdCategorie(spinnerCategorie.getSelectedItemPosition());}
 
             produitUpdate.setPhoto(imageProduit.getDrawingCache());

@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".pageInventaire">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -46,7 +42,8 @@
                                 android:textAlignment="textEnd"
                                 android:layout_gravity="center_vertical"
                                 android:theme="@style/textWhite"
-                                tools:ignore="RtlCompat">
+                                android:paddingStart="5dp"
+                                tools:ignore="RtlCompat,RtlSymmetry">
                             </TextView>
 
                             <Spinner
@@ -56,7 +53,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingStart="40dp"
                                 android:paddingEnd="5dp"
-                                android:layout_marginStart="20dp"
+                                android:layout_marginStart="15dp"
                                 android:background="@drawable/style_spinner"/>
 
                         </LinearLayout>
@@ -70,10 +67,11 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/showInventaire"
-                                android:textAlignment="textEnd"
+                                android:textAlignment="center"
                                 android:layout_gravity="center_vertical"
                                 android:theme="@style/textWhite"
-                                tools:ignore="RtlCompat">
+                                android:paddingStart="5dp"
+                                tools:ignore="RtlCompat,RtlSymmetry">
                             </TextView>
 
                             <CheckBox
@@ -81,8 +79,9 @@
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:layout_marginStart="20dp"
-                                android:buttonTint="@color/cyan"/>
+                                android:layout_marginStart="15dp"
+                                android:buttonTint="@color/cyan"
+                                tools:ignore="RtlHardcoded" />
 
                         </LinearLayout>
 
@@ -165,7 +164,9 @@
                     android:layout_width="385dp"
                     android:layout_height="wrap_content"
                     android:dividerHeight="10dp"
-                    android:layout_marginStart="10dp">
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="true">
                 </ListView>
 
             </LinearLayout>
@@ -173,6 +174,5 @@
             <include layout="@layout/page_footer"/>
 
         </LinearLayout>
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

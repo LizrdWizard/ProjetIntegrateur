@@ -28,8 +28,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ProduitAdapter extends ArrayAdapter<Produit> implements View.OnClickListener {
-    Produit produit;
+public class ProduitAdapter extends ArrayAdapter<Produit> {
     public ProduitAdapter(Context context, List<Produit> produit) {
         super(context, 0, produit);
     }
@@ -38,10 +37,13 @@ public class ProduitAdapter extends ArrayAdapter<Produit> implements View.OnClic
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        this.produit = getItem(position);
+        Produit produit = new Produit(getItem(position));
+
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_inventaire, parent, false);
         }
+
+        convertView.setClickable(true);
 
         TextView nom = convertView.findViewById(R.id.rowNom);
         TextView description = convertView.findViewById(R.id.rowDescription);
@@ -49,25 +51,23 @@ public class ProduitAdapter extends ArrayAdapter<Produit> implements View.OnClic
         TextView quantite = convertView.findViewById(R.id.rowQuantite);
         ImageView image = convertView.findViewById(R.id.rowImage);
 
-        nom.setText(this.produit.getNom());
-        description.setText(this.produit.getDescription());
-        montant.setText(this.produit.getPrix().toString());
-        image.setImageBitmap(this.produit.getPhoto());
+        nom.setText(produit.getNom());
+        description.setText(produit.getDescription());
+        montant.setText(produit.getPrix().toString());
+        image.setImageBitmap(produit.getPhoto());
         quantite.setText(convertView.getContext().getString(R.string.showQuantite));
-        quantite.append(" " + String.valueOf(this.produit.getQuantite()));
+        quantite.append(" " + String.valueOf(produit.getQuantite()));
+        convertView.setOnClickListener(new View.OnClickListener() {
 
-        image.setOnClickListener(this);
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), pageProduit.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("idProduit", produit.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
 
         return convertView;
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if (v.getId() == R.id.rowImage) {
-            Intent intent = new Intent(v.getContext(), pageProduit.class);
-            intent.putExtra("id", this.produit.getId());
-            v.getContext().startActivity(intent);
-        }
     }
 }

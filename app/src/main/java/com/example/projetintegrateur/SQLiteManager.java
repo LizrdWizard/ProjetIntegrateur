@@ -229,7 +229,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(1, "Pas commencée"));
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(2, "En cours"));
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(3, "Terminée"));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(1,"nom1",null,"machin",2,null,2));
     }
 
     @Override
@@ -308,8 +307,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         //Les produits initialisés dans cette classe on toujours le bon Id
         //Les produits ajoutés plus tard utilisent Produit.produitSize() + 1 pour déterminer leur Id
-        if (Produit.produitSize() == 0) {contentValues.put(ID_FIELD, 1);}
-        else {contentValues.put(ID_FIELD, Produit.produitSize() + 1);}
+        if (Produit.produitArrayList.isEmpty()) {contentValues.put(ID_FIELD, 1);}
+        else {contentValues.put(ID_FIELD, Produit.produitArrayList.size() + 1);}
 
         contentValues.put(NOM_FIELD, produit.getNom());
         contentValues.put(PRIX_FIELD, produit.getPrix().floatValue());
@@ -422,6 +421,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
         if (database == null) {
             database = this.getWritableDatabase();
         }
+
+        produitClient.setId(ProduitClient.produitClientArrayList.size() + 1);
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_FIELD, produitClient.getId());
         contentValues.put(IDPRODUIT_FIELD, produitClient.getIdProduit());

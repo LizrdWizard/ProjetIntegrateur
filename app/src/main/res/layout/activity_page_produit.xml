@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="602dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/maroon">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,29 +90,41 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/showPrix"
-                        android:textAlignment="textEnd">
-                    </TextView>
+                        android:textAlignment="textEnd"
+                        android:theme="@style/textWhite"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="RtlCompat" />
 
                     <EditText
                         android:id="@+id/editPrix"
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberDecimal"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginStart="20dp"
+                        android:paddingStart="10dp"
+                        android:textColor="@null"
+                        android:theme="@style/textWhite"
+                        android:background="@drawable/round_style"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/viewPrix"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:visibility="gone"
-                        android:layout_marginLeft="20dp">
+                        android:layout_marginStart="20dp"
+                        android:paddingStart="10dp"
+                        android:theme="@style/textWhite"
+                        tools:ignore="RtlSymmetry">
                     </TextView>
 
                 </LinearLayout>
@@ -119,13 +132,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/showNom"
-                        android:textAlignment="textEnd">
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="textEnd"
+                        android:theme="@style/textWhite"
+                        tools:ignore="RtlCompat">
                     </TextView>
 
                     <EditText
@@ -134,37 +151,51 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginStart="20dp"
+                        android:paddingStart="10dp"
+                        android:textColor="@null"
+                        android:theme="@style/textWhite"
+                        android:background="@drawable/round_style"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/viewNom"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:visibility="gone"
-                        android:layout_marginLeft="20dp">
+                        android:layout_marginStart="20dp"
+                        android:paddingStart="10dp"
+                        android:theme="@style/textWhite"
+                        android:background="@drawable/round_style"
+                        tools:ignore="RtlSymmetry">
                     </TextView>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="100dp"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:text="@string/showCategorie"
                         android:layout_gravity="center_vertical"
                         android:textAlignment="textEnd"
-                        tools:ignore="RtlCompat" />
+                        tools:ignore="RtlCompat"
+                        android:theme="@style/textWhite" />
 
                     <Spinner
                         android:id="@+id/spinnerCategorie"
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="5dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginLeft="20dp">
+                        android:background="@drawable/style_spinner">
 
                     </Spinner>
 
@@ -174,22 +205,26 @@
                         android:layout_height="45dp"
                         android:visibility="gone"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="20dp">
+                        android:layout_marginStart="20dp"
+                        android:theme="@style/textWhite"
+                        android:background="@drawable/round_style">
                     </TextView>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="100dp"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:text="@string/showDescription"
                         android:layout_gravity="start"
                         android:textAlignment="textEnd"
-                        tools:ignore="RtlCompat">
+                        tools:ignore="RtlCompat"
+                        android:theme="@style/textWhite">
                     </TextView>
 
                     <EditText
@@ -198,32 +233,44 @@
                         android:layout_height="100dp"
                         android:ems="10"
                         android:inputType="text"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:lines="5"
                         android:gravity="top|start"
-                        android:scrollbars="vertical" />
+                        android:scrollbars="vertical"
+                        android:textColor="@null"
+                        android:theme="@style/textWhite"
+                        android:paddingStart="10dp"
+                        android:background="@drawable/round_style"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/viewDescription"
                         android:layout_width="wrap_content"
-                        android:layout_height="45dp"
+                        android:layout_height="100dp"
                         android:visibility="gone"
-                        android:layout_marginLeft="20dp">
+                        android:layout_marginStart="20dp"
+                        android:theme="@style/textWhite"
+                        android:paddingStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/round_style">
                     </TextView>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="45dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/showQuantite"
-                        android:textAlignment="textEnd">
+                        android:textAlignment="textEnd"
+                        android:theme="@style/textWhite"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="RtlCompat">
                     </TextView>
-
 
                     <EditText
                         android:id="@+id/editQuantite"
@@ -231,14 +278,24 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="number"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginStart="20dp"
+                        android:textColor="@null"
+                        android:theme="@style/textWhite"
+                        android:paddingStart="10dp"
+                        android:background="@drawable/round_style"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:id="@+id/viewQuantite"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:visibility="gone"
-                        android:layout_marginLeft="20dp">
+                        android:layout_marginStart="20dp"
+                        android:theme="@style/textWhite"
+                        android:paddingStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="RtlSymmetry">
                     </TextView>
 
                 </LinearLayout>
