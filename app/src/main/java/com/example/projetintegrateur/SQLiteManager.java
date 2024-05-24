@@ -38,7 +38,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String PRODUIT_TABLE_NAME = "Produits";
     private static final String COMMANDE_TABLE_NAME = "Commande";
     private static final String STATUSCOMMANDE_TABLE_NAME = "StatusCommande";
-    private static final String PRODUITCLIENT_TABLE_NAME ="ProduitClient";
+    private static final String PRODUITCOMMANDE_TABLE_NAME ="ProduitClient";
     //NOMS FIELDS
     private static final String ID_FIELD = "id";
     private static final String NOM_FIELD = "nom";
@@ -177,10 +177,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql.toString());
 
 
-        //Table produitClient
+        //Table produitCommande
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
-                .append(PRODUITCLIENT_TABLE_NAME)
+                .append(PRODUITCOMMANDE_TABLE_NAME)
                 .append("(")
                 .append(COUNTER)
                 .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
@@ -414,28 +414,28 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
-    public void ajouterProduitClientDatabase(SQLiteDatabase database, ProduitCommande produitCommande) {
+    public void ajouterProduitCommandeDatabase(SQLiteDatabase database, ProduitCommande produitCommande) {
         if (database == null) {
             database = this.getWritableDatabase();
         }
-
-        produitCommande.setId(ProduitCommande.produitCommandeArrayList.size() + 1);
-
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_FIELD, produitCommande.getId());
+
+        if (ProduitCommande.produitCommandeArrayList.isEmpty()) {contentValues.put(ID_FIELD, 1);}
+        else {contentValues.put(ID_FIELD, ProduitCommande.produitCommandeArrayList.size() + 1);}
+
         contentValues.put(IDPRODUIT_FIELD, produitCommande.getIdProduit());
         contentValues.put(IDCLIENT_FIELD, produitCommande.getIdClient());
 
-        database.insert(PRODUITCLIENT_TABLE_NAME, null, contentValues);
+        database.insert(PRODUITCOMMANDE_TABLE_NAME, null, contentValues);
     }
 
-    public void populateProduitClientListArray() {
+    public void populateProduitCommandeListArray() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         ProduitCommande.produitCommandeArrayList.clear();
         ProduitCommande produitCommande = new ProduitCommande();
 
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + PRODUITCLIENT_TABLE_NAME, null)) {
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + PRODUITCOMMANDE_TABLE_NAME, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
                     produitCommande.setId(result.getInt(1));

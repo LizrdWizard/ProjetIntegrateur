@@ -5,7 +5,7 @@
  Date : 2024-08-03
 
  Vérification :
- *Date*               *Nom*             *Approuvé*
+ 2024-05-23         Jasmin Dubuc        Approuvé
  =========================================================
 
  Historique de modifications :
@@ -68,7 +68,6 @@ public class Produit {
     }
     public int getIdCategorie() {return idCategorie;}
     public void setIdCategorie(int idCategorie) {this.idCategorie = idCategorie;}
-
     //Autre
     public static Produit getProduitById(int idProduit) {
         for (Produit produit : produitArrayList) {
@@ -99,5 +98,4 @@ public class Produit {
             return null;
         }
     }
-    public static int produitSize() {return produitArrayList.size();}
 }

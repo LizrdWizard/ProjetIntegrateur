@@ -1,18 +1,28 @@
+/****************************************
+ Fichier : ProduitAdapter
+ Auteur : Jasmin Dubuc
+ Fonctionnalité : Page qui gère la classe Produit en relation avec le layout row_inventaire_admin
+ Date : 2024-08-03
+
+ Vérification :
+
+ =========================================================
+
+ Historique de modifications :
+
+ =========================================================
+ ****************************************/
 package com.example.projetintegrateur;
 
 import java.util.ArrayList;
 
 public class ProduitCommande {
-
     public static ArrayList<ProduitCommande> produitCommandeArrayList = new ArrayList<>();
-
     private int id;
     private int idProduit;
     private int idClient;
-
     public ProduitCommande(){}
-    public ProduitCommande(int id, int idProduit, int idClient) {
-        this.id = id;
+    public ProduitCommande(int idProduit, int idClient) {
         this.idProduit = idProduit;
         this.idClient = idClient;
     }
@@ -35,7 +45,6 @@ public class ProduitCommande {
 
         return produitHolder;
     }
-
     public static void resetArrayListId() {
         ArrayList<ProduitCommande> cleanList = new ArrayList<>();
         ProduitCommande holder = new ProduitCommande();
@@ -48,7 +57,6 @@ public class ProduitCommande {
             cleanList.add(holder);
             i++;
         }
-
         produitCommandeArrayList = cleanList;
     }
 }

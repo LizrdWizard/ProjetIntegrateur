@@ -15,7 +15,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="602dp"
+                android:layout_height="734dp"
                 android:orientation="vertical"
                 android:background="@color/maroon">
 
@@ -131,7 +131,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:orientation="horizontal"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp">
@@ -162,7 +162,7 @@
                 <ListView
                     android:id="@+id/listInventaire"
                     android:layout_width="385dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="450dp"
                     android:dividerHeight="10dp"
                     android:layout_marginStart="10dp"
                     android:clickable="true"

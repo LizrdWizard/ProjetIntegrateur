@@ -2,6 +2,8 @@
     <string name="app_name">ProjetIntegrateur</string>
     <string name="pageInventaire">Inventaire</string>
     <string name="pageAjouterProduit">Ajouter produit</string>
+    <string name="pageVoirProduit">Voir produit</string>
+    <string name="pageModifierProduit">Modifier produit</string>
 
     <string name="OK">OK</string>
     <string name="bouttonGallery">Sélectionner image</string>

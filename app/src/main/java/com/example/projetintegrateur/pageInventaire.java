@@ -5,20 +5,17 @@
  Date : 2024-05-03
 
  Vérification :
- *Date*               *Nom*             *Approuvé*
+ 2024-05-23         Jasmin Dubuc        Approuvé
  =========================================================
 
  Historique de modifications :
- *Date*               *Nom*             *Approuvé*
+ 2024-05-23         Jasmin Dubuc        Optimisation
  =========================================================
  ****************************************/
-
 package com.example.projetintegrateur;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,10 +24,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import java.util.ArrayList;
 
 public class pageInventaire extends AppCompatActivity implements View.OnClickListener {
@@ -54,7 +47,6 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         preparerSpinnerCategorie();
 
     }
-
     private void initWidget() {
         produitsView = findViewById(R.id.listInventaire);
         editMax =findViewById(R.id.editMax);
@@ -71,7 +63,6 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         sqLiteManager.populateCategorieListArray();
         sqLiteManager.populateProduitListArray();
     }
-
     private void setProduitAdapter(ArrayList<Produit> listeProduit) {
         ProduitAdapter produitAdapter = new ProduitAdapter(getApplicationContext(), listeProduit);
         produitsView.setAdapter(produitAdapter);
@@ -83,7 +74,6 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         categorieAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerCategorie.setAdapter(categorieAdapter);
     }
-
     public ArrayList<Produit> filtrerProduits() {
 
         int idCategorie = 0;
@@ -113,7 +103,6 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         }
         return listeFiltree;
     }
-
     @Override
     public void onClick(View v) {
 
@@ -124,7 +113,6 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
             setProduitAdapter(filtrerProduits());
         }
     }
-
     public void bInit(View v){
 
         initButton.click(pageInventaire.this, v);

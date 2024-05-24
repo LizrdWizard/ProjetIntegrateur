@@ -1,5 +1,18 @@
-package com.example.projetintegrateur;
+/****************************************
+ Fichier : pageProduit
+ Auteur : Jasmin Dubuc
+ Fonctionnalité : Page qui gère l'ajout, la modification, ou le visionement des produits
+ Date : 2024-08-03
 
+ Vérification :
+ 2024-05-23         Jasmin Dubuc        Approuvé
+ =========================================================
+
+ Historique de modifications :
+
+ =========================================================
+ ****************************************/
+package com.example.projetintegrateur;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,7 +44,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 103;
-
+    TextView textHeader;
     SQLiteManager sqLiteManager;
     SQLiteDatabase sqLiteDatabase;
     Button buttonRetour;
@@ -52,8 +65,8 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     Spinner spinnerCategorie;
     Uri imageGallery;
     int idProduit;
+    //int idClient;
     boolean pictureChanged;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +82,30 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         loadFromDbToMemory();
         preparerSpinnerCategorie();
         pictureChanged = false;
+        textHeader = findViewById(R.id.textHeader);
 
         idProduit = getIntent().getIntExtra("idProduit", 0);
+        //idClient = getIntent().getIntExtra("idClient", 1);
+
+        //Si aucun idProduit, c'est l'admin qui en rajoute un nouveau
         if (idProduit != 0) {
             //viewProduit();
             viewProduitAdmin();
         }
+        /*
+        //si idProduit != 0, c'est quelqu'un qui a cliqué sur le ListView
+        if (idProduit != 0) {
+            //(idClient == 0) == admin
+            if (idClient == 0) {
+                viewProduitAdmin();
+            }
+            //(idClient != 0) == client
+            else {
+                viewProduit();
+            }
+        }
+        //Si on a passé les conditions du dernier if, ça veut dire que c'est l'admin qui a appuyé sur buttonAjouterProduit
+        */
     }
     private void initWidget() {
         buttonRetour = (Button) findViewById(R.id.buttonRetour);
@@ -101,7 +132,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     }
     @Override
     public void onClick(View v) {
-
         if (v.getId() == R.id.buttonRetour) {
             startActivity(new Intent(pageProduit.this, pageInventaire.class));
         }
@@ -112,64 +142,60 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             askCameraPermissions();
         }
         else if (v.getId() == R.id.buttonProduit) {
-            Produit nouveauProduit = new Produit();
-            imageProduit.buildDrawingCache();
-
-            if (TextUtils.isEmpty(editNom.getText().toString()) || TextUtils.isEmpty(editPrix.getText().toString()) || TextUtils.isEmpty(editDescription.getText().toString())|| TextUtils.isEmpty(editQuantite.getText().toString())) {
-                showDialog();
-            }
-            else {
-
-                nouveauProduit.setNom(editNom.getText().toString());
-                nouveauProduit.setPrix(Float.valueOf(editPrix.getText().toString()));
-                nouveauProduit.setDescription(editDescription.getText().toString());
-                nouveauProduit.setQuantite(Integer.parseInt(editQuantite.getText().toString()));
-                nouveauProduit.setIdCategorie(spinnerCategorie.getSelectedItemPosition());
-                nouveauProduit.setPhoto(imageProduit.getDrawingCache());
-
-                sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
-                startActivity(new Intent(pageProduit.this, pageInventaire.class));
-            }
+            ajouterProduitDatabase();
         }
         else if (v.getId() == R.id.buttonModifier) {
             updaterProduit();
             startActivity(new Intent(pageProduit.this, pageInventaire.class));
         }
     }
-
     public void preparerSpinnerCategorie() {
         ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, R.layout.my_spinner_list, Categorie.categorieArrayList);
         categorieAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerCategorie.setAdapter(categorieAdapter);
     }
-
     public void loadFromDbToMemory(){
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteDatabase = sqLiteManager.getReadableDatabase();
         sqLiteManager.populateCategorieListArray();
         sqLiteManager.populateProduitListArray();
     }
+    public void ajouterProduitDatabase() {
+        Produit nouveauProduit = new Produit();
+        imageProduit.buildDrawingCache();
 
+        if (TextUtils.isEmpty(editNom.getText().toString()) || TextUtils.isEmpty(editPrix.getText().toString()) || TextUtils.isEmpty(editDescription.getText().toString())|| TextUtils.isEmpty(editQuantite.getText().toString())) {
+            showDialog();
+        }
+        else {
+
+            nouveauProduit.setNom(editNom.getText().toString());
+            nouveauProduit.setPrix(Float.valueOf(editPrix.getText().toString()));
+            nouveauProduit.setDescription(editDescription.getText().toString());
+            nouveauProduit.setQuantite(Integer.parseInt(editQuantite.getText().toString()));
+            nouveauProduit.setIdCategorie(spinnerCategorie.getSelectedItemPosition());
+            nouveauProduit.setPhoto(imageProduit.getDrawingCache());
+
+            sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
+            startActivity(new Intent(pageProduit.this, pageInventaire.class));
+        }
+    }
     private void askCameraPermissions() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
         }
-        else {
-            openCamera();
-        }
+        else {openCamera();}
     }
     private void openCamera() {
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera, CAMERA_REQUEST_CODE);
     }
-
     private void chooseImage() {
         Intent gallery = new Intent();
         gallery.setType("image/*");
         gallery.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(gallery, "Select Picture"), GALLERY_REQUEST_CODE);
     }
-
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == CAMERA_PERM_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -178,7 +204,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             else {Toast.makeText(this, "Camera Permission is Required to use Camera", Toast.LENGTH_SHORT).show();}
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -238,7 +263,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         imageProduit.setImageBitmap(produit.getPhoto());
     }
-
     private void viewProduitAdmin(){
         Produit produit = Produit.getProduitById(idProduit);
         editPrix.setHint(String.valueOf(produit.getPrix()));
@@ -253,7 +277,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         buttonModifier.setVisibility(View.VISIBLE);
         buttonModifier.setEnabled(true);
     }
-
     private void updaterProduit(){
         Produit vieuxProduit = Produit.getProduitById(idProduit);
         imageProduit.buildDrawingCache();
