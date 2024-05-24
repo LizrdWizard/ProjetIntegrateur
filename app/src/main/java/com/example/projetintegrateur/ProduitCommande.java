@@ -2,16 +2,16 @@ package com.example.projetintegrateur;
 
 import java.util.ArrayList;
 
-public class ProduitClient {
+public class ProduitCommande {
 
-    public static ArrayList<ProduitClient> produitClientArrayList = new ArrayList<>();
+    public static ArrayList<ProduitCommande> produitCommandeArrayList = new ArrayList<>();
 
     private int id;
     private int idProduit;
     private int idClient;
 
-    public ProduitClient(){}
-    public ProduitClient(int id, int idProduit, int idClient) {
+    public ProduitCommande(){}
+    public ProduitCommande(int id, int idProduit, int idClient) {
         this.id = id;
         this.idProduit = idProduit;
         this.idClient = idClient;
@@ -23,13 +23,13 @@ public class ProduitClient {
     public int getIdClient() {return this.idClient;}
     public void setIdClient(int idClient) {this.idClient = idClient;}
 
-    public static ArrayList<Produit> getIdProduitByIdClient(int idClient) {
+    public static ArrayList<Produit> getProduitArrayListByIdClient(int idClient) {
         ArrayList<Produit> produitHolder = new ArrayList<>();
 
         if (!Produit.produitArrayList.isEmpty()) {
-            for (ProduitClient produitClient : produitClientArrayList) {
-                if (produitClient.getIdClient() == idClient)
-                    produitHolder.add(Produit.getProduitById(produitClient.idProduit));
+            for (ProduitCommande produitCommande : produitCommandeArrayList) {
+                if (produitCommande.getIdClient() == idClient)
+                    produitHolder.add(Produit.getProduitById(produitCommande.idProduit));
             }
         }
 
@@ -37,18 +37,18 @@ public class ProduitClient {
     }
 
     public static void resetArrayListId() {
-        ArrayList<ProduitClient> cleanList = new ArrayList<>();
-        ProduitClient holder = new ProduitClient();
+        ArrayList<ProduitCommande> cleanList = new ArrayList<>();
+        ProduitCommande holder = new ProduitCommande();
         int i = 1;
 
-        for (ProduitClient produitClient : produitClientArrayList) {
+        for (ProduitCommande produitCommande : produitCommandeArrayList) {
             holder.setId(i);
-            holder.setIdProduit(produitClient.getIdProduit());
-            holder.setIdClient(produitClient.getIdClient());
+            holder.setIdProduit(produitCommande.getIdProduit());
+            holder.setIdClient(produitCommande.getIdClient());
             cleanList.add(holder);
             i++;
         }
 
-        produitClientArrayList = cleanList;
+        produitCommandeArrayList = cleanList;
     }
 }

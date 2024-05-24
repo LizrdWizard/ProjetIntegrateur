@@ -20,14 +20,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 public class SQLiteManager extends SQLiteOpenHelper {
     private static SQLiteManager sqLiteManager;
@@ -417,17 +414,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
-    public void ajouterProduitClientDatabase(SQLiteDatabase database, ProduitClient produitClient) {
+    public void ajouterProduitClientDatabase(SQLiteDatabase database, ProduitCommande produitCommande) {
         if (database == null) {
             database = this.getWritableDatabase();
         }
 
-        produitClient.setId(ProduitClient.produitClientArrayList.size() + 1);
+        produitCommande.setId(ProduitCommande.produitCommandeArrayList.size() + 1);
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_FIELD, produitClient.getId());
-        contentValues.put(IDPRODUIT_FIELD, produitClient.getIdProduit());
-        contentValues.put(IDCLIENT_FIELD, produitClient.getIdClient());
+        contentValues.put(ID_FIELD, produitCommande.getId());
+        contentValues.put(IDPRODUIT_FIELD, produitCommande.getIdProduit());
+        contentValues.put(IDCLIENT_FIELD, produitCommande.getIdClient());
 
         database.insert(PRODUITCLIENT_TABLE_NAME, null, contentValues);
     }
@@ -435,16 +432,16 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public void populateProduitClientListArray() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        ProduitClient.produitClientArrayList.clear();
-        ProduitClient produitClient = new ProduitClient();
+        ProduitCommande.produitCommandeArrayList.clear();
+        ProduitCommande produitCommande = new ProduitCommande();
 
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + PRODUITCLIENT_TABLE_NAME, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    produitClient.setId(result.getInt(1));
-                    produitClient.setIdProduit(result.getInt(2));
-                    produitClient.setIdClient(result.getInt(3));
-                    ProduitClient.produitClientArrayList.add(produitClient);
+                    produitCommande.setId(result.getInt(1));
+                    produitCommande.setIdProduit(result.getInt(2));
+                    produitCommande.setIdClient(result.getInt(3));
+                    ProduitCommande.produitCommandeArrayList.add(produitCommande);
                 }
             }
         }
