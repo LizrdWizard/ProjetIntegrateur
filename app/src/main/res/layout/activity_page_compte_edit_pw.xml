@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:minWidth="200dp"
-                    android:text="TextView"
+                    android:text="@string/userEditPWOld"
                     android:textAlignment="center"
                     android:textSize="16sp" />
 
@@ -77,7 +77,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:minWidth="200dp"
-                    android:text="TextView"
+                    android:text="@string/userEditPWNew"
                     android:textAlignment="center"
                     android:textSize="16sp" />
 
@@ -110,7 +110,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:minWidth="200dp"
-                    android:text="TextView"
+                    android:text="@string/userEditPWConf"
                     android:textAlignment="center"
                     android:textSize="16sp" />
 
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="@string/btnCancel" />
 
             <Button
                 android:id="@+id/accEditPw_btn_conf"
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="@string/btnConf" />
         </LinearLayout>
 
         <include

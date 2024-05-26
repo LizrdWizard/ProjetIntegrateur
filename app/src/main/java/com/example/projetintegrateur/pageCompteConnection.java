@@ -2,10 +2,13 @@ package com.example.projetintegrateur;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.Toast;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,24 +58,27 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
 
             ArrayList<String> content = new ArrayList<String>();
 
-            content.add(mail.toString());
-            content.add(pw.toString());
+            content.add(mail.getText().toString());
+            content.add(pw.getText().toString());
 
 
             int index = 0;
 
             while(index < content.size() && code == 0)
             {
-                if(content.get(index).matches("[$&+,\\/\\\\\\[\\]:;=?@#|'<>.^*()%!-]") || content.get(index).trim().isEmpty())
+
+                if(content.get(index).matches("^\\w*[$&+,:;=?@#|'<>.^*()%!-].*$") || TextUtils.isEmpty(content.get(index)))
                 {
+                    Toast.makeText(getApplicationContext(), "Un champ contient des characrères speciaux ou est vide", Toast.LENGTH_LONG).show();
                     code = 1;
                 }
                 index++;
             }
 
             //mail correct
-            if(!mail.toString().matches("^\\w+@\\w+\\.\\w+$"))
+            if(!Patterns.EMAIL_ADDRESS.matcher(content.get(0)).matches())
             {
+                Toast.makeText(getApplicationContext(), "Un courriel est requis pour se connecter", Toast.LENGTH_LONG).show();
                 code = 2;
             }
 
@@ -81,12 +87,20 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
             {
 
                 SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
-                sqLiteManager.connectUser(mail.toString(), pw.toString());
+                int found = sqLiteManager.connectUser(mail.toString(), pw.toString());
 
-                //redirect to connect
-                Intent intent = new Intent(pageCompteConnection.this, pageCompteMenu.class);
-                finish();
-                startActivity(intent);
+                if(found == 1)
+                {
+                    Toast.makeText(getApplicationContext(), "Un courriel ou le mot de passe est invalide", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(pageCompteConnection.this, pageCompteMenu.class);
+                    finish();
+                    startActivity(intent);
+                }
+
+
             }
         }
     }

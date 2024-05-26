@@ -33,9 +33,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String ID_PROV_FIELD = "idProv";
     private static final String PW_FIELD = "pw";
     private static final String LIBELLE_FIELD = "libelle";
-
-    private static final String USER_ACCOUNT_FILE = "userfile.txt";
-
+    private static final String ADMIN_FIELD = "admin";
 
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -75,6 +73,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
 
+        insertVille(new Ville(1, "Sherbrooke"));
+        insertVille(new Ville(2, "Magog"));
+        insertVille(new Ville(3, "Drummondville"));
+        insertVille(new Ville(4, "Montréal"));
+        insertVille(new Ville(5, "Toronto"));
+        insertVille(new Ville(6, "Ottawa"));
+        insertVille(new Ville(7, "Kingston"));
+
         //Create Province Table
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
@@ -86,6 +92,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
 
+        insertProvince(new Province(1, "Québec"));
+        insertProvince(new Province(2, "Ontario"));
+
         //Create ProvinceVille Table
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
@@ -96,6 +105,15 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(ID_VILLE_FIELD)
                 .append(" INT)");
         sqLiteDatabase.execSQL(sql.toString());
+
+        insertProvinceVille(1, 1);
+        insertProvinceVille(2, 1);
+        insertProvinceVille(3, 1);
+        insertProvinceVille(4, 1);
+
+        insertProvinceVille(5, 2);
+        insertProvinceVille(6, 2);
+        insertProvinceVille(7, 2);
 
         //Create User Table
         sql = new StringBuilder()
@@ -121,7 +139,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(ID_PROV_FIELD)
                 .append(" INT, ")
                 .append(PW_FIELD)
-                .append(" TEXT)");
+                .append(" TEXT,")
+                .append(ADMIN_FIELD)
+                .append(" INT) ");
         sqLiteDatabase.execSQL(sql.toString());
 
     }
@@ -161,8 +181,52 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
+    public void insertProvince(Province province)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
 
-    //populate db from files
+
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(LIBELLE_FIELD, province.getLibelle());
+
+        database.insert(PROV_TABLE_NAME, null, contentValues);
+    }
+
+    public void insertVille(Ville ville)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+
+
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(LIBELLE_FIELD, ville.getLibelle());
+
+        database.insert(VILLE_TABLE_NAME, null, contentValues);
+    }
+
+    public void insertProvinceVille(int idVille, int idProvince)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+
+
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID_VILLE_FIELD, idVille);
+        contentValues.put(ID_PROV_FIELD, idProvince);
+
+
+        database.insert(PROV_VILLE_TABLE_NAME, null, contentValues);
+    }
 
     public void populateVilleListArray()
     {
@@ -236,84 +300,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
-    public void insertUserFromFile(SQLiteDatabase database, Context context)
-    {
-        long code = 0;
-        ArrayList<String> users = new ArrayList<String>();
-
-        if (database == null) {
-            database = this.getWritableDatabase();
-        }
-
-        //load user from file
-        users = FileManager.loadFromFile(USER_ACCOUNT_FILE, context);
-
-        for (String content : users) {
-
-            String[] elements = content.split(" +"); //one or more spaces
-
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(ID_FIELD, elements[0]);
-            contentValues.put(NOM_FIELD, elements[1]);
-            contentValues.put(PRENOM_FIELD, elements[2]);
-            contentValues.put(MAIL_FIELD, elements[3]);
-            contentValues.put(TEL_FIELD, elements[4]);
-            contentValues.put(ADDR_FIELD, elements[5]);
-            contentValues.put(CP_FIELD, elements[6]);
-            contentValues.put(ID_VILLE_FIELD, elements[7]);
-            contentValues.put(ID_PROV_FIELD, elements[8]);
-            contentValues.put(PW_FIELD, elements[9]);
-
-           database.insert(USER_TABLE_NAME, null, contentValues);
-        }
-
-    }
-
-    public void writeUserIntoFile(SQLiteDatabase database, Context context)
-    {
-
-        ArrayList<String> output = new ArrayList<String>();
-
-        //select all user
-        try (Cursor result = database.rawQuery("SELECT * FROM " + USER_TABLE_NAME, null)) {
-            if (result.getCount() != 0) {
-                while (result.moveToNext()) {
-
-                    String user = Integer.toString(result.getInt(1)) +
-                            " " +
-                            result.getString(2) +
-                            " " +
-                            result.getString(3) +
-                            " " +
-                            result.getString(4) +
-                            " " +
-                            result.getString(5) +
-                            " " +
-                            result.getString(6) +
-                            " " +
-                            result.getInt(7) +
-                            " " +
-                            result.getInt(8) +
-                            " " +
-                            result.getString(9) +
-                            " " +
-                            result.getString(10) +
-                            " ";
-
-                    output.add(user);
-                }
-            }
-        }
-
-        FileManager.saveToFile(output, USER_ACCOUNT_FILE, context);
-
-    }
-    //create user(put user in a txt file)
-    public long insertUser(User user)
+    public void insertUser(User user)
     {
         SQLiteDatabase database = this.getReadableDatabase();
 
-        long code = 0;
 
         if (database == null) {
             database = this.getWritableDatabase();
@@ -329,18 +319,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(ID_VILLE_FIELD, user.getIdVille());
         contentValues.put(ID_PROV_FIELD, user.getIdProv());
         contentValues.put(PW_FIELD, user.getPw());
+        contentValues.put(ADMIN_FIELD, user.isAdmin());
 
-        code = database.insert(USER_TABLE_NAME, null, contentValues);
 
-        return code; //-1 if error
+        database.insert(USER_TABLE_NAME, null, contentValues);
+
     }
 
-    //look for user and verify info
     public int connectUser(String mail, String pw)
     {
-        SQLiteDatabase database = this.getReadableDatabase();
-
         int code = 0;
+        SQLiteDatabase database = this.getReadableDatabase();
 
         try (Cursor result = database.rawQuery("SELECT id FROM " + USER_TABLE_NAME + " WHERE mail = " + mail + " AND pw = " + pw, null)) {
             if (result.getCount() != 0) {
@@ -350,19 +339,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
             }
             else
             {
-                code = 1; //user not found
+                code = 1;
             }
         }
         return code;
     }
 
-    //disconnect user
     public void disconnectUser()
     {
         User.currentUserID = 0;
     }
 
-    //update user info
     public void updateUser(User user)
     {
         SQLiteDatabase database = this.getReadableDatabase();
@@ -380,11 +367,11 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(CP_FIELD, user.getCp());
         contentValues.put(ID_VILLE_FIELD, user.getIdVille());
         contentValues.put(ID_PROV_FIELD, user.getIdProv());
+        contentValues.put(ADMIN_FIELD, user.isAdmin());
 
         database.update(USER_TABLE_NAME, contentValues, "id = ?", new String[]{Integer.toString(User.currentUserID)});
     }
 
-    //update user PW
     public void updateUserPW(String oldpw, String newpw)
     {
         SQLiteDatabase database = this.getReadableDatabase();
@@ -430,7 +417,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
                             result.getString(7),
                             result.getInt(8),
                             result.getInt(9),
-                            result.getString(10)));
+                            result.getString(10),
+                            result.getInt(11)));
 
                 }
             }
@@ -448,20 +436,57 @@ public class SQLiteManager extends SQLiteOpenHelper {
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE_NAME + " WHERE id = " + id, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    id = result.getInt(1);
-                    String nom = result.getString(2);
-                    String prenom = result.getString(3);
-                    String mail = result.getString(4);
-                    String tel = result.getString(5);
-                    String cp = result.getString(6);
-                    int idVille = result.getInt(7);
-                    int idProv = result.getInt(8);
+                    output = new User(result.getInt(1),
+                            result.getString(2),
+                            result.getString(3),
+                            result.getString(4),
+                            result.getString(5),
+                            result.getString(6),
+                            result.getString(7),
+                            result.getInt(8),
+                            result.getInt(9),
+                            result.getString(10),
+                            result.getInt(11));
 
                 }
             }
-            output = new User();
         }
 
         return output;
     }
+
+    public int getProvinceIdByName(String libelle)
+    {
+        int output = 0;
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + PROV_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = " + libelle, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    output = result.getInt(1);
+                }
+            }
+        }
+
+        return output;
+    }
+
+    public int getVilleIdByName(String libelle)
+    {
+        int output = 0;
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + VILLE_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = " + libelle, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    output = result.getInt(1);
+                }
+            }
+        }
+
+        return output;
+    }
+
 }

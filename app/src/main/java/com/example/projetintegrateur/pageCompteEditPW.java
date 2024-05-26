@@ -2,10 +2,12 @@ package com.example.projetintegrateur;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,8 +69,9 @@ public class pageCompteEditPW extends AppCompatActivity implements View.OnClickL
 
             while(index < content.size() && code == 0)
             {
-                if(content.get(index).matches("[$&+,\\/\\\\\\[\\]:;=?@#|'<>.^*()%!-]") || content.get(index).trim().isEmpty())
+                if(content.get(index).matches("^\\w*[$&+,:;=?@#|'<>.^*()%!-].*$") || TextUtils.isEmpty(content.get(index)))
                 {
+                    Toast.makeText(getApplicationContext(), "Un champ contient des characrères speciaux ou est vide", Toast.LENGTH_LONG).show();
                     code = 1;
                 }
                 index++;
@@ -76,6 +79,7 @@ public class pageCompteEditPW extends AppCompatActivity implements View.OnClickL
 
             if(!newPw.toString().equals(confPw.toString()))
             {
+                Toast.makeText(getApplicationContext(), "Le champ nouveau mot de passe et confirmer mot de passe ne sont pas identique", Toast.LENGTH_LONG).show();
                 code = 3;
             }
 

@@ -41,35 +41,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Button" />
+                    android:text="@string/userMenuEditCoord" />
 
                 <Button
                     android:id="@+id/accMenu_btn_editpw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Button" />
+                    android:text="@string/userMenuEditPW" />
 
                 <Button
                     android:id="@+id/accMenu_btn_ena2FA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Button" />
+                    android:text="@string/userMenuEna2FA" />
 
                 <Button
                     android:id="@+id/accMenu_btn_historyCommand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Button" />
+                    android:text="@string/userMenuHistoryCommand" />
 
                 <Button
                     android:id="@+id/accMenu_btn_historyRepair"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Button" />
+                    android:text="@string/userMenuHystoryRepair" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Button" />
+                    android:text="@string/userMenuDisconnect" />
             </LinearLayout>
         </LinearLayout>
 

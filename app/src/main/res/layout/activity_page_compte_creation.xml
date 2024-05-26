@@ -46,7 +46,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userName"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -60,7 +60,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:height="50dp"
-                            android:hint="Hint" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -78,7 +78,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userSurname"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -92,7 +92,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:height="50dp"
-                            android:hint="Hint" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -110,7 +110,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userMail"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -124,7 +124,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:height="50dp"
-                            android:hint="Hint" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -142,7 +142,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userTel"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -156,7 +156,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:height="50dp"
-                            android:hint="Hint" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -174,7 +174,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userAddr"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -188,7 +188,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:height="50dp"
-                            android:hint="Hint" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -206,7 +206,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userCp"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -220,7 +220,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:height="50dp"
-                            android:hint="Hint" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -238,7 +238,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userCity"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -263,7 +263,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userProv"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -288,7 +288,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userPw"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -315,7 +315,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minWidth="200dp"
-                        android:text="TextView"
+                        android:text="@string/userConfPw"
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
@@ -348,7 +348,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="@string/btnCancel" />
 
             <Button
                 android:id="@+id/accCrea_btn_conf"
@@ -356,7 +356,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="@string/btnConf" />
         </LinearLayout>
 
         <include

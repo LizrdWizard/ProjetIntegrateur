@@ -2,12 +2,15 @@ package com.example.projetintegrateur;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -147,16 +150,18 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
 
             while(index < content.size() && code == 0)
             {
-                if(content.get(index).matches("[$&+,\\/\\\\\\[\\]:;=?@#|'<>.^*()%!-]") || content.get(index).trim().isEmpty())
+                if(content.get(index).matches("^\\w*[$&+,:;=?@#|'<>.^*()%!-].*$") || TextUtils.isEmpty(content.get(index)))
                 {
+                    Toast.makeText(getApplicationContext(), "Un champ contient des characrères speciaux ou est vide", Toast.LENGTH_LONG).show();
                     code = 1;
                 }
                 index++;
             }
 
             //mail correct
-            if(!mail.toString().matches("^\\w+@\\w+\\.\\w+$"))
+            if(!Patterns.EMAIL_ADDRESS.matcher(content.get(0)).matches())
             {
+                Toast.makeText(getApplicationContext(), "Un courriel est requis", Toast.LENGTH_LONG).show();
                 code = 2;
             }
 
@@ -171,7 +176,8 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
                         cp.toString(),
                         currentCity,
                         currentProv,
-                        "");
+                        "",
+                        0);
 
                 SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
                 sqLiteManager.updateUser(user);

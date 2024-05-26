@@ -15,9 +15,11 @@ public class User {
     private int idProv;
     private String pw;
 
+    private int admin;
+
     public User() {}
 
-    public User(int id, String nom, String prenom, String mail, String tel, String addr, String cp, int idVille, int idProv, String pw) {
+    public User(int id, String nom, String prenom, String mail, String tel, String addr, String cp, int idVille, int idProv, String pw, int admin) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -28,6 +30,7 @@ public class User {
         this.idVille = idVille;
         this.idProv = idProv;
         this.pw = pw;
+        this.admin = admin;
     }
 
     public int getId() {
@@ -108,5 +111,13 @@ public class User {
 
     public void setPw(String pw) {
         this.pw = pw;
+    }
+
+    public int isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
     }
 }

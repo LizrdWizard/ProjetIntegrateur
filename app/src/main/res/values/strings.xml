@@ -24,4 +24,36 @@
     <string name="showDescription">Description : </string>
     <string name="showNom">Nom : </string>
     <string name="showQuantite">Quantité : </string>
+
+    <!-->User Libelle<!-->
+    <string name="userName">Nom :</string>
+    <string name="userSurname">Prénom :</string>
+    <string name="userMail">Courriel :</string>
+    <string name="userTel">Téléphone :</string>
+    <string name="userAddr">Adresse :</string>
+    <string name="userCp">Code postale :</string>
+    <string name="userCity">Ville :</string>
+    <string name="userProv">Province :</string>
+    <string name="userPw">Mot de passe :</string>
+    <string name="userConfPw">Confirmer le mot de passe :</string>
+
+    <string name="userConnectLibelle">Veuillez entrer votre courriel et mot de passe pour continuer</string>
+
+    <string name="userMenuEditCoord">Modifier ses coordonnées</string>
+    <string name="userMenuEditPW">Modifier son mot de passe</string>
+    <string name="userMenuEna2FA">Authentifiaction à double facteur</string>
+    <string name="userMenuHistoryCommand">Historique des commandes</string>
+    <string name="userMenuHystoryRepair">Historique des réparations</string>
+    <string name="userMenuDisconnect">Se déconnecter</string>
+
+    <string name="userEditPWOld">Ancien mot de passe :</string>
+    <string name="userEditPWNew">Nouveau mot de passe :</string>
+    <string name="userEditPWConf">Confirmer le mot de passe :</string>
+
+    <string name="btnConf">Confirmer</string>
+    <string name="btnConnect">Se Connecter</string>
+    <string name="btnCancel">Annuler</string>
+
+
+
 </resources>
