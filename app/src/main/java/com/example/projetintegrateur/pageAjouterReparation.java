@@ -58,8 +58,17 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
             return insets;
         });
         initWidget();
-        preparerDb();
+        loadFromDbToMemory();
         preparerSpinnerStatus();
+
+        idReparation = getIntent().getIntExtra("idReparation", 0);
+        //idClient = getIntent().getIntExtra("idClient", 1);
+
+        //Si aucun idProduit, c'est l'admin qui en rajoute un nouveau
+        if (idReparation != 0) {
+            //viewProduit();
+            viewReparationAdmin();
+        }
     }
     private void initWidget() {
         buttonRetour = (Button) findViewById(R.id.buttonRetour);
@@ -94,13 +103,14 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
                 nouvelleReparation.setDescription(editDescription.getText().toString());
                 nouvelleReparation.setIdStatus(spinnerStatus.getSelectedItemPosition());
 
-                //sqLiteManager.ajouterReparationDatabase(sqLiteDatabase, nouvelleReparation);
+                sqLiteManager.ajouterReparationDatabase(sqLiteDatabase, nouvelleReparation);
                 Intent intent = new Intent(pageAjouterReparation.this, pageReparation.class);
                 startActivity(intent);
             }
         }
         else if (v.getId() == R.id.buttonModifier) {
             updaterReparation();
+            startActivity(new Intent(pageAjouterReparation.this, pageReparation.class));
         }
     }
     public void preparerSpinnerStatus() {
@@ -110,17 +120,40 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
     private void showDialog(){
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.popup_produit);
+        TextView popUpText = (TextView)dialog.findViewById(R.id.popUpText);
+        popUpText.setText("Les champs ne sont pas tous rempli");
         dialog.show();
+
 
         Button buttonOK;
     }
-    public void preparerDb(){
+    public void  loadFromDbToMemory(){
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteDatabase = sqLiteManager.getReadableDatabase();
+        sqLiteManager.populateCategorieListArray();
+        sqLiteManager.populateReparationListArray();
     }
 
     private void viewReparation(){
         Reparation reparation = Reparation.getReparationById(idReparation);
+        buttonAjouterReparation.setVisibility(View.INVISIBLE);
+        buttonAjouterReparation.setEnabled(false);
+
+
+        editNom.setVisibility(View.GONE);
+        viewNom.setVisibility(View.VISIBLE);
+        viewNom.setText(reparation.getNom());
+
+        spinnerStatus.setVisibility(View.GONE);
+        viewStatus.setVisibility(View.VISIBLE);
+        viewStatus.setText(Categorie.getCategorieById(reparation.getIdStatus()).toString());
+
+        editDescription.setVisibility(View.GONE);
+        viewDescription.setVisibility(View.VISIBLE);
+        viewDescription.setText(reparation.getDescription());
+
+
+        /*Reparation reparation = Reparation.getReparationById(idReparation);
         buttonAjouterReparation.setVisibility(View.INVISIBLE);
         buttonAjouterReparation.setEnabled(false);
 
@@ -134,7 +167,7 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
 
         spinnerStatus.setVisibility(View.GONE);
         viewStatus.setVisibility(View.VISIBLE);
-        viewStatus.setText(Status.getStatusById(reparation.getIdStatus()).toString());
+        viewStatus.setText(Status.getStatusById(reparation.getIdStatus()).toString());*/
 
     }
 
@@ -148,30 +181,33 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
         buttonAjouterReparation.setEnabled(false);
         buttonModifier.setVisibility(View.VISIBLE);
         buttonModifier.setEnabled(true);
+
+        /*Reparation reparation = Reparation.getReparationById(idReparation);
+        editNom.setHint(reparation.getNom());
+        spinnerStatus.setSelection(reparation.getIdStatus());
+        editDescription.setHint(reparation.getDescription());
+
+        buttonAjouterReparation.setVisibility(View.INVISIBLE);
+        buttonAjouterReparation.setEnabled(false);
+        buttonModifier.setVisibility(View.VISIBLE);
+        buttonModifier.setEnabled(true);*/
     }
 
     private void updaterReparation(){
         Reparation vieuxReparation = Reparation.getReparationById(idReparation);
-
-        if (!editNom.getText().toString().isEmpty() || !editDescription.getText().toString().isEmpty()|| spinnerStatus.getSelectedItemPosition() != vieuxReparation.getIdStatus()) {
+        int idStatus;
+        if (!editNom.getText().toString().isEmpty() || !editDescription.getText().toString().isEmpty() || spinnerStatus.getSelectedItemPosition() != vieuxReparation.getIdStatus()) {
             Reparation reparationUpdate = new Reparation();
             reparationUpdate.setId(vieuxReparation.getId());
-            //Nom
-            if (editNom.getText().toString().isEmpty()) {reparationUpdate.setNom(vieuxReparation.getNom());}
-            else {reparationUpdate.setNom(editNom.getText().toString());}
-            //Description
-            if (editDescription.getText().toString().isEmpty()) {reparationUpdate.setDescription(vieuxReparation.getDescription());}
-            else {reparationUpdate.setDescription(editDescription.getText().toString());}
-            //Status
-            if (spinnerStatus.getSelectedItemPosition() == vieuxReparation.getIdStatus()) {vieuxReparation.setIdStatus(vieuxReparation.getIdStatus());}
-            else {reparationUpdate.setIdStatus(spinnerStatus.getSelectedItemPosition());}
+        //Status
+        if (spinnerStatus.getSelectedItemPosition() == vieuxReparation.getIdStatus()) {idStatus = vieuxReparation.getIdStatus();}
+        else {idStatus = spinnerStatus.getSelectedItemPosition();}
 
-            //sqLiteManager.updaterReparationDatabase(sqLiteDatabase, reparationUpdate);
+        sqLiteManager.updaterReparationDatabase(sqLiteDatabase, reparationUpdate);
+        buttonRetour.performClick();
+            sqLiteManager.updaterReparationDatabase(sqLiteDatabase, reparationUpdate);
             Intent intent = new Intent(pageAjouterReparation.this, pageReparation.class);
             startActivity(intent);
-        }
-        else{
-            showDialog();
         }
     }
     public void bInit(View v){

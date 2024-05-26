@@ -34,6 +34,9 @@
     <string name="showQuantite">Quantité : </string>
     <string name="showTotal">Total : </string>
 
+    <string name="popUpText"></string>
+
+    <string name="hintID"><font size ="13">ID</font></string>
     <string name="hintMin"><font size ="13">Minimum</font></string>
     <string name="hintMax"><font size ="13">Maximum</font></string>
 </resources>

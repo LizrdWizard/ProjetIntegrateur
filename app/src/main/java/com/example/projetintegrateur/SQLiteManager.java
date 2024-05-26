@@ -144,7 +144,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append("));");
         sqLiteDatabase.execSQL(sql.toString());
 
-        ajouterReparationDatabase(sqLiteDatabase, new Reparation(1, "Jean guy", "sa marche pas", 2, 1));
+        ajouterReparationDatabase(sqLiteDatabase, new Reparation(1, "TestNom", "TestDesc", 2, 1));
 
         //Table produits
         sql = new StringBuilder()

@@ -49,11 +49,17 @@ public class ReparationAdapter extends ArrayAdapter<Reparation> implements View.
         TextView ID = convertView.findViewById(R.id.rowID);
         TextView Status = convertView.findViewById(R.id.rowStatus);
 
-        nom.setText(this.reparation.getNom());
-        description.setText(this.reparation.getDescription());
-        ID.setText(this.reparation.getNom());
-        Status.setText(this.reparation.getDescription());
+        String idString = String.valueOf(reparation.getId());
 
+        nom.setText(reparation.getNom());
+        description.setText(reparation.getDescription());
+        ID.setText(idString);
+        if (reparation.getIdStatus() == 0)
+            Status.setText("Pas commencée");
+        else if (reparation.getIdStatus() == 1)
+            Status.setText("En cours");
+        else if(reparation.getIdStatus() == 2)
+            Status.setText("Terminée");
         return convertView;
     }
 
@@ -62,7 +68,7 @@ public class ReparationAdapter extends ArrayAdapter<Reparation> implements View.
 
         if (v.getId() == R.id.rowReparation) {
             Intent intent = new Intent(v.getContext(), pageReparation.class);
-            intent.putExtra("id", this.reparation.getId());
+            intent.putExtra("idReparation", this.reparation.getId());
             v.getContext().startActivity(intent);
         }
     }

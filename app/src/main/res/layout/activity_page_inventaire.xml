@@ -91,7 +91,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:background="@drawable/round_style">
+                        android:theme="@style/textWhite">
 
                         <TextView
                             android:layout_width="wrap_content"
