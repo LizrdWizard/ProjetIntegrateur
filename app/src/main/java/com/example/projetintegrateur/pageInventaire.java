@@ -22,11 +22,14 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class pageInventaire extends AppCompatActivity implements View.OnClickListener {
+    TextView textHeader;
     ListView produitsView;
     EditText editMax;
     EditText editMin;
@@ -57,6 +60,9 @@ public class pageInventaire extends AppCompatActivity implements View.OnClickLis
         buttonFiltrer = findViewById(R.id.bouttonFiltrer);
         buttonAjouterProduit.setOnClickListener(this);
         buttonFiltrer.setOnClickListener(this);
+
+        textHeader = findViewById(R.id.textHeader);
+        textHeader.setText(R.string.pageInventaire);
     }
     private void loadFromDBToMemory() {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);

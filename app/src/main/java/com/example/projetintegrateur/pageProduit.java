@@ -52,6 +52,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     Button buttonGallerie;
     Button buttonAjouterProduit;
     Button buttonModifier;
+    Button buttonAjouterPanier;
     EditText editPrix;
     EditText editNom;
     EditText editDescription;
@@ -89,8 +90,9 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         //Si aucun idProduit, c'est l'admin qui en rajoute un nouveau
         if (idProduit != 0) {
-            //viewProduit();
-            viewProduitAdmin();
+            viewProduit();
+            //viewProduitAdmin();
+            textHeader.setText(R.string.pageModifierProduit);
         }
         /*
         //si idProduit != 0, c'est quelqu'un qui a cliqué sur le ListView
@@ -98,36 +100,43 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             //(idClient == 0) == admin
             if (idClient == 0) {
                 viewProduitAdmin();
+                textHeader.setText("R.string.pageModifierProduit");
             }
             //(idClient != 0) == client
             else {
                 viewProduit();
+                textHeader.setText("R.string.pageVoirProduit");
             }
         }
         //Si on a passé les conditions du dernier if, ça veut dire que c'est l'admin qui a appuyé sur buttonAjouterProduit
+        else {
+            textHeader.setText("R.string.pageAjouterProduit");
+        }
         */
     }
     private void initWidget() {
-        buttonRetour = (Button) findViewById(R.id.buttonRetour);
-        buttonPhoto = (Button) findViewById(R.id.buttonPhoto);
-        buttonAjouterProduit = (Button) findViewById(R.id.buttonProduit);
-        buttonGallerie = (Button) findViewById(R.id.buttonGallery);
-        buttonModifier = (Button) findViewById(R.id.buttonModifier);
-        editPrix = (EditText) findViewById(R.id.editPrix);
-        editNom = (EditText) findViewById(R.id.editNom);
-        editQuantite = (EditText) findViewById(R.id.editQuantite);
-        editDescription = (EditText) findViewById(R.id.editDescription);
-        spinnerCategorie = (Spinner) findViewById(R.id.spinnerCategorie);
-        imageProduit = (ImageView) findViewById(R.id.imageProduit);
-        viewNom = (TextView) findViewById(R.id.viewNom);
-        viewPrix = (TextView) findViewById(R.id.viewPrix);
-        viewCategorie = (TextView) findViewById(R.id.viewCategorie);
-        viewDescription = (TextView) findViewById(R.id.viewDescription);
-        viewQuantite = (TextView) findViewById(R.id.viewQuantite);
+        buttonRetour = findViewById(R.id.buttonRetour);
+        buttonPhoto = findViewById(R.id.buttonPhoto);
+        buttonAjouterProduit = findViewById(R.id.buttonProduit);
+        buttonAjouterPanier = findViewById(R.id.buttonAjouterPanier);
+        buttonGallerie = findViewById(R.id.buttonGallery);
+        buttonModifier =  findViewById(R.id.buttonModifier);
+        editPrix = findViewById(R.id.editPrix);
+        editNom = findViewById(R.id.editNom);
+        editQuantite = findViewById(R.id.editQuantite);
+        editDescription = findViewById(R.id.editDescription);
+        spinnerCategorie = findViewById(R.id.spinnerCategorie);
+        imageProduit = findViewById(R.id.imageProduit);
+        viewNom = findViewById(R.id.viewNom);
+        viewPrix = findViewById(R.id.viewPrix);
+        viewCategorie = findViewById(R.id.viewCategorie);
+        viewDescription = findViewById(R.id.viewDescription);
+        viewQuantite = findViewById(R.id.viewQuantite);
 
         buttonRetour.setOnClickListener(this);
         buttonPhoto.setOnClickListener(this);
         buttonAjouterProduit.setOnClickListener(this);
+        buttonAjouterPanier.setOnClickListener(this);
         buttonModifier.setOnClickListener(this);
     }
     @Override
@@ -147,6 +156,14 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         else if (v.getId() == R.id.buttonModifier) {
             updaterProduit();
             startActivity(new Intent(pageProduit.this, pageInventaire.class));
+        }
+        else if(v.getId() == R.id.buttonAjouterPanier) {
+            /*
+            ProduitCommande nouveauProduitCommande = new ProduitCommande();
+            nouveauProduitCommande.setIdProduit(idProduit);
+            nouveauProduitCommande.setIdClient(Bright.getIdClient());
+            sqLiteManager.ajouterProduitCommandeDatabase(sqLiteDatabase, nouveauProduitCommande);
+            */
         }
     }
     public void preparerSpinnerCategorie() {
@@ -234,9 +251,10 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     }
     private void viewProduit(){
         Produit produit = Produit.getProduitById(idProduit);
-        buttonAjouterProduit.setVisibility(View.INVISIBLE);
-        buttonPhoto.setVisibility(View.INVISIBLE);
-        buttonGallerie.setVisibility(View.INVISIBLE);
+        buttonAjouterProduit.setVisibility(View.GONE);
+        buttonPhoto.setVisibility(View.GONE);
+        buttonGallerie.setVisibility(View.GONE);
+        buttonAjouterPanier.setVisibility(View.VISIBLE);
         buttonAjouterProduit.setEnabled(false);
         buttonPhoto.setEnabled(false);
         buttonGallerie.setEnabled(false);
@@ -251,7 +269,8 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         spinnerCategorie.setVisibility(View.GONE);
         viewCategorie.setVisibility(View.VISIBLE);
-        viewCategorie.setText(Categorie.getCategorieById(produit.getIdCategorie()).toString());
+        viewCategorie.setText("test");
+        //viewCategorie.setText(Categorie.getCategorieById(produit.getIdCategorie()).toString());
 
         editDescription.setVisibility(View.GONE);
         viewDescription.setVisibility(View.VISIBLE);
@@ -268,11 +287,12 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         editPrix.setHint(String.valueOf(produit.getPrix()));
         editNom.setHint(produit.getNom());
         spinnerCategorie.setSelection(produit.getIdCategorie());
+
         editDescription.setHint(produit.getDescription());
         editQuantite.setHint(String.valueOf(produit.getQuantite()));
         imageProduit.setImageBitmap(produit.getPhoto());
 
-        buttonAjouterProduit.setVisibility(View.INVISIBLE);
+        buttonAjouterProduit.setVisibility(View.GONE);
         buttonAjouterProduit.setEnabled(false);
         buttonModifier.setVisibility(View.VISIBLE);
         buttonModifier.setEnabled(true);
