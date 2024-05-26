@@ -100,7 +100,6 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
                     startActivity(intent);
                 }
 
-
             }
         }
     }

@@ -29,7 +29,7 @@ public class pageMain extends AppCompatActivity {
             return insets;
         });
 
-        Intent intent = new Intent(pageMain.this, pageCompteConnection.class);
+        Intent intent = new Intent(pageMain.this, pageCompteCreation.class);
         startActivity(intent);
     }
 }

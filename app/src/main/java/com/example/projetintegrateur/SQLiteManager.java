@@ -49,18 +49,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         StringBuilder sql;
-        //Table programmes
-        sql = new StringBuilder()
-                .append("CREATE TABLE ")
-                .append(CAT_TABLE_NAME)
-                .append("(")
-                .append(COUNTER)
-                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
-                .append(ID_FIELD)
-                .append(" TEXT, ")
-                .append(NOM_FIELD)
-                .append(" TEXT, ");
-        sqLiteDatabase.execSQL(sql.toString());
 
         //Create Ville Table
         sql = new StringBuilder()
@@ -73,13 +61,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
 
-        insertVille(new Ville(1, "Sherbrooke"));
-        insertVille(new Ville(2, "Magog"));
-        insertVille(new Ville(3, "Drummondville"));
-        insertVille(new Ville(4, "Montréal"));
-        insertVille(new Ville(5, "Toronto"));
-        insertVille(new Ville(6, "Ottawa"));
-        insertVille(new Ville(7, "Kingston"));
+        insertVille(sqLiteDatabase, new Ville(1, "Sherbrooke"));
+        insertVille(sqLiteDatabase, new Ville(2, "Magog"));
+        insertVille(sqLiteDatabase, new Ville(3, "Drummondville"));
+        insertVille(sqLiteDatabase, new Ville(4, "Montréal"));
+        insertVille(sqLiteDatabase, new Ville(5, "Toronto"));
+        insertVille(sqLiteDatabase, new Ville(6, "Ottawa"));
+        insertVille(sqLiteDatabase, new Ville(7, "Kingston"));
 
         //Create Province Table
         sql = new StringBuilder()
@@ -92,8 +80,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
 
-        insertProvince(new Province(1, "Québec"));
-        insertProvince(new Province(2, "Ontario"));
+        insertProvince(sqLiteDatabase, new Province(1, "Québec"));
+        insertProvince(sqLiteDatabase, new Province(2, "Ontario"));
 
         //Create ProvinceVille Table
         sql = new StringBuilder()
@@ -106,14 +94,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" INT)");
         sqLiteDatabase.execSQL(sql.toString());
 
-        insertProvinceVille(1, 1);
-        insertProvinceVille(2, 1);
-        insertProvinceVille(3, 1);
-        insertProvinceVille(4, 1);
+        insertProvinceVille(sqLiteDatabase, 1, 1);
+        insertProvinceVille(sqLiteDatabase, 2, 1);
+        insertProvinceVille(sqLiteDatabase, 3, 1);
+        insertProvinceVille(sqLiteDatabase, 4, 1);
 
-        insertProvinceVille(5, 2);
-        insertProvinceVille(6, 2);
-        insertProvinceVille(7, 2);
+        insertProvinceVille(sqLiteDatabase, 5, 2);
+        insertProvinceVille(sqLiteDatabase, 6, 2);
+        insertProvinceVille(sqLiteDatabase, 7, 2);
 
         //Create User Table
         sql = new StringBuilder()
@@ -151,41 +139,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         //Peut ajouter des choses içi
     }
 
-    public void ajouterCategorieDatabase(SQLiteDatabase database, Categorie categorie) {
-        if (database == null) {
-            database = this.getWritableDatabase();
-        }
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_FIELD, categorie.getId());
-        contentValues.put(NOM_FIELD, categorie.getNom());
-
-        database.insert(CAT_TABLE_NAME, null, contentValues);
-    }
-
-    public void populateCategorieListeArray() {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-
-        Categorie.categorieArrayList.clear();
-
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + CAT_TABLE_NAME, null)) {
-            if (result.getCount() != 0) {
-                while (result.moveToNext()) {
-                    int id = result.getInt(1);
-                    String nom = result.getString(2);
-                    String description = result.getString(3);
-                    Categorie categorie = new Categorie(id, nom);
-                    Categorie.categorieArrayList.add(categorie);
-                }
-            }
-        }
-    }
-
-    public void insertProvince(Province province)
+    public void insertProvince(SQLiteDatabase database, Province province)
     {
-        SQLiteDatabase database = this.getReadableDatabase();
-
-
         if (database == null) {
             database = this.getWritableDatabase();
         }
@@ -196,26 +151,19 @@ public class SQLiteManager extends SQLiteOpenHelper {
         database.insert(PROV_TABLE_NAME, null, contentValues);
     }
 
-    public void insertVille(Ville ville)
+    public void insertVille(SQLiteDatabase database, Ville ville)
     {
-        SQLiteDatabase database = this.getReadableDatabase();
-
-
         if (database == null) {
             database = this.getWritableDatabase();
         }
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(LIBELLE_FIELD, ville.getLibelle());
 
         database.insert(VILLE_TABLE_NAME, null, contentValues);
     }
 
-    public void insertProvinceVille(int idVille, int idProvince)
+    public void insertProvinceVille(SQLiteDatabase database, int idVille, int idProvince)
     {
-        SQLiteDatabase database = this.getReadableDatabase();
-
-
         if (database == null) {
             database = this.getWritableDatabase();
         }
@@ -238,8 +186,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         try (Cursor result = database.rawQuery("SELECT * FROM " + VILLE_TABLE_NAME, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    int id = result.getInt(1);
-                    String libelle = result.getString(2);
+                    int id = result.getInt(0);
+                    String libelle = result.getString(1);
                     Ville ville = new Ville(id, libelle);
 
                     Ville.villeArrayList.add(ville);
@@ -257,8 +205,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         try (Cursor result = database.rawQuery("SELECT * FROM " + PROV_TABLE_NAME, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    int id = result.getInt(1);
-                    String libelle = result.getString(2);
+                    int id = result.getInt(0);
+                    String libelle = result.getString(1);
                     Province province = new Province(id, libelle);
 
                     Province.provinceArrayList.add(province);
@@ -274,7 +222,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 {
                     while (result.moveToNext())
                     {
-                        int idVille = result.getInt(2);
+                        int idVille = result.getInt(1);
 
                         int index = 0;
                         boolean found = false;
@@ -302,12 +250,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public void insertUser(User user)
     {
-        SQLiteDatabase database = this.getReadableDatabase();
-
-
-        if (database == null) {
-            database = this.getWritableDatabase();
-        }
+        SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(NOM_FIELD, user.getNom());
@@ -334,7 +277,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         try (Cursor result = database.rawQuery("SELECT id FROM " + USER_TABLE_NAME + " WHERE mail = " + mail + " AND pw = " + pw, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    User.currentUserID = result.getInt(1);
+                    User.currentUserID = result.getInt(0);
                 }
             }
             else
@@ -352,11 +295,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public void updateUser(User user)
     {
-        SQLiteDatabase database = this.getReadableDatabase();
-
-        if (database == null) {
-            database = this.getWritableDatabase();
-        }
+        SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(NOM_FIELD, user.getNom());
@@ -374,14 +313,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public void updateUserPW(String oldpw, String newpw)
     {
-        SQLiteDatabase database = this.getReadableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
 
         int code = 0;
 
         try (Cursor result = database.rawQuery("SELECT pw FROM " + USER_TABLE_NAME + " WHERE id = " + User.currentUserID, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    if(!Objects.equals(result.getString(1), oldpw))
+                    if(!Objects.equals(result.getString(0), oldpw))
                     {
                         code = 1; //password does not match
                     }
@@ -408,17 +347,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
 
-                    users.add(new User(result.getInt(1),
+                    users.add(new User(result.getInt(0),
+                            result.getString(1),
                             result.getString(2),
                             result.getString(3),
                             result.getString(4),
                             result.getString(5),
                             result.getString(6),
-                            result.getString(7),
+                            result.getInt(7),
                             result.getInt(8),
-                            result.getInt(9),
-                            result.getString(10),
-                            result.getInt(11)));
+                            result.getString(9),
+                            result.getInt(10)));
 
                 }
             }
@@ -436,17 +375,17 @@ public class SQLiteManager extends SQLiteOpenHelper {
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE_NAME + " WHERE id = " + id, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    output = new User(result.getInt(1),
+                    output = new User(result.getInt(0),
+                            result.getString(1),
                             result.getString(2),
                             result.getString(3),
                             result.getString(4),
                             result.getString(5),
                             result.getString(6),
-                            result.getString(7),
+                            result.getInt(7),
                             result.getInt(8),
-                            result.getInt(9),
-                            result.getString(10),
-                            result.getInt(11));
+                            result.getString(9),
+                            result.getInt(10));
 
                 }
             }
@@ -464,7 +403,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + PROV_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = " + libelle, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    output = result.getInt(1);
+                    output = result.getInt(0);
                 }
             }
         }
@@ -481,7 +420,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + VILLE_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = " + libelle, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
-                    output = result.getInt(1);
+                    output = result.getInt(0);
                 }
             }
         }

@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 public class pageCompteCreation extends AppCompatActivity implements View.OnClickListener {
 
-    public int currentProv;
-    public int currentCity;
+    public String currentProv;
+    public String currentCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
         provSpin.setAdapter(provAdapter);
 
         Spinner villeSpin = (Spinner) findViewById(R.id.accCrea_spin_city);
-        ArrayAdapter<String> villeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, cityNames.get(0));
+        ArrayAdapter<String> villeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
 
 
         provSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -76,22 +76,27 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                    villeAdapter.clear();
-                    villeAdapter.addAll(cityNames.get(position));
-                    villeSpin.setAdapter(villeAdapter);
+                villeSpin.setAdapter(null);
 
-                    currentProv = position;
+                villeAdapter.clear();
+                villeAdapter.addAll(cityNames.get(position));
+                villeSpin.setAdapter(villeAdapter);
+
+                currentProv = parent.getSelectedItem().toString();
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+                villeSpin.setAdapter(null);
+
                 parent.setSelection(0);
                 villeAdapter.clear();
                 villeAdapter.addAll(cityNames.get(0));
                 villeSpin.setAdapter(villeAdapter);
 
-                currentProv = 0;
+                currentProv = parent.getSelectedItem().toString();
             }
 
         });
@@ -101,14 +106,14 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                currentCity = position;
+                currentCity = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 parent.setSelection(0);
 
-                currentCity = 0;
+                currentCity = parent.getSelectedItem().toString();
             }
 
         });
@@ -179,6 +184,8 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
 
             if(code == 0)
             {
+                SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+
                 //insert into db
                 User user = new User(0,
                         name.toString(),
@@ -187,12 +194,11 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
                         tel.toString(),
                         addr.toString(),
                         cp.toString(),
-                        currentCity,
-                        currentProv,
+                        sqLiteManager.getVilleIdByName(currentCity),
+                        sqLiteManager.getProvinceIdByName(currentProv),
                         pw.toString(),
                         0);
 
-                SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
                 sqLiteManager.insertUser(user);
 
                 //redirect to connect
@@ -205,9 +211,10 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
 
     private void loadFromDBToMemory()
     {
-        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
-        sqLiteManager.populateProvListArray();
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(getApplicationContext());
+
         sqLiteManager.populateVilleListArray();
+        sqLiteManager.populateProvListArray();
     }
 
 

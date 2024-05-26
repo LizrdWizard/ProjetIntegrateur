@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 public class pageCompteEditCoord extends AppCompatActivity implements View.OnClickListener{
 
-    public int currentProv;
-    public int currentCity;
+    public String currentProv;
+    public String currentCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,22 +75,26 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                villeSpin.setAdapter(null);
+
                 villeAdapter.clear();
                 villeAdapter.addAll(cityNames.get(position));
                 villeSpin.setAdapter(villeAdapter);
 
-                currentProv = position;
+                currentProv = parent.getSelectedItem().toString();
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                villeSpin.setAdapter(null);
+
                 parent.setSelection(0);
                 villeAdapter.clear();
                 villeAdapter.addAll(cityNames.get(0));
                 villeSpin.setAdapter(villeAdapter);
 
-                currentProv = 0;
+                currentProv = parent.getSelectedItem().toString();
             }
 
         });
@@ -100,14 +104,14 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                currentCity = position;
+                currentCity = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 parent.setSelection(0);
 
-                currentCity = 0;
+                currentCity = parent.getSelectedItem().toString();
             }
 
         });
@@ -167,6 +171,8 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
 
             if(code == 0)
             {
+                SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+
                 User user = new User(0,
                         name.toString(),
                         surname.toString(),
@@ -174,12 +180,11 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
                         tel.toString(),
                         addr.toString(),
                         cp.toString(),
-                        currentCity,
-                        currentProv,
+                        sqLiteManager.getVilleIdByName(currentCity),
+                        sqLiteManager.getProvinceIdByName(currentProv),
                         "",
                         0);
 
-                SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
                 sqLiteManager.updateUser(user);
 
                 finish();
