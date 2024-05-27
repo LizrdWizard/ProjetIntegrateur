@@ -7,11 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".pageInventaire">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,23 +16,24 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="602dp"
-                android:orientation="vertical">
+                android:layout_height="734dp"
+                android:orientation="vertical"
+                android:background="@color/maroon">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="7dp">
 
                     <LinearLayout
                         android:layout_width="280dp"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="10dp">
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
+                            android:layout_height="45dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -46,30 +42,37 @@
                                 android:text="@string/showCategorie"
                                 android:textAlignment="textEnd"
                                 android:layout_gravity="center_vertical"
-                                tools:ignore="RtlCompat">
+                                android:theme="@style/textWhite"
+                                android:paddingStart="5dp"
+                                tools:ignore="RtlCompat,RtlSymmetry">
                             </TextView>
 
                             <Spinner
-                                android:layout_width="150dp"
+                                android:id="@+id/spinnerCategorie"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginStart="20dp">
-                            </Spinner>
+                                android:paddingStart="40dp"
+                                android:paddingEnd="5dp"
+                                android:layout_marginStart="15dp"
+                                android:background="@drawable/style_spinner"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
+                            android:layout_height="45dp"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/showInventaire"
-                                android:textAlignment="textEnd"
+                                android:textAlignment="center"
                                 android:layout_gravity="center_vertical"
-                                tools:ignore="RtlCompat">
+                                android:theme="@style/textWhite"
+                                android:paddingStart="5dp"
+                                tools:ignore="RtlCompat,RtlSymmetry">
                             </TextView>
 
                             <CheckBox
@@ -77,21 +80,26 @@
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:layout_marginStart="20dp" />
+                                android:layout_marginStart="15dp"
+                                android:buttonTint="@color/cyan"
+                                tools:ignore="RtlHardcoded" />
 
                         </LinearLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:theme="@style/textWhite">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:text="@string/showPrix"
-                            android:layout_gravity="center_horizontal">
+                            android:layout_gravity="center_horizontal"
+                            android:theme="@style/textWhite">
                         </TextView>
 
                         <EditText
@@ -100,7 +108,11 @@
                             android:layout_height="38dp"
                             android:ems="10"
                             android:inputType="number"
-                            android:layout_gravity="center_horizontal"/>
+                            android:layout_gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:hint="@string/hintMin"
+                            android:textColorHint="@color/offWhite"
+                            android:textColor="@color/white"/>
 
                         <EditText
                             android:id="@+id/editMax"
@@ -108,17 +120,54 @@
                             android:layout_height="38dp"
                             android:ems="10"
                             android:inputType="number"
-                            android:layout_gravity="center_horizontal"/>
+                            android:layout_gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:hint="@string/hintMax"
+                            android:textColorHint="@color/offWhite"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp">
+
+                    <Button
+                        android:id="@+id/bouttonAjouterProduit"
+                        android:layout_width="160dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="30dp"
+                        android:text="@string/bouttonAjouterProduit"
+                        android:textColor="@null"
+                        android:theme="@style/bouttonLight"
+                        style="?android:attr/buttonBarButtonStyle" />
+
+                    <Button
+                        android:id="@+id/bouttonFiltrer"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="60dp"
+                        android:text="@string/bouttonFiltrer"
+                        android:textColor="@null"
+                        android:theme="@style/bouttonLight"
+                        style="?android:attr/buttonBarButtonStyle"/>
+
+                </LinearLayout>
+
                 <ListView
                     android:id="@+id/listInventaire"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    android:layout_width="385dp"
+                    android:layout_height="450dp"
+                    android:dividerHeight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="true">
                 </ListView>
 
             </LinearLayout>
@@ -126,6 +175,5 @@
             <include layout="@layout/page_footer"/>
 
         </LinearLayout>
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

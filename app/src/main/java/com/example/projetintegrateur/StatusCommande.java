@@ -1,7 +1,7 @@
 /****************************************
- Fichier : Catégorie
- Auteur : Jasmin Dubuc
- Fonctionnalité : Page qui décrit la classe Catégorie, à lier avec la classe Produit et à utiliser avec la database
+ Fichier : Status
+ Auteur : Yassine Adibe
+ Fonctionnalité : Page qui décrit la classe Status, à lier avec la classe Reparation et à utiliser avec la database
  Date : 2024-08-03
 
  Vérification :
@@ -15,13 +15,13 @@
 package com.example.projetintegrateur;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class Categorie {
-    public static ArrayList<Categorie> categorieArrayList = new ArrayList<>();
+public class StatusCommande {
+    public static ArrayList<StatusCommande> statusCommandeArrayList = new ArrayList<>();
     private int id;
     private String nom;
-    public Categorie(int id, String nom) {
+
+    public StatusCommande(int id, String nom) {
         this.id = id;
         this.nom = nom;
     }
@@ -33,11 +33,13 @@ public class Categorie {
     public String toString() {
         return this.nom;
     }
-    public static Categorie getCategorieById(int idCategorie) {
-        for (Categorie categorie : categorieArrayList) {
-            if (categorie.getId() == idCategorie)
-                return categorie;
+
+    public static StatusCommande getStatusCommandeById(int idStatusCommande) {
+        for (StatusCommande statusCommande : statusCommandeArrayList) {
+            if (statusCommande.getId() == idStatusCommande)
+                return statusCommande;
         }
         return null;
     }
+    public static int statusCommandeSize() {return statusCommandeArrayList.size();}
 }

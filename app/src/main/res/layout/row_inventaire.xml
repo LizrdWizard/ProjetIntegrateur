@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="@drawable/round_style"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/rowImage"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp">
+        </ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/rowNom"
+                    android:layout_width="245dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/showNom"
+                    android:theme="@style/textWhite"
+                    android:textStyle="bold">
+                </TextView>
+
+                <Button
+                    android:id="@+id/buttonAjouter"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_button_add"
+                    android:visibility="visible"
+                    tools:ignore="RtlSymmetry" />
+
+                <Button
+                    android:id="@+id/buttonEnlever"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_button_enlever"
+                    android:visibility="gone"
+                    tools:ignore="RtlSymmetry" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/rowDescription"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:text="@string/showDescription"
+                android:maxLines="2"
+                android:textSize="13sp"
+                android:textColor="@color/white">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="3dp">
+
+                <TextView
+                    android:id="@+id/rowMontant"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/showPrix"
+                    android:textSize="14sp"
+                    android:textColor="@color/white">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/rowQuantite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:layout_marginStart="100dp"
+                    android:text="@string/showQuantite"
+                    android:textSize="14sp"
+                    android:textColor="@color/white">
+                </TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

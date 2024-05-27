@@ -127,7 +127,12 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/bouttonModifierReparation"></Button>
+                android:text="@string/bouttonModifierReparation"
+                android:textColor="@null"
+                android:theme="@style/bouttonLight">
+            </Button>
+
+
 
         </LinearLayout>
 

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pageProduit">
+    tools:context=".pageReparation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="602dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/maroon">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,13 +31,15 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:id="@+id/buttonRetour"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_margin="15dp"
                         android:text="@string/bouttonRetour"
                         android:textColor="@null"
-                        android:theme="@style/bouttonLight"></Button>
+                        android:theme="@style/bouttonLight"
+                        ></Button>
 
                 </LinearLayout>
 
@@ -57,35 +60,55 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/showSujet"
-                        android:textAlignment="textEnd"></TextView>
-
-                    <EditText
-                        android:id="@+id/editPrix"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:ems="10"
-                        android:inputType="numberDecimal"
-                        android:layout_marginLeft="20dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/showDate"
+                        android:theme="@style/textWhite"
                         android:textAlignment="textEnd"></TextView>
 
                     <EditText
                         android:id="@+id/editNom"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:ems="10"
                         android:inputType="text"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginStart="20dp"
+                        android:paddingStart="10dp"
+                        android:textColor="@null"
+                        android:theme="@style/textWhite"
+                        android:background="@drawable/round_style"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="RtlSymmetry" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/showEtat"
+                        android:textAlignment="textEnd"
+                        android:theme="@style/textWhite"
+                        tools:ignore="RtlCompat" />
+
+                    <Spinner
+                        android:id="@+id/spinnerStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="5dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/style_spinner"></Spinner>
+                    <TextView
+                        android:id="@+id/viewStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp">
+                    </TextView>
 
                 </LinearLayout>
 
@@ -100,6 +123,7 @@
                         android:text="@string/showDescription"
                         android:layout_gravity="start"
                         android:textAlignment="textEnd"
+                        android:theme="@style/textWhite"
                         tools:ignore="RtlCompat">
                     </TextView>
 
@@ -109,16 +133,40 @@
                         android:layout_height="100dp"
                         android:ems="10"
                         android:inputType="text"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginStart="20dp"
+                        android:lines="5"
+                        android:gravity="top|start"
+                        android:scrollbars="vertical"
+                        android:textColor="@null"
+                        android:theme="@style/textWhite"
+                        android:paddingStart="10dp"
+                        android:background="@drawable/round_style"
+                        tools:ignore="RtlSymmetry"/>
 
                 </LinearLayout>
             </LinearLayout>
 
             <Button
+                android:id="@+id/buttonReparation"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:text="@string/bouttonAjouterReparation"
                 android:layout_gravity="center"
-                android:text="@string/bouttonAjouterReparation"></Button>
+                android:textColor="@null"
+                android:theme="@style/bouttonLight"
+                style="?android:attr/buttonBarButtonStyle"></Button>
+
+            <Button
+                android:id="@+id/buttonModifier"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bouttonModifierReparation"
+                android:layout_gravity="center"
+                android:textColor="@null"
+                android:visibility="invisible"
+                android:enabled="false"
+                android:theme="@style/bouttonLight"
+                style="?android:attr/buttonBarButtonStyle"></Button>
 
         </LinearLayout>
 

@@ -5,20 +5,12 @@
     android:layout_height="80dp">
 
     <LinearLayout
+        android:id="@+id/rowReparation"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/rowImage"
-            android:layout_width="75dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp">
-        </ImageView>
+        tools:ignore="MissingConstraints"
+        android:background="@drawable/round_style">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +21,10 @@
                 android:id="@+id/rowNom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/showNom">
+                android:text="@string/showNom"
+                android:textColor="@color/white"
+                android:layout_marginTop="3dp"
+                android:textStyle="bold">
             </TextView>
 
             <TextView
@@ -37,7 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/showDescription"
-                android:layout_marginTop="3dp">
+                android:layout_marginTop="3dp"
+                android:textColor="@color/white"
+                android:maxLines="2">
             </TextView>
 
             <LinearLayout
@@ -47,19 +44,21 @@
                 android:layout_marginTop="3dp">
 
                 <TextView
-                    android:id="@+id/rowMontant"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/rowID"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="@string/showMax">
+                    android:textColor="@color/white"
+                    android:text="@string/showID">
                 </TextView>
 
                 <TextView
-                    android:id="@+id/rowQuantite"
+                    android:id="@+id/rowStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="end"
-                    android:layout_marginLeft="180dp"
-                    android:text="@string/showQuantite">
+                    android:layout_marginLeft="100dp"
+                    android:textColor="@color/white"
+                    android:text="@string/showEtat">
                 </TextView>
 
             </LinearLayout>

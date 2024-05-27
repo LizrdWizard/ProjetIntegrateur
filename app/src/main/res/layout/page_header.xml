@@ -18,24 +18,29 @@
             tools:ignore="MissingConstraints">
 
             <ImageButton
+
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp">
             </ImageButton>
 
             <TextView
+                android:id="@+id/textHeader"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:text="@string/pageInventaire"
                 android:textAlignment="center"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:textColor="@color/white"/>
 
             <ImageButton
+                android:id="@+id/butttonImage"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:gravity="right"
+                android:onClick="bRetour"
                 android:layout_marginStart="-15dp">
             </ImageButton>
 

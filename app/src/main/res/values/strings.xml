@@ -2,13 +2,22 @@
     <string name="app_name">ProjetIntegrateur</string>
     <string name="pageInventaire">Inventaire</string>
     <string name="pageAjouterProduit">Ajouter produit</string>
+    <string name="pageVoirProduit">Voir produit</string>
+    <string name="pageModifierProduit">Modifier produit</string>
 
-    <string name="bouttonImage">Sélectionner image</string>
+    <string name="OK">OK</string>
+    <string name="bouttonGallery">Sélectionner image</string>
     <string name="bouttonNouveauProduit">Ajouter nouveau produit</string>
     <string name="bouttonAjouterProduit">Ajouter produit</string>
-    <string name="bouttonAjouterReparation">Ajouter à la réparation</string>
+    <string name="bouttonAjouterPanier">Ajouter au panier</string>
+    <string name="bouttonAjouterReparation">Ajouter Réparation</string>
     <string name="bouttonModifierReparation">Modifier la réparation</string>
     <string name="bouttonRetour">Retour</string>
+    <string name="bouttonCommander">Commander</string>
+    <string name="bouttonFiltrer">Filtrer</string>
+    <string name="bouttonPhoto">Prendre photo</string>
+    <string name="bouttonModifier">Modifier produit</string>
+    <string name="bouttonConfirmerModificatino">Confirmer modification</string>
 
     <string name="showCategorie">Catégorie : </string>
     <string name="showInventaire">En inventaire : </string>
@@ -54,6 +63,11 @@
     <string name="btnConnect">Se Connecter</string>
     <string name="btnCancel">Annuler</string>
 
+    <string name="showTotal">Total : </string>
 
+    <string name="popUpText"></string>
 
+    <string name="hintID"><font size ="13">ID</font></string>
+    <string name="hintMin"><font size ="13">Minimum</font></string>
+    <string name="hintMax"><font size ="13">Maximum</font></string>
 </resources>
