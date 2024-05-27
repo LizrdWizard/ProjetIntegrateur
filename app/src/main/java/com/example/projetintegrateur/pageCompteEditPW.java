@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,9 +52,11 @@ public class pageCompteEditPW extends AppCompatActivity implements View.OnClickL
 
         Button cancelBtn = (Button) findViewById(R.id.accEditPw_btn_cancel);
         Button confBtn = (Button) findViewById(R.id.accEditPw_btn_conf);
+        ImageButton account = (ImageButton) findViewById(R.id.boutonFooter5);
 
         cancelBtn.setOnClickListener(this);
         confBtn.setOnClickListener(this);
+        account.setOnClickListener(this);
 
     }
 
@@ -102,6 +105,11 @@ public class pageCompteEditPW extends AppCompatActivity implements View.OnClickL
 
                 finish();
             }
+        }
+        else if(v.getId() == R.id.boutonFooter5)
+        {
+            Intent intent = intent = new Intent(pageCompteEditPW.this, pageCompteMenu.class);
+            startActivity(intent);
         }
     }
 }

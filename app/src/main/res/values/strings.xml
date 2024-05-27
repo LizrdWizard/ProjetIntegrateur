@@ -48,6 +48,8 @@
     <string name="userProv">Province :</string>
     <string name="userPw">Mot de passe :</string>
     <string name="userConfPw">Confirmer le mot de passe :</string>
+    <string name="userRedirect">Créer un compte</string>
+
 
     <string name="userConnectLibelle">Veuillez entrer votre courriel et mot de passe pour continuer</string>
 

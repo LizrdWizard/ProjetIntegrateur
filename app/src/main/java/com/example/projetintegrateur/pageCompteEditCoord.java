@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -133,9 +134,12 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
 
         Button cancelBtn = (Button) findViewById(R.id.accCrea_btn_cancel);
         Button confBtn = (Button) findViewById(R.id.accCrea_btn_conf);
+        ImageButton account = (ImageButton) findViewById(R.id.boutonFooter5);
 
         cancelBtn.setOnClickListener(this);
         confBtn.setOnClickListener(this);
+        account.setOnClickListener(this);
+
 
         EditText name = (EditText) findViewById(R.id.acc_txtin_name);
         EditText surname = (EditText) findViewById(R.id.acc_txtin_surname);
@@ -217,6 +221,11 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
 
                 finish();
             }
+        }
+        else if(v.getId() == R.id.boutonFooter5)
+        {
+            Intent intent = intent = new Intent(pageCompteEditCoord.this, pageCompteMenu.class);
+            startActivity(intent);
         }
     }
 
