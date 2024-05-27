@@ -10,6 +10,7 @@
     <string name="bouttonAjouterReparation">Ajouter Réparation</string>
     <string name="bouttonModifierReparation">Modifier la réparation</string>
     <string name="bouttonRetour">Retour</string>
+    <string name="bouttonEdit">Modifier</string>
     <string name="bouttonCommander">Commander</string>
     <string name="bouttonFiltrer">Filtrer</string>
     <string name="bouttonPhoto">Prendre photo</string>

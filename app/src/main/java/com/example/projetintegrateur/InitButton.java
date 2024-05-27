@@ -24,7 +24,7 @@ public class InitButton{
             intent = new Intent(c, pageCommande.class);
         }
         else if(R.id.boutonFooter5 == v.getId()){
-            // intent = new Intent(c, pageCommande.class);
+            intent = new Intent(c, pageCommandeAdmin.class);
         }
         c.startActivity(intent);
     }

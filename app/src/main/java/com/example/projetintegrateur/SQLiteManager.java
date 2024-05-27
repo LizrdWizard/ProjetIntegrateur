@@ -42,6 +42,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String COMMANDE_TABLE_NAME = "Commande";
     private static final String STATUSCOMMANDE_TABLE_NAME = "StatusCommande";
     private static final String PRODUITCLIENT_TABLE_NAME ="ProduitClient";
+    private static final String PRODUITCOMMANDE_TABLE_NAME = "ProduitCommande";
     //NOMS FIELDS
     private static final String ID_FIELD = "id";
     private static final String NOM_FIELD = "nom";
@@ -51,6 +52,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String PHOTO_FIELD = "photo";
     private static final String IDCATEGORIE_FIELD = "idCategorie";
     private static final String IDSTATUS_FIELD = "idStatus";
+    private static final String IDCOMMANDE_FIELD = "idStatus";
     private static final String IDPRODUIT_FIELD = "idProduit";
     private static final String DATEDEBUT_FIELD = "dateDebut";
     private static final String DATEFIN_FIELD = "dateFin";
@@ -66,7 +68,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public static SQLiteManager instanceOfDatabase(Context context) {
         //Pour reset
-        //context.deleteDatabase(DATABASE_NAME);
+        context.deleteDatabase(DATABASE_NAME);
         if (sqLiteManager == null) {
             sqLiteManager = new SQLiteManager(context);
         }
@@ -226,10 +228,26 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(NOM_FIELD)
                 .append(" TEXT );");
         sqLiteDatabase.execSQL(sql.toString());
+
+        //Table ProduitCommande
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(PRODUITCOMMANDE_TABLE_NAME)
+                .append("(")
+                .append(COUNTER)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(ID_FIELD)
+                .append(" INT, ")
+                .append(IDPRODUIT_FIELD)
+                .append(" INT, ")
+                .append(IDCOMMANDE_FIELD)
+                .append(" INT );");
+        sqLiteDatabase.execSQL(sql.toString());
+
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(1, "Pas commencée"));
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(2, "En cours"));
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(3, "Terminée"));
-        ajouterProduitDatabase(sqLiteDatabase, new Produit(1,"nom1",null,"machin",2,null,2));
+        ajouterProduitDatabase(sqLiteDatabase, new Produit(1,"nom1",654.321f,"machin",2,null,2));
     }
 
     @Override
@@ -485,8 +503,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(DATEDEBUT_FIELD, "commande.getDateDebut()");
         contentValues.put(DATEFIN_FIELD, "commande.getDateFin()");
         contentValues.put(DESCRIPTION_FIELD, commande.getDescription());
-        contentValues.put(PHOTO_FIELD, commande.getIdStatus());
-        contentValues.put(IDCATEGORIE_FIELD, commande.getIdClient());
+        contentValues.put(IDSTATUS_FIELD, commande.getIdStatus());
+        contentValues.put(IDCLIENT_FIELD, commande.getIdClient());
 
         database.insert(COMMANDE_TABLE_NAME, null, contentValues);
     }
@@ -506,6 +524,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                     int idClient = result.getInt(6);
                     Date dateDebut = getDateFromString(sDateDebut);
                     Date dateFin = getDateFromString(sDateFin);
+                    System.out.println(description +"salut tou le monde");
                     Commande.commandeArrayList.add(new Commande(id, dateDebut, dateFin, description, idStatus, idClient));
                 }
             }
@@ -525,5 +544,41 @@ public class SQLiteManager extends SQLiteOpenHelper {
             return null;
         }
     }
+    public void deleteProduitClient(String id) {
 
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // on below line we are calling a method to delete our
+        // course and we are comparing it with our course name.
+        db.delete(PRODUITCLIENT_TABLE_NAME, "id=?", new String[]{id});
+        db.close();
+    }
+    public void ajouterProduitCommandeDatabase(SQLiteDatabase database, ProduitCommande produitCommande) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID_FIELD, produitCommande.getId());
+        contentValues.put(IDPRODUIT_FIELD, produitCommande.getIdProduit());
+        contentValues.put(IDCOMMANDE_FIELD, produitCommande.getIdCommande());
+
+        database.insert(PRODUITCOMMANDE_TABLE_NAME, null, contentValues);
+    }
+    public void populateProduitCommandeListArray() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        ProduitCommande.produitCommandeArrayList.clear();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + PRODUITCOMMANDE_TABLE_NAME, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    int id = result.getInt(1);
+                    int idProduit= result.getInt(2);
+                    int idCommande= result.getInt(3);
+                    ProduitCommande produitCommande = new ProduitCommande(id, idProduit,idCommande);
+                    ProduitCommande.produitCommandeArrayList.add(produitCommande);
+                }
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.projetintegrateur;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +9,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class pageCommandeAdmin extends AppCompatActivity {
+    CommandeAdapter commandeAdapter;
+    ListView commandeView;
+    SQLiteManager sqLiteManager;
+    ArrayList<Commande> commande;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +27,26 @@ public class pageCommandeAdmin extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        System.out.println("1");
+        commande = new ArrayList<>();
+        commandeView = (ListView) findViewById(R.id.listCommandeAdmin);
+        loadFromDBToMemory();
+        setCommandeAdminAdapter(Commande.commandeArrayList);
+        System.out.println("2");
+    }
+
+    //Commande.commandeArrayList;
+    private void loadFromDBToMemory() {
+        sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+        sqLiteManager.populateCommandeListArray();
+        sqLiteManager.ajouterCommandeDatabase(sqLiteManager.getReadableDatabase(), new Commande(1,null,null,"lol", 1, 1));
+        sqLiteManager.populateProduitClientListArray();
+        System.out.println("3");
+    }
+
+    private void setCommandeAdminAdapter(ArrayList<Commande> commande) {
+        commandeAdapter = new CommandeAdapter(getApplicationContext(), commande);
+        commandeView.setAdapter(commandeAdapter);
+        System.out.println("4");
     }
 }

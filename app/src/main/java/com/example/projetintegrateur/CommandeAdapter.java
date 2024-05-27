@@ -30,11 +30,12 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class CommandeAdapter extends ArrayAdapter<Commande> implements View.OnClickListener {
+public class CommandeAdapter extends ArrayAdapter<Commande> {
     Commande commande;
 
     public CommandeAdapter(Context context, List<Commande> commande) {
         super(context, 0, commande);
+        System.out.println("9dk de mm");
     }
 
     @SuppressLint("SetTextI18n")
@@ -43,28 +44,25 @@ public class CommandeAdapter extends ArrayAdapter<Commande> implements View.OnCl
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         this.commande = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_inventaire, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_commande_admin, parent, false);
         }
-
+        System.out.println(commande.getDescription());
+        System.out.println(position);
         TextView dateDebut = convertView.findViewById(R.id.dateDebut);
         TextView dateFin = convertView.findViewById(R.id.dateFin);
         TextView description = convertView.findViewById(R.id.desc);
         TextView idStatus = convertView.findViewById(R.id.idStatus);
         TextView idClient = convertView.findViewById(R.id.idClient);
-
+        System.out.println("5");
         description.setText(commande.getDescription());
         idStatus.setText(commande.getIdStatus());
         idClient.setText(commande.getIdClient());
+        dateDebut.setText(commande.getDateDebut().toString());
+        dateFin.setText(commande.getDateFin().toString());
+        description.setText(commande.getDescription());
+
+        System.out.println("apsmkd");
+        System.out.println("6");
         return convertView;
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if (v.getId() == R.id.rowImage) {
-            Intent intent = new Intent(v.getContext(), pageProduit.class);
-            intent.putExtra("id", this.commande.getId());
-            v.getContext().startActivity(intent);
-        }
     }
 }

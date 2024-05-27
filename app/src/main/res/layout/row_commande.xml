@@ -11,74 +11,109 @@
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
 
+        <ImageView
+            android:id="@+id/rowImage"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/rowNom"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/showNom"
+                    android:textStyle="bold"
+                    android:theme="@style/textWhite" />
+
+                <Button
+                    android:id="@+id/del"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/imgtrash"
+                    android:visibility="visible" />
+
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/idClient"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="100dp"
-                android:gravity="end"
-                android:text="ID Client: "
+                android:id="@+id/rowDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:maxLines="2"
+                android:text="@string/showDescription"
                 android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:id="@+id/dateDebut"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="3dp"
-                    android:text="Date debut:"
-                    android:textStyle="bold"
-                    android:theme="@style/textWhite" />
-
-                <TextView
-                    android:id="@+id/dateFin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:maxLines="2"
-                    android:layout_marginLeft="100dp"
-                    android:text="Date fin:"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-
                 <TextView
-                    android:id="@+id/desc"
+                    android:id="@+id/rowMontant"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="Desc"
+                    android:text="@string/showPrix"
                     android:textColor="@color/white" />
 
                 <TextView
-                    android:id="@+id/idStatus"
+                    android:id="@+id/rowQuantite"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="100dp"
-                    android:gravity="end"
-                    android:text="Status"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="@string/showQuantite"
                     android:textColor="@color/white" />
+
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:id="@+id/plus1"
+                    android:textColor="@color/white"
+                    android:text="+"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:id="@+id/qt1"
+                    android:textColor="@color/white"
+                    android:text="999"/>
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:id="@+id/moins1"
+                    android:textColor="@color/white"
+                    android:text="-"/>
+
 
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

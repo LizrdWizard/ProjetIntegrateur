@@ -53,7 +53,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     Uri imageGallery;
     int idProduit;
     boolean pictureChanged;
-
+    InitButton initButton = new InitButton();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,7 +203,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         dialog.setContentView(R.layout.popup_produit);
         dialog.show();
     }
-    private void viewProduit(){
+    private void viewProduit() {
         Produit produit = Produit.getProduitById(idProduit);
         buttonAjouterProduit.setVisibility(View.INVISIBLE);
         buttonPhoto.setVisibility(View.INVISIBLE);
@@ -234,7 +234,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         imageProduit.setImageBitmap(produit.getPhoto());
     }
-
     private void viewProduitAdmin(){
         Produit produit = Produit.getProduitById(idProduit);
         editPrix.setHint(String.valueOf(produit.getPrix()));
@@ -280,5 +279,9 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         else{
             showDialog();
         }
+    }
+
+    public void bInit(View v){
+        initButton.click(pageProduit.this, v);
     }
 }
