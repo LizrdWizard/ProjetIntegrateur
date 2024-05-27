@@ -9,7 +9,7 @@
  =========================================================
 
  Historique de modifications :
- 2024-05-24         Jasmin Dubuc        Preparation pour dernier merge
+ 2024-05-24         Jasmin Dubuc        Preparation pour merge avec les autres parties
  =========================================================
  ****************************************/
 package com.example.projetintegrateur;
@@ -17,7 +17,6 @@ package com.example.projetintegrateur;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-//import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
-
+//import android.database.sqlite.SQLiteDatabase;
 public class ProduitAdapter extends ArrayAdapter<Produit> {
 
     public ProduitAdapter(Context context, List<Produit> produit) {
@@ -56,6 +55,7 @@ public class ProduitAdapter extends ArrayAdapter<Produit> {
         nom.setText(produit.getNom());
         description.setText(produit.getDescription());
         montant.setText(produit.getPrix().toString());
+        montant.append("$");
         image.setImageBitmap(produit.getPhoto());
         quantite.setText(convertView.getContext().getString(R.string.showQuantite));
         quantite.append(" " + String.valueOf(produit.getQuantite()));
@@ -71,17 +71,21 @@ public class ProduitAdapter extends ArrayAdapter<Produit> {
                 v.getContext().startActivity(intent);
             }
         });
-        /*
+
         buttonAjouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                /*
                 SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(v.getContext());
                 SQLiteDatabase sqLiteDatabase = sqLiteManager.getReadableDatabase();
                 ProduitCommande nouveauProduitCommande = new ProduitCommande(produit.getId(), Bright.getIdClient());
                 sqLiteManager.ajouterProduitCommandeDatabase(sqLiteDatabase, nouveauProduitCommande);
+                */
+
             }
         });
-
+        /*
         buttonEnlever.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

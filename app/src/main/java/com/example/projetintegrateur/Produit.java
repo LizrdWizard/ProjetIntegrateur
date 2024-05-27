@@ -7,18 +7,13 @@
  Vérification :
  2024-05-23         Jasmin Dubuc        Approuvé
  =========================================================
-
- Historique de modifications :
-
  =========================================================
  ****************************************/
 package com.example.projetintegrateur;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import java.io.ByteArrayOutputStream;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-
 public class Produit {
 
     public static ArrayList<Produit> produitArrayList = new ArrayList<>();

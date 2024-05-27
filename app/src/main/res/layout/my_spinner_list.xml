@@ -6,6 +6,5 @@
     android:background="@color/darkMaroon"
     android:textColor="@color/white"
     android:paddingTop="4dp"
-    android:paddingBottom="4dp"
-    android:textAlignment="textEnd">
+    android:paddingBottom="4dp">
 </TextView>

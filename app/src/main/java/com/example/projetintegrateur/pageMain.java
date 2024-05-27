@@ -1,14 +1,17 @@
-package com.example.projetintegrateur;
+/****************************************
+ Fichier : pageMain
+ Auteur : Jasmin Dubuc
+ Fonctionnalité : Page d'accuiel
+ Date : 2024-05-27
 
-import android.content.Intent;
-
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+ Vérification :
+ 2024-05-23         Jasmin Dubuc        Approuvé
+ =========================================================
+ =========================================================
+ ****************************************/package com.example.projetintegrateur;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -23,8 +26,6 @@ public class pageMain extends AppCompatActivity{
     Jérémie : Jeremie Gaudet
     Yassine : Yassine Adibe
      */
-
-
     private InitButton initButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,9 @@ public class pageMain extends AppCompatActivity{
             return insets;
         });
         initButton = new InitButton();
+
+        TextView viewHeader = (TextView) findViewById(R.id.textHeader);
+        viewHeader.setText(R.string.pageAccueil);
     }
     public void bInit(View v){initButton.click(pageMain.this, v);}
 }

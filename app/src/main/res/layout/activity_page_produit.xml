@@ -193,15 +193,13 @@
 
                     <Spinner
                         android:id="@+id/spinnerCategorie"
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="29dp"
                         android:layout_gravity="center_vertical"
                         android:paddingStart="40dp"
                         android:paddingEnd="5dp"
                         android:layout_marginStart="20dp"
-                        android:textColor="@null"
                         android:background="@drawable/style_spinner">
-
                     </Spinner>
 
                     <TextView

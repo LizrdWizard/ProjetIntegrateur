@@ -5,7 +5,7 @@
  Date : 23/04/2024
 
  Vérification :
- *Date*               *Nom*             *Approuvé*
+ 2024-05-27         Jasmin Dubuc        Approuvé?
  =========================================================
 
  Historique de modifications :
@@ -22,10 +22,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.text.ParseException;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
