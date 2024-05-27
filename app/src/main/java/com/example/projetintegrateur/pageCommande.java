@@ -30,7 +30,7 @@ public class pageCommande extends AppCompatActivity implements View.OnClickListe
     ListView commandeView;
     SQLiteManager sqLiteManager;
     TextView totPrix;
-    ArrayList<ProduitClient> listeFiltre;
+    ArrayList<ProduitCommande> listeFiltre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +58,8 @@ public class pageCommande extends AppCompatActivity implements View.OnClickListe
         System.out.println("salut");
         Date c = Calendar.getInstance().getTime();
         sqLiteManager.ajouterCommandeDatabase(sqLiteManager.getReadableDatabase(), new Commande(1, c,null,"commande",1,1));
-        for(ProduitClient produitClient : ProduitClient.produitClientArrayList){
-            sqLiteManager.ajouterProduitCommandeDatabase(sqLiteManager.getReadableDatabase(),new ProduitCommande(1,produitClient.getIdProduit(),Commande.commandeSize()));
+        for(ProduitCommande produitCommande : ProduitCommande.produitCommandeArrayList){
+            sqLiteManager.ajouterProduitCommandeDatabase(sqLiteManager.getReadableDatabase(),new ProduitCommande(1,produitCommande.getIdProduit(),Commande.commandeSize()));
         }
         listeFiltre.clear();
         setProduitCommandeAdapter(listeFiltre);
@@ -73,19 +73,19 @@ public class pageCommande extends AppCompatActivity implements View.OnClickListe
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteManager.populateProduitListArray();
         sqLiteManager.populateCommandeListArray();
-        sqLiteManager.ajouterProduitClientDatabase(sqLiteManager.getReadableDatabase(), new ProduitClient(1,1,1));
-        sqLiteManager.populateProduitClientListArray();
+        sqLiteManager.ajouterProduitCommandeDatabase(sqLiteManager.getReadableDatabase(), new ProduitCommande(1,1,1));
+        sqLiteManager.populateProduitCommandeListArray();
     }
 
-    private void setProduitCommandeAdapter(ArrayList<ProduitClient> listeProduit) {
+    private void setProduitCommandeAdapter(ArrayList<ProduitCommande> listeProduit) {
         produitCommandeAdapter = new ProduitCommandeAdapter(getApplicationContext(), listeProduit);
         commandeView.setAdapter(produitCommandeAdapter);
     }
 
-    private ArrayList<ProduitClient> produitsPanier() {
-        for (ProduitClient produitClient : ProduitClient.produitClientArrayList) {
-            if (produitClient.getIdClient() == 1) {
-                listeFiltre.add(produitClient);
+    private ArrayList<ProduitCommande> produitsPanier() {
+        for (ProduitCommande produitCommande : ProduitCommande.produitCommandeArrayList) {
+            if (produitCommande.getIdCommande() == 1) {
+                listeFiltre.add(produitCommande);
             }
         }
         return listeFiltre;

@@ -31,8 +31,8 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class ProduitCommandeAdapter extends ArrayAdapter<ProduitClient> implements View.OnClickListener{
-    ProduitClient produitClient;
+public class ProduitCommandeAdapter extends ArrayAdapter<ProduitCommande> implements View.OnClickListener{
+    ProduitCommande produitCommande;
     Produit produit;
     float prixTot;
     TextView plus;
@@ -40,16 +40,16 @@ public class ProduitCommandeAdapter extends ArrayAdapter<ProduitClient> implemen
 
     Button del;
     TextView qt;
-    public ProduitCommandeAdapter(Context context, List<ProduitClient> produitClient) {
-        super(context, 0, produitClient);
+    public ProduitCommandeAdapter(Context context, List<ProduitCommande> produitCommande) {
+        super(context, 0, produitCommande);
     }
 
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        this.produitClient = getItem(position);
-        this.produit = Produit.getProduitById(produitClient.getIdProduit());
+        this.produitCommande = getItem(position);
+        this.produit = Produit.getProduitById(produitCommande.getIdProduit());
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_commande, parent, false);
         }
@@ -102,7 +102,7 @@ public class ProduitCommandeAdapter extends ArrayAdapter<ProduitClient> implemen
         }
         else if (v.getId() == R.id.del) {
             SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this.getContext());
-            sqLiteManager.deleteProduitClient(String.valueOf(produitClient.getId()));
+            sqLiteManager.deleteProduitClient(String.valueOf(produitCommande.getId()));
         }
     }
     public String getQt(){

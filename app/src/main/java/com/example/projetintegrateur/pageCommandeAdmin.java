@@ -32,7 +32,6 @@ public class pageCommandeAdmin extends AppCompatActivity {
         commandeView = (ListView) findViewById(R.id.listCommandeAdmin);
         loadFromDBToMemory();
         setCommandeAdminAdapter(Commande.commandeArrayList);
-        System.out.println("2");
     }
 
     //Commande.commandeArrayList;
@@ -40,13 +39,11 @@ public class pageCommandeAdmin extends AppCompatActivity {
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteManager.populateCommandeListArray();
         sqLiteManager.ajouterCommandeDatabase(sqLiteManager.getReadableDatabase(), new Commande(1,null,null,"lol", 1, 1));
-        sqLiteManager.populateProduitClientListArray();
-        System.out.println("3");
+        sqLiteManager.populateProduitCommandeListArray();
     }
 
     private void setCommandeAdminAdapter(ArrayList<Commande> commande) {
         commandeAdapter = new CommandeAdapter(getApplicationContext(), commande);
         commandeView.setAdapter(commandeAdapter);
-        System.out.println("4");
     }
 }
