@@ -94,11 +94,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         StringBuilder sql;
 
-
-        //Create Ville Table
-        sql = new StringBuilder()
-                .append("CREATE TABLE ")
-                .append(VILLE_TABLE_NAME)
         //Table catégories
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
@@ -214,6 +209,18 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
 
+
+        //Create Ville Table
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(VILLE_TABLE_NAME)
+                .append("(")
+                .append(ID_FIELD)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(LIBELLE_FIELD)
+                .append(" TEXT)");
+        sqLiteDatabase.execSQL(sql.toString());
+
         insertVille(sqLiteDatabase, new Ville(1, "Sherbrooke"));
         insertVille(sqLiteDatabase, new Ville(2, "Magog"));
         insertVille(sqLiteDatabase, new Ville(3, "Drummondville"));
@@ -282,8 +289,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(PW_FIELD)
                 .append(" TEXT,")
                 .append(ADMIN_FIELD)
-                .append(" INT) ")
+                .append(" INT) ");
         sqLiteDatabase.execSQL(sql.toString());
+
         //Table Commande
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
@@ -630,6 +638,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 }
             }
         }
+
+        return output;
     }  
 
     public int getProvinceIdByName(String libelle)

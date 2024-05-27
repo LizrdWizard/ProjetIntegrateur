@@ -37,6 +37,8 @@
             android:exported="false" />
         <activity
             android:name=".pageCompteCreation"
+            android:exported="false" />
+        <activity
             android:name=".pageCommandeAdmin"
             android:exported="false" />
         <activity
