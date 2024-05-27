@@ -105,7 +105,4 @@ public class ProduitCommandeAdapter extends ArrayAdapter<ProduitCommande> implem
             sqLiteManager.deleteProduitClient(String.valueOf(produitCommande.getId()));
         }
     }
-    public String getQt(){
-        return "1";
-    }
 }
