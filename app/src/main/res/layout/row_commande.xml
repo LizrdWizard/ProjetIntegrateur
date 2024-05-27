@@ -46,7 +46,6 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/imgtrash"
                     android:visibility="visible" />
 
 

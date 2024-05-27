@@ -5,17 +5,11 @@
  Date : 2024-08-03
 
  Vérification :
- *Date*               *Nom*             *Approuvé*
- =========================================================
-
- Historique de modifications :
-
+ 2024-05-27         Jasmin Dubuc        Approuvé
  =========================================================
  ****************************************/
 package com.example.projetintegrateur;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Categorie {
     public static ArrayList<Categorie> categorieArrayList = new ArrayList<>();

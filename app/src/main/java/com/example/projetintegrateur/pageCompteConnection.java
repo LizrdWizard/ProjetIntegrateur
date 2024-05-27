@@ -1,3 +1,15 @@
+/****************************************
+ Fichier : pageCompteConnection.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Affichage et gestion de la connection à une session utilisateur
+ Date : 13/05/2024
+ =========================================================
+ Historique de modifications :
+ Date       Nom                             Description
+ 21/05/2024 Activités User : Implementation Implementation des fonctions, non testé
+ 26/05/2024 Merge et Correction              Merge et corrections dans la branche main
+ =========================================================
+ ****************************************/
 package com.example.projetintegrateur;
 
 import android.content.Intent;
@@ -7,6 +19,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -38,9 +51,11 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
     {
         Button cancelBtn = (Button) findViewById(R.id.accConn_btn_cancel);
         Button confBtn = (Button) findViewById(R.id.accConn_btn_conf);
+        TextView redirect = (TextView) findViewById(R.id.accConn_lbl_redirect);
 
         cancelBtn.setOnClickListener(this);
         confBtn.setOnClickListener(this);
+        redirect.setOnClickListener(this);
     }
 
     public void onClick(View v)
@@ -101,6 +116,10 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
                 }
 
             }
+        } else if (v.getId() == R.id.accConn_lbl_redirect) {
+            Intent intent = new Intent(pageCompteConnection.this, pageCompteCreation.class);
+            finish();
+            startActivity(intent);
         }
     }
 

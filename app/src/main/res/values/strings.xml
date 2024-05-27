@@ -4,6 +4,7 @@
     <string name="pageAjouterProduit">Ajouter produit</string>
     <string name="pageVoirProduit">Voir produit</string>
     <string name="pageModifierProduit">Modifier produit</string>
+    <string name="pageAccueil">Accueil</string>
 
     <string name="OK">OK</string>
     <string name="bouttonGallery">Sélectionner image</string>
@@ -34,6 +35,7 @@
     <string name="showDescription">Description : </string>
     <string name="showNom">Nom : </string>
     <string name="showQuantite">Quantité : </string>
+    <string name="sherbOrdi">Équipe 4 - SherbOrdi</string>
 
     <!-->User Libelle<!-->
     <string name="userName">Nom :</string>
@@ -46,6 +48,8 @@
     <string name="userProv">Province :</string>
     <string name="userPw">Mot de passe :</string>
     <string name="userConfPw">Confirmer le mot de passe :</string>
+    <string name="userRedirect">Créer un compte</string>
+
 
     <string name="userConnectLibelle">Veuillez entrer votre courriel et mot de passe pour continuer</string>
 

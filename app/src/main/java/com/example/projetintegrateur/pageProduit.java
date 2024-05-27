@@ -9,7 +9,7 @@
  =========================================================
 
  Historique de modifications :
-
+ 2024-05-27         Jasmin Dubuc        Preparation finales et ajout pour merge qui n'arrivera pas
  =========================================================
  ****************************************/
 package com.example.projetintegrateur;
@@ -91,9 +91,12 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         //Si aucun idProduit, c'est l'admin qui en rajoute un nouveau
         if (idProduit != 0) {
-            viewProduit();
-            //viewProduitAdmin();
+            //viewProduit();
+            viewProduitAdmin();
             textHeader.setText(R.string.pageModifierProduit);
+        }
+        else {
+            textHeader.setText(R.string.pageAjouterProduit);
         }
         /*
         //si idProduit != 0, c'est quelqu'un qui a cliqué sur le ListView
@@ -270,8 +273,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         spinnerCategorie.setVisibility(View.GONE);
         viewCategorie.setVisibility(View.VISIBLE);
-        viewCategorie.setText("test");
-        //viewCategorie.setText(Categorie.getCategorieById(produit.getIdCategorie()).toString());
+        viewCategorie.setText(Categorie.getCategorieById(produit.getIdCategorie() + 1).toString());
 
         editDescription.setVisibility(View.GONE);
         viewDescription.setVisibility(View.VISIBLE);

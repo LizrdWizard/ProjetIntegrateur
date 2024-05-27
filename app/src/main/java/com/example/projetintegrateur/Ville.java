@@ -1,3 +1,9 @@
+/****************************************
+ Fichier : Ville.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Implementation en objet de la table Ville de la DB
+ Date : 21/05/2024
+ ****************************************/
 package com.example.projetintegrateur;
 
 import java.util.ArrayList;

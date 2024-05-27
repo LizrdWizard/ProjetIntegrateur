@@ -1,9 +1,22 @@
+/****************************************
+ Fichier : pageCompteMenu.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Affichage et gestion du menu utilisateur
+ Date : 13/05/2024
+ =========================================================
+ Historique de modifications :
+ Date       Nom                             Description
+ 21/05/2024 Activités User : Implementation Implementation des fonctions, non testé
+ 26/05/2024 Merge et Correction              Merge et corrections dans la branche main
+ =========================================================
+ ****************************************/
 package com.example.projetintegrateur;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -43,6 +56,7 @@ public class pageCompteMenu extends AppCompatActivity implements View.OnClickLis
         Button histComm = (Button) findViewById(R.id.accMenu_btn_historyCommand);
         Button histRep = (Button) findViewById(R.id.accMenu_btn_historyRepair);
         Button disconn = (Button) findViewById(R.id.accMenu_btn_disconn);
+        ImageButton account = (ImageButton) findViewById(R.id.boutonFooter5);
 
         editAcc.setOnClickListener(this);
         editPw.setOnClickListener(this);
@@ -50,6 +64,7 @@ public class pageCompteMenu extends AppCompatActivity implements View.OnClickLis
         histComm.setOnClickListener(this);
         histRep.setOnClickListener(this);
         disconn.setOnClickListener(this);
+        account.setOnClickListener(this);
 
     }
 
@@ -74,10 +89,12 @@ public class pageCompteMenu extends AppCompatActivity implements View.OnClickLis
 
         }
         else if (v.getId() == R.id.accMenu_btn_historyCommand) {
-
+            Intent intent = new Intent(pageCompteMenu.this, pageCommande.class);
+            startActivity(intent);
         }
         else if (v.getId() == R.id.accMenu_btn_historyRepair) {
-
+            Intent intent = new Intent(pageCompteMenu.this, pageReparation.class);
+            startActivity(intent);
         }
         else if (v.getId() == R.id.accMenu_btn_disconn) {
 
@@ -85,6 +102,11 @@ public class pageCompteMenu extends AppCompatActivity implements View.OnClickLis
             sqLiteManager.disconnectUser();
             Intent intent = new Intent(pageCompteMenu.this, pageMain.class);
             finish();
+            startActivity(intent);
+        }
+        else if(v.getId() == R.id.boutonFooter5)
+        {
+            Intent intent = intent = new Intent(pageCompteMenu.this, pageCompteMenu.class);
             startActivity(intent);
         }
     }

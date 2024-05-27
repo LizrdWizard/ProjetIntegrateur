@@ -1,3 +1,16 @@
+/****************************************
+ Fichier : pageCompteCreation.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Affichage et gestion de la creation d'un compte utilisateur
+ Date : 13/05/2024
+ =========================================================
+ Historique de modifications :
+ Date       Nom                             Description
+ 21/05/2024 Activités User : Implementation Implementation des fonctions, non testé
+ 26/05/2024 Merge et Correction              Merge et corrections dans la branche main
+ 26/05/2024 Fix Champs textuelles            Correction des champs textuelles n'affichant pas tout le texte
+ =========================================================
+ ****************************************/
 package com.example.projetintegrateur;
 
 import android.content.Intent;
@@ -9,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -121,8 +135,11 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
         Button cancelBtn = (Button) findViewById(R.id.accCrea_btn_cancel);
         Button confBtn = (Button) findViewById(R.id.accCrea_btn_conf);
 
+        ImageButton account = (ImageButton) findViewById(R.id.boutonFooter5);
+
         cancelBtn.setOnClickListener(this);
         confBtn.setOnClickListener(this);
+        account.setOnClickListener(this);
 
     }
 
@@ -214,6 +231,10 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
                 }
 
             }
+        }else if(v.getId() == R.id.boutonFooter5)
+        {
+            Intent intent = intent = new Intent(pageCompteCreation.this, pageCompteMenu.class);
+            startActivity(intent);
         }
     }
 

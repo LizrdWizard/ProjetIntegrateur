@@ -5,11 +5,8 @@
  Date : 2024-08-03
 
  Vérification :
-
+ 2024-05-27         Jasmin Dubuc        Non approuvé
  =========================================================
-
- Historique de modifications :
-
  =========================================================
  ****************************************/
 package com.example.projetintegrateur;

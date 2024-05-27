@@ -1,15 +1,15 @@
 /****************************************
  Fichier : SQLiteManager
- Auteur : Jasmin Dubuc
+ Auteur : Jasmin Dubuc, Ogbeiwi Bright
  Fonctionnalité : Page qui gère la requêtes de la database
- Date : 2024-08-03
+ Date : 23/04/2024
 
  Vérification :
- *Date*               *Nom*             *Approuvé*
+ 2024-05-27         Jasmin Dubuc        Approuvé?
  =========================================================
 
  Historique de modifications :
-
+ 26/05/2024 Merge des fonctions compte utilisateur  Merge des fonctions de la branche userAccountFork
  =========================================================
  ****************************************/
 package com.example.projetintegrateur;
@@ -22,10 +22,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.text.ParseException;
-
 import java.util.ArrayList;
 import java.util.Objects;
 

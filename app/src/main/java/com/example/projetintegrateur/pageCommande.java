@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import androidx.databinding.ObservableList;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -66,9 +65,7 @@ public class pageCommande extends AppCompatActivity implements View.OnClickListe
     }
     public void onClick(View v) {
     }
-    public void onChanged(ObservableList sender) {
-        setProduitCommandeAdapter(produitsPanier());
-    }
+
     private void loadFromDBToMemory() {
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteManager.populateProduitListArray();

@@ -1,21 +1,27 @@
-package com.example.projetintegrateur;
+/****************************************
+ Fichier : pageMain
+ Auteur : Jasmin Dubuc
+ Fonctionnalité : Page d'accuiel
+ Date : 2024-05-27
 
+ Vérification :
+ 2024-05-23         Jasmin Dubuc        Approuvé
+ =========================================================
+ =========================================================
+ ****************************************/package com.example.projetintegrateur;
 import android.content.Intent;
-
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class pageMain extends AppCompatActivity{
+public class pageMain extends AppCompatActivity implements View.OnClickListener{
     /*
     Signature des membres de l'équipe
     Jasmin  : Jasmin Dubuc
@@ -23,8 +29,6 @@ public class pageMain extends AppCompatActivity{
     Jérémie : Jeremie Gaudet
     Yassine : Yassine Adibe
      */
-
-
     private InitButton initButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,22 @@ public class pageMain extends AppCompatActivity{
             return insets;
         });
         initButton = new InitButton();
+
+        TextView viewHeader = (TextView) findViewById(R.id.textHeader);
+        viewHeader.setText(R.string.pageAccueil);
+
+        ImageButton account = (ImageButton) findViewById(R.id.boutonFooter5);
+        account.setOnClickListener(this);
     }
     public void bInit(View v){initButton.click(pageMain.this, v);}
+
+    @Override
+    public void onClick(View v)
+    {
+        if(v.getId() == R.id.boutonFooter5)
+        {
+            Intent intent = intent = new Intent(pageMain.this, pageCompteMenu.class);
+            startActivity(intent);
+        }
+    }
 }
