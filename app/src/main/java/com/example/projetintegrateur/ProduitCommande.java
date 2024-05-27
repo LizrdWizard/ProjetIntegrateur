@@ -20,25 +20,26 @@ public class ProduitCommande {
     public static ArrayList<ProduitCommande> produitCommandeArrayList = new ArrayList<>();
     private int id;
     private int idProduit;
-    private int idClient;
+    private int idCommande;
     public ProduitCommande(){}
-    public ProduitCommande(int idProduit, int idClient) {
+    public ProduitCommande(int id, int idProduit, int idCommande) {
+        this.id = id;
         this.idProduit = idProduit;
-        this.idClient = idClient;
+        this.idCommande = idCommande;
     }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public int getIdProduit() {return this.idProduit;}
     public void setIdProduit(int idProduit) {this.idProduit = idProduit;}
-    public int getIdClient() {return this.idClient;}
-    public void setIdClient(int idClient) {this.idClient = idClient;}
+    public int getIdCommande() {return this.idCommande;}
+    public void setIdCommande(int idCommande) {this.idCommande = idCommande;}
 
     public static ArrayList<Produit> getProduitArrayListByIdClient(int idClient) {
         ArrayList<Produit> produitHolder = new ArrayList<>();
 
         if (!Produit.produitArrayList.isEmpty()) {
             for (ProduitCommande produitCommande : produitCommandeArrayList) {
-                if (produitCommande.getIdClient() == idClient)
+                if (produitCommande.getIdCommande() == idClient)
                     produitHolder.add(Produit.getProduitById(produitCommande.idProduit));
             }
         }
@@ -53,7 +54,7 @@ public class ProduitCommande {
         for (ProduitCommande produitCommande : produitCommandeArrayList) {
             holder.setId(i);
             holder.setIdProduit(produitCommande.getIdProduit());
-            holder.setIdClient(produitCommande.getIdClient());
+            holder.setIdCommande(produitCommande.getIdCommande());
             cleanList.add(holder);
             i++;
         }

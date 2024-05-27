@@ -46,7 +46,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String PRODUIT_TABLE_NAME = "Produits";
     private static final String COMMANDE_TABLE_NAME = "Commande";
     private static final String STATUSCOMMANDE_TABLE_NAME = "StatusCommande";
-    private static final String PRODUITCOMMANDE_TABLE_NAME ="ProduitClient";
+    private static final String PRODUITCLIENT_TABLE_NAME ="ProduitClient";
+    private static final String PRODUITCOMMANDE_TABLE_NAME = "ProduitCommande";
     //NOMS FIELDS
     private static final String ID_FIELD = "id";
     private static final String NOM_FIELD = "nom";
@@ -60,6 +61,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String DATEDEBUT_FIELD = "dateDebut";
     private static final String DATEFIN_FIELD = "dateFin";
     private static final String IDCLIENT_FIELD = "idClient";
+    private static final String IDCOMMANDE_FIELD = "idCommande";
     private static final String COUNTER = "Counter";
 
     private static final String PRENOM_FIELD = "prenom";
@@ -324,6 +326,22 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(NOM_FIELD)
                 .append(" TEXT );");
         sqLiteDatabase.execSQL(sql.toString());
+
+        //Table ProduitCommande
+        sql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(PRODUITCOMMANDE_TABLE_NAME)
+                .append("(")
+                .append(COUNTER)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(ID_FIELD)
+                .append(" INT, ")
+                .append(IDPRODUIT_FIELD)
+                .append(" INT, ")
+                .append(IDCOMMANDE_FIELD)
+                .append(" INT );");
+        sqLiteDatabase.execSQL(sql.toString());
+
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(1, "Pas commencée"));
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(2, "En cours"));
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(3, "Terminée"));
@@ -398,7 +416,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
 
     }
-    
+
     public void ajouterCategorieDatabase(SQLiteDatabase database, Categorie categorie) {
         if (database == null) {
             database = this.getWritableDatabase();
@@ -410,7 +428,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         database.insert(CATEGORIE_TABLE_NAME, null, contentValues);
     }
-  
+
     public void ajouterStatusDatabase(SQLiteDatabase database, Status status) {
         if (database == null) {
             database = this.getWritableDatabase();
@@ -617,7 +635,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     {
         User output = null;
 
-      
+
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE_NAME + " WHERE id = " + id, null)) {
@@ -640,7 +658,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
 
         return output;
-    }  
+    }
 
     public int getProvinceIdByName(String libelle)
     {
@@ -810,39 +828,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
             }
         }
     }
-
-    public void ajouterProduitCommandeDatabase(SQLiteDatabase database, ProduitCommande produitCommande) {
-        if (database == null) {
-            database = this.getWritableDatabase();
-        }
-        ContentValues contentValues = new ContentValues();
-
-        if (ProduitCommande.produitCommandeArrayList.isEmpty()) {contentValues.put(ID_FIELD, 1);}
-        else {contentValues.put(ID_FIELD, ProduitCommande.produitCommandeArrayList.size() + 1);}
-
-        contentValues.put(IDPRODUIT_FIELD, produitCommande.getIdProduit());
-        contentValues.put(IDCLIENT_FIELD, produitCommande.getIdClient());
-
-        database.insert(PRODUITCOMMANDE_TABLE_NAME, null, contentValues);
-    }
-
-    public void populateProduitCommandeListArray() {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-
-        ProduitCommande.produitCommandeArrayList.clear();
-        ProduitCommande produitCommande = new ProduitCommande();
-
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + PRODUITCOMMANDE_TABLE_NAME, null)) {
-            if (result.getCount() != 0) {
-                while (result.moveToNext()) {
-                    produitCommande.setId(result.getInt(1));
-                    produitCommande.setIdProduit(result.getInt(2));
-                    produitCommande.setIdClient(result.getInt(3));
-                    ProduitCommande.produitCommandeArrayList.add(produitCommande);
-                }
-            }
-        }
-    }
     public void ajouterStatusCommandeDatabase(SQLiteDatabase database, StatusCommande statusCommande) {
         if (database == null) {
             database = this.getWritableDatabase();
@@ -881,8 +866,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(DATEDEBUT_FIELD, "commande.getDateDebut()");
         contentValues.put(DATEFIN_FIELD, "commande.getDateFin()");
         contentValues.put(DESCRIPTION_FIELD, commande.getDescription());
-        contentValues.put(PHOTO_FIELD, commande.getIdStatus());
-        contentValues.put(IDCATEGORIE_FIELD, commande.getIdClient());
+        contentValues.put(IDSTATUS_FIELD, commande.getIdStatus());
+        contentValues.put(IDCLIENT_FIELD, commande.getIdClient());
 
         database.insert(COMMANDE_TABLE_NAME, null, contentValues);
     }
@@ -919,6 +904,43 @@ public class SQLiteManager extends SQLiteOpenHelper {
             return dateFormat.parse(string);
         } catch(NullPointerException | ParseException e){
             return null;
+        }
+    }
+    public void deleteProduitClient(String id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // on below line we are calling a method to delete our
+        // course and we are comparing it with our course name.
+        db.delete(PRODUITCLIENT_TABLE_NAME, "id=?", new String[]{id});
+        db.close();
+    }
+    public void ajouterProduitCommandeDatabase(SQLiteDatabase database, ProduitCommande produitCommande) {
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID_FIELD, produitCommande.getId());
+        contentValues.put(IDPRODUIT_FIELD, produitCommande.getIdProduit());
+        contentValues.put(IDCOMMANDE_FIELD, produitCommande.getIdCommande());
+
+        database.insert(PRODUITCOMMANDE_TABLE_NAME, null, contentValues);
+    }
+    public void populateProduitCommandeListArray() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        ProduitCommande.produitCommandeArrayList.clear();
+
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + PRODUITCOMMANDE_TABLE_NAME, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    int id = result.getInt(1);
+                    int idProduit= result.getInt(2);
+                    int idCommande= result.getInt(3);
+                    ProduitCommande produitCommande = new ProduitCommande(id, idProduit,idCommande);
+                    ProduitCommande.produitCommandeArrayList.add(produitCommande);
+                }
+            }
         }
     }
 }

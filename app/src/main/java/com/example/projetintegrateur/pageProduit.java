@@ -68,6 +68,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     int idProduit;
     //int idClient;
     boolean pictureChanged;
+    InitButton initButton = new InitButton();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +137,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         buttonRetour.setOnClickListener(this);
         buttonPhoto.setOnClickListener(this);
         buttonAjouterProduit.setOnClickListener(this);
-        buttonAjouterPanier.setOnClickListener(this);
         buttonModifier.setOnClickListener(this);
     }
     @Override
@@ -207,6 +207,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera, CAMERA_REQUEST_CODE);
     }
+
     private void chooseImage() {
         Intent gallery = new Intent();
         gallery.setType("image/*");
@@ -249,7 +250,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         dialog.setContentView(R.layout.popup_produit);
         dialog.show();
     }
-    private void viewProduit(){
+    private void viewProduit() {
         Produit produit = Produit.getProduitById(idProduit);
         buttonAjouterProduit.setVisibility(View.GONE);
         buttonPhoto.setVisibility(View.GONE);
@@ -327,5 +328,9 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         else{
             showDialog();
         }
+    }
+
+    public void bInit(View v){
+        initButton.click(pageProduit.this, v);
     }
 }

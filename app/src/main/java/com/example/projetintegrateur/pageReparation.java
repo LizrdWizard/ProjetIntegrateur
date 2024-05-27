@@ -40,7 +40,7 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
     Spinner spinnerStatus;
     Button buttonAjouterReparation;
     Button buttonFiltrer;
-
+    InitButton initButton = new InitButton();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,5 +121,10 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
         else if (v.getId() == R.id.bouttonFiltrer) {
             setReparationAdapter(filtrerReparations());
         }
+    }
+
+    public void bInit(View v){
+
+        initButton.click(pageReparation.this, v);
     }
 }
