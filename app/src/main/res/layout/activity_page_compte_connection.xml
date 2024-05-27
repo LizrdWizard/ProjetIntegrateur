@@ -128,6 +128,19 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/accConn_lbl_redirect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onClick"
+                android:text="@string/userRedirect"
+                android:textColor="@color/cyan"
+                android:textColorLink="@color/cyan"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout

@@ -19,6 +19,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -50,9 +51,11 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
     {
         Button cancelBtn = (Button) findViewById(R.id.accConn_btn_cancel);
         Button confBtn = (Button) findViewById(R.id.accConn_btn_conf);
+        TextView redirect = (TextView) findViewById(R.id.accConn_lbl_redirect);
 
         cancelBtn.setOnClickListener(this);
         confBtn.setOnClickListener(this);
+        redirect.setOnClickListener(this);
     }
 
     public void onClick(View v)
@@ -113,6 +116,10 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
                 }
 
             }
+        } else if (v.getId() == R.id.accConn_lbl_redirect) {
+            Intent intent = new Intent(pageCompteConnection.this, pageCompteCreation.class);
+            finish();
+            startActivity(intent);
         }
     }
 

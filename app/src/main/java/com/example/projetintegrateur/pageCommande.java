@@ -80,10 +80,13 @@ public class pageCommande extends AppCompatActivity implements View.OnClickListe
     }
 
     private ArrayList<ProduitCommande> produitsPanier() {
-        for (ProduitCommande produitCommande : ProduitCommande.produitCommandeArrayList) {
+        /*for (ProduitCommande produitCommande : ProduitCommande.produitCommandeArrayList) {
             if (produitCommande.getIdCommande() == 1) {
                 listeFiltre.add(produitCommande);
             }
+        }*/
+        for (Produit produit : Produit.produitArrayList) {
+            listeFiltre.add(new ProduitCommande(ProduitCommande.produitCommandeArrayList.size(), produit.getId(),1));
         }
         return listeFiltre;
     }

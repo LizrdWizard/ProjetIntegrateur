@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -80,10 +81,12 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
         viewNom = (TextView) findViewById(R.id.viewNom);
         viewStatus = (TextView) findViewById(R.id.viewStatus);
         viewDescription = (TextView) findViewById(R.id.viewDescription);
+        ImageButton account = (ImageButton) findViewById(R.id.boutonFooter5);
 
         buttonRetour.setOnClickListener(this);
         buttonAjouterReparation.setOnClickListener(this);
         buttonModifier.setOnClickListener(this);
+        account.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -111,6 +114,11 @@ public class pageAjouterReparation extends AppCompatActivity implements View.OnC
         else if (v.getId() == R.id.buttonModifier) {
             updaterReparation();
             startActivity(new Intent(pageAjouterReparation.this, pageReparation.class));
+        }
+        else if(v.getId() == R.id.boutonFooter5)
+        {
+            Intent intent = intent = new Intent(pageAjouterReparation.this, pageCompteMenu.class);
+            startActivity(intent);
         }
     }
     public void preparerSpinnerStatus() {
