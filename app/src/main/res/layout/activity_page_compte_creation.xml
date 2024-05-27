@@ -41,7 +41,7 @@
 
                     <TextView
                         android:id="@+id/acc_lbl_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -50,18 +50,13 @@
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/acc_txtin_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:height="50dp"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/acc_txtin_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text" />
 
                 </LinearLayout>
 
@@ -73,7 +68,7 @@
 
                     <TextView
                         android:id="@+id/acc_lbl_surname"
-                        android:layout_width="wrap_content"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -82,18 +77,13 @@
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/acc_txtin_surname"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:height="50dp"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/acc_txtin_surname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text" />
 
                 </LinearLayout>
 
@@ -105,7 +95,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_mail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -114,18 +104,13 @@
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/accCrea_txtin_mail"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:height="50dp"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/accCrea_txtin_mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text" />
 
                 </LinearLayout>
 
@@ -137,7 +122,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_tel"
-                        android:layout_width="wrap_content"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -146,18 +131,13 @@
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/accCrea_txtin_tel"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:height="50dp"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/accCrea_txtin_tel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="phone" />
 
                 </LinearLayout>
 
@@ -169,7 +149,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_addr"
-                        android:layout_width="wrap_content"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -178,18 +158,13 @@
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/accCrea_txtin_addr"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:height="50dp"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/accCrea_txtin_addr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text" />
 
                 </LinearLayout>
 
@@ -201,7 +176,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_cp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -210,18 +185,13 @@
                         android:textAlignment="center"
                         android:textSize="16sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/accCrea_txtin_cp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:height="50dp"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/accCrea_txtin_cp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text" />
 
                 </LinearLayout>
 
@@ -233,7 +203,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_city"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -258,7 +228,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_prov"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -283,7 +253,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_pw"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -310,7 +280,7 @@
 
                     <TextView
                         android:id="@+id/accCrea_lbl_confpw"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"

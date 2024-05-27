@@ -140,7 +140,7 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
             //get all inputs
             EditText name = (EditText) findViewById(R.id.acc_txtin_name);
             EditText surname = (EditText) findViewById(R.id.acc_txtin_surname);
-            EditText mail = (EditText) findViewById(R.id.accConn_txtin_mail);
+            EditText mail = (EditText) findViewById(R.id.accCrea_txtin_mail);
             EditText tel = (EditText) findViewById(R.id.accCrea_txtin_tel);
             EditText addr = (EditText) findViewById(R.id.accCrea_txtin_addr);
             EditText cp = (EditText) findViewById(R.id.accCrea_txtin_cp);
@@ -148,20 +148,20 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
             EditText confPw = (EditText) findViewById(R.id.accCrea_txtpw_confpw);
 
             ArrayList<String> content = new ArrayList<String>();
-            content.add(name.toString());
-            content.add(surname.toString());
-            content.add(mail.toString());
-            content.add(tel.toString());
-            content.add(addr.toString());
-            content.add(cp.toString());
-            content.add(pw.toString());
-            content.add(confPw.toString());
+            content.add(name.getText().toString());
+            content.add(surname.getText().toString());
+            content.add(mail.getText().toString());
+            content.add(tel.getText().toString());
+            content.add(addr.getText().toString());
+            content.add(cp.getText().toString());
+            content.add(pw.getText().toString());
+            content.add(confPw.getText().toString());
 
             int index = 0;
 
             while(index < content.size() && code == 0)
             {
-                if(content.get(index).matches("^\\w*[$&+,:;=?@#|'<>.^*()%!-].*$") || TextUtils.isEmpty(content.get(index)))
+                if(content.get(index).matches("^\\w*[$&+,:;=?#|'<>^*()%!-].*$") || TextUtils.isEmpty(content.get(index)))
                 {
                     Toast.makeText(getApplicationContext(), "Un champ contient des characrères speciaux ou est vide", Toast.LENGTH_LONG).show();
                     code = 1;
@@ -170,13 +170,13 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
             }
 
             //mail correct
-            if(!Patterns.EMAIL_ADDRESS.matcher(content.get(0)).matches())
+            if(!Patterns.EMAIL_ADDRESS.matcher(content.get(2)).matches())
             {
                 Toast.makeText(getApplicationContext(), "Un courriel est requis pour se connecter", Toast.LENGTH_LONG).show();
                 code = 2;
             }
 
-            if(!pw.toString().equals(confPw.toString()))
+            if(!content.get(6).equals(content.get(7)))
             {
                 Toast.makeText(getApplicationContext(), "Le champ nouveau mot de passe et confirmer mot de passe ne sont pas identique", Toast.LENGTH_LONG).show();
                 code = 3;
@@ -188,23 +188,31 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
 
                 //insert into db
                 User user = new User(0,
-                        name.toString(),
-                        surname.toString(),
-                        mail.toString(),
-                        tel.toString(),
-                        addr.toString(),
-                        cp.toString(),
+                        content.get(0),
+                        content.get(1),
+                        content.get(2),
+                        content.get(3),
+                        content.get(4),
+                        content.get(5),
                         sqLiteManager.getVilleIdByName(currentCity),
                         sqLiteManager.getProvinceIdByName(currentProv),
-                        pw.toString(),
+                        content.get(6),
                         0);
 
-                sqLiteManager.insertUser(user);
+                long retour = sqLiteManager.insertUser(user);
 
-                //redirect to connect
-                Intent intent = new Intent(pageCompteCreation.this, pageCompteConnection.class);
-                finish();
-                startActivity(intent);
+                if(retour == -1)
+                {
+                    Toast.makeText(getApplicationContext(), "You fcked up", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    //redirect to connect
+                    Intent intent = new Intent(pageCompteCreation.this, pageCompteConnection.class);
+                    finish();
+                    startActivity(intent);
+                }
+
             }
         }
     }

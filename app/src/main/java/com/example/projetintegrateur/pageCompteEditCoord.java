@@ -25,6 +25,8 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
     public String currentProv;
     public String currentCity;
 
+    User currentUser = new User();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +124,19 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
         cancelBtn.setOnClickListener(this);
         confBtn.setOnClickListener(this);
 
+        EditText name = (EditText) findViewById(R.id.acc_txtin_name);
+        EditText surname = (EditText) findViewById(R.id.acc_txtin_surname);
+        EditText mail = (EditText) findViewById(R.id.accConn_txtin_mail);
+        EditText tel = (EditText) findViewById(R.id.accCrea_txtin_tel);
+        EditText addr = (EditText) findViewById(R.id.accCrea_txtin_addr);
+        EditText cp = (EditText) findViewById(R.id.accCrea_txtin_cp);
+
+        name.setText(currentUser.getNom());
+        surname.setText(currentUser.getPrenom());
+        mail.setText(currentUser.getMail());
+        tel.setText(currentUser.getTel());
+        addr.setText(currentUser.getAddr());
+        cp.setText(currentUser.getCp());
     }
 
     @Override
@@ -143,12 +158,12 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
             EditText cp = (EditText) findViewById(R.id.accCrea_txtin_cp);
 
             ArrayList<String> content = new ArrayList<String>();
-            content.add(name.toString());
-            content.add(surname.toString());
-            content.add(mail.toString());
-            content.add(tel.toString());
-            content.add(addr.toString());
-            content.add(cp.toString());
+            content.add(name.getText().toString());
+            content.add(surname.getText().toString());
+            content.add(mail.getText().toString());
+            content.add(tel.getText().toString());
+            content.add(addr.getText().toString());
+            content.add(cp.getText().toString());
 
             int index = 0;
 
@@ -174,12 +189,12 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
                 SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
 
                 User user = new User(0,
-                        name.toString(),
-                        surname.toString(),
-                        mail.toString(),
-                        tel.toString(),
-                        addr.toString(),
-                        cp.toString(),
+                        content.get(0),
+                        content.get(1),
+                        content.get(2),
+                        content.get(3),
+                        content.get(4),
+                        content.get(5),
                         sqLiteManager.getVilleIdByName(currentCity),
                         sqLiteManager.getProvinceIdByName(currentProv),
                         "",
@@ -196,6 +211,9 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
     private void loadFromDBToMemory()
     {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+
+        currentUser = sqLiteManager.selectUserById(User.currentUserID);
+
         sqLiteManager.populateProvListArray();
         sqLiteManager.populateVilleListArray();
     }

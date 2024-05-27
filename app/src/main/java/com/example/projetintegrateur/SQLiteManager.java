@@ -248,8 +248,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
-    public void insertUser(User user)
+    public long insertUser(User user)
     {
+        long code = 0;
+
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -265,8 +267,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(ADMIN_FIELD, user.isAdmin());
 
 
-        database.insert(USER_TABLE_NAME, null, contentValues);
+        code = database.insert(USER_TABLE_NAME, null, contentValues);
 
+        return code;
     }
 
     public int connectUser(String mail, String pw)
@@ -274,7 +277,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         int code = 0;
         SQLiteDatabase database = this.getReadableDatabase();
 
-        try (Cursor result = database.rawQuery("SELECT id FROM " + USER_TABLE_NAME + " WHERE mail = " + mail + " AND pw = " + pw, null)) {
+        try (Cursor result = database.rawQuery("SELECT id FROM " + USER_TABLE_NAME + " WHERE " + MAIL_FIELD + " = '" + mail + "' AND " + PW_FIELD + " = '" + pw + "'", null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
                     User.currentUserID = result.getInt(0);
@@ -400,7 +403,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + PROV_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = " + libelle, null)) {
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + PROV_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = '" + libelle + "'", null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
                     output = result.getInt(0);
@@ -417,7 +420,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + VILLE_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = " + libelle, null)) {
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT id FROM " + VILLE_TABLE_NAME + " WHERE " + LIBELLE_FIELD + " = '" + libelle + "'", null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
                     output = result.getInt(0);

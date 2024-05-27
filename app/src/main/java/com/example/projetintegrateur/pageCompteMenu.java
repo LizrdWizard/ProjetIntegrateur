@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,8 +69,8 @@ public class pageCompteMenu extends AppCompatActivity implements View.OnClickLis
         }
         else if (v.getId() == R.id.accMenu_btn_ena2FA) {
 
-            Intent intent = new Intent(pageCompteMenu.this, pageCompte2FA.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "Cette fonction est indisponible pour le moment", Toast.LENGTH_LONG).show();
+
 
         }
         else if (v.getId() == R.id.accMenu_btn_historyCommand) {

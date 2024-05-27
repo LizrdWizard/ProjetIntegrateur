@@ -48,10 +48,10 @@ public class pageCompteEditPW extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v)
     {
-        if(v.getId() == R.id.accCrea_btn_cancel)
+        if(v.getId() == R.id.accEditPw_btn_cancel)
         {
             finish();
-        } else if (v.getId() == R.id.accCrea_btn_conf) {
+        } else if (v.getId() == R.id.accEditPw_btn_conf) {
 
             int code = 0;
 
@@ -61,9 +61,9 @@ public class pageCompteEditPW extends AppCompatActivity implements View.OnClickL
             EditText confPw = (EditText) findViewById(R.id.accEditPw_txtpw_confpw);
 
             ArrayList<String> content = new ArrayList<String>();
-            content.add(oldPw.toString());
-            content.add(newPw.toString());
-            content.add(confPw.toString());
+            content.add(oldPw.getText().toString());
+            content.add(newPw.getText().toString());
+            content.add(confPw.getText().toString());
 
             int index = 0;
 
@@ -86,7 +86,7 @@ public class pageCompteEditPW extends AppCompatActivity implements View.OnClickL
             if(code == 0)
             {
                 SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
-                sqLiteManager.updateUserPW(oldPw.toString(), newPw.toString());
+                sqLiteManager.updateUserPW(content.get(0), content.get(1));
 
                 finish();
             }

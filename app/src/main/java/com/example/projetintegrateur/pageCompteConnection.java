@@ -67,7 +67,7 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
             while(index < content.size() && code == 0)
             {
 
-                if(content.get(index).matches("^\\w*[$&+,:;=?@#|'<>.^*()%!-].*$") || TextUtils.isEmpty(content.get(index)))
+                if(content.get(index).matches("^\\w*[$&+,:;=?#|'<>^*()%!-].*$") || TextUtils.isEmpty(content.get(index)))
                 {
                     Toast.makeText(getApplicationContext(), "Un champ contient des characrères speciaux ou est vide", Toast.LENGTH_LONG).show();
                     code = 1;
@@ -87,9 +87,9 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
             {
 
                 SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
-                int found = sqLiteManager.connectUser(mail.toString(), pw.toString());
+                int err = sqLiteManager.connectUser(content.get(0), content.get(1));
 
-                if(found == 1)
+                if(err == 1)
                 {
                     Toast.makeText(getApplicationContext(), "Un courriel ou le mot de passe est invalide", Toast.LENGTH_LONG).show();
                 }
