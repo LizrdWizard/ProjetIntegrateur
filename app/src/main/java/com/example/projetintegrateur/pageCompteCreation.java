@@ -1,3 +1,16 @@
+/****************************************
+ Fichier : pageCompteCreation.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Affichage et gestion de la creation d'un compte utilisateur
+ Date : 13/05/2024
+ =========================================================
+ Historique de modifications :
+ Date       Nom                             Description
+ 21/05/2024 Activités User : Implementation Implementation des fonctions, non testé
+ 26/05/2024 Merge et Correction              Merge et corrections dans la branche main
+ 26/05/2024 Fix Champs textuelles            Correction des champs textuelles n'affichant pas tout le texte
+ =========================================================
+ ****************************************/
 package com.example.projetintegrateur;
 
 import android.content.Intent;

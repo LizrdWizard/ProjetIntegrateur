@@ -1,3 +1,10 @@
+/****************************************
+ Fichier : pageCompte2FA.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Activation de l'authentification à double facteur
+ Date : 13/05/2024
+ ****************************************/
+
 package com.example.projetintegrateur;
 
 import android.os.Bundle;

@@ -1,3 +1,9 @@
+/****************************************
+ Fichier : pageCompteConfirmation.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Envoi et verification du code d'authentification à double facteur
+ Date : 13/05/2024
+ ****************************************/
 package com.example.projetintegrateur;
 
 import android.os.Bundle;

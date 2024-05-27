@@ -1,3 +1,15 @@
+/****************************************
+ Fichier : pageCompteMenu.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Affichage et gestion du menu utilisateur
+ Date : 13/05/2024
+ =========================================================
+ Historique de modifications :
+ Date       Nom                             Description
+ 21/05/2024 Activités User : Implementation Implementation des fonctions, non testé
+ 26/05/2024 Merge et Correction              Merge et corrections dans la branche main
+ =========================================================
+ ****************************************/
 package com.example.projetintegrateur;
 
 import android.content.Intent;
@@ -74,10 +86,12 @@ public class pageCompteMenu extends AppCompatActivity implements View.OnClickLis
 
         }
         else if (v.getId() == R.id.accMenu_btn_historyCommand) {
-
+            Intent intent = new Intent(pageCompteMenu.this, pageCommande.class);
+            startActivity(intent);
         }
         else if (v.getId() == R.id.accMenu_btn_historyRepair) {
-
+            Intent intent = new Intent(pageCompteMenu.this, pageReparation.class);
+            startActivity(intent);
         }
         else if (v.getId() == R.id.accMenu_btn_disconn) {
 

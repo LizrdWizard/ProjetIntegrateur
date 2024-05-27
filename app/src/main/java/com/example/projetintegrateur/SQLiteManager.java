@@ -1,15 +1,15 @@
 /****************************************
  Fichier : SQLiteManager
- Auteur : Jasmin Dubuc
+ Auteur : Jasmin Dubuc, Ogbeiwi Bright
  Fonctionnalité : Page qui gère la requêtes de la database
- Date : 2024-08-03
+ Date : 23/04/2024
 
  Vérification :
  *Date*               *Nom*             *Approuvé*
  =========================================================
 
  Historique de modifications :
-
+ 26/05/2024 Merge des fonctions compte utilisateur  Merge des fonctions de la branche userAccountFork
  =========================================================
  ****************************************/
 package com.example.projetintegrateur;

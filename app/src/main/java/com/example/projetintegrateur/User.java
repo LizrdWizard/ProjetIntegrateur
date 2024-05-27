@@ -1,3 +1,10 @@
+/****************************************
+ Fichier : User.java
+ Auteur : Ogbeiwi Bright
+ Fonctionnalité : Implementation en objet de la table User de la DB
+ Date : 21/05/2024
+ ****************************************/
+
 package com.example.projetintegrateur;
 
 
