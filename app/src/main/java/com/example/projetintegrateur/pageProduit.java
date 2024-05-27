@@ -1,5 +1,18 @@
-package com.example.projetintegrateur;
+/****************************************
+ Fichier : pageProduit
+ Auteur : Jasmin Dubuc
+ Fonctionnalité : Page qui gère l'ajout, la modification, ou le visionement des produits
+ Date : 2024-08-03
 
+ Vérification :
+ 2024-05-23         Jasmin Dubuc        Approuvé
+ =========================================================
+
+ Historique de modifications :
+
+ =========================================================
+ ****************************************/
+package com.example.projetintegrateur;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,7 +44,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 103;
-
+    TextView textHeader;
     SQLiteManager sqLiteManager;
     SQLiteDatabase sqLiteDatabase;
     Button buttonRetour;
@@ -39,6 +52,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     Button buttonGallerie;
     Button buttonAjouterProduit;
     Button buttonModifier;
+    Button buttonAjouterPanier;
     EditText editPrix;
     EditText editNom;
     EditText editDescription;
@@ -52,6 +66,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     Spinner spinnerCategorie;
     Uri imageGallery;
     int idProduit;
+    //int idClient;
     boolean pictureChanged;
     InitButton initButton = new InitButton();
     @Override
@@ -66,33 +81,58 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         });
 
         initWidget();
-        preparerDb();
+        loadFromDbToMemory();
         preparerSpinnerCategorie();
         pictureChanged = false;
+        textHeader = findViewById(R.id.textHeader);
 
         idProduit = getIntent().getIntExtra("idProduit", 0);
+        //idClient = getIntent().getIntExtra("idClient", 1);
+
+        //Si aucun idProduit, c'est l'admin qui en rajoute un nouveau
         if (idProduit != 0) {
             viewProduit();
             //viewProduitAdmin();
+            textHeader.setText(R.string.pageModifierProduit);
         }
+        /*
+        //si idProduit != 0, c'est quelqu'un qui a cliqué sur le ListView
+        if (idProduit != 0) {
+            //(idClient == 0) == admin
+            if (idClient == 0) {
+                viewProduitAdmin();
+                textHeader.setText("R.string.pageModifierProduit");
+            }
+            //(idClient != 0) == client
+            else {
+                viewProduit();
+                textHeader.setText("R.string.pageVoirProduit");
+            }
+        }
+        //Si on a passé les conditions du dernier if, ça veut dire que c'est l'admin qui a appuyé sur buttonAjouterProduit
+        else {
+            textHeader.setText("R.string.pageAjouterProduit");
+        }
+        */
     }
     private void initWidget() {
-        buttonRetour = (Button) findViewById(R.id.buttonRetour);
-        buttonPhoto = (Button) findViewById(R.id.buttonPhoto);
-        buttonAjouterProduit = (Button) findViewById(R.id.buttonProduit);
-        buttonGallerie = (Button) findViewById(R.id.buttonGallery);
-        buttonModifier = (Button) findViewById(R.id.buttonModifier);
-        editPrix = (EditText) findViewById(R.id.editPrix);
-        editNom = (EditText) findViewById(R.id.editNom);
-        editQuantite = (EditText) findViewById(R.id.editQuantite);
-        editDescription = (EditText) findViewById(R.id.editDescription);
-        spinnerCategorie = (Spinner) findViewById(R.id.spinnerCategorie);
-        imageProduit = (ImageView) findViewById(R.id.imageProduit);
-        viewNom = (TextView) findViewById(R.id.viewNom);
-        viewPrix = (TextView) findViewById(R.id.viewPrix);
-        viewCategorie = (TextView) findViewById(R.id.viewCategorie);
-        viewDescription = (TextView) findViewById(R.id.viewDescription);
-        viewQuantite = (TextView) findViewById(R.id.viewQuantite);
+        buttonRetour = findViewById(R.id.buttonRetour);
+        buttonPhoto = findViewById(R.id.buttonPhoto);
+        buttonAjouterProduit = findViewById(R.id.buttonProduit);
+        buttonAjouterPanier = findViewById(R.id.buttonAjouterPanier);
+        buttonGallerie = findViewById(R.id.buttonGallery);
+        buttonModifier =  findViewById(R.id.buttonModifier);
+        editPrix = findViewById(R.id.editPrix);
+        editNom = findViewById(R.id.editNom);
+        editQuantite = findViewById(R.id.editQuantite);
+        editDescription = findViewById(R.id.editDescription);
+        spinnerCategorie = findViewById(R.id.spinnerCategorie);
+        imageProduit = findViewById(R.id.imageProduit);
+        viewNom = findViewById(R.id.viewNom);
+        viewPrix = findViewById(R.id.viewPrix);
+        viewCategorie = findViewById(R.id.viewCategorie);
+        viewDescription = findViewById(R.id.viewDescription);
+        viewQuantite = findViewById(R.id.viewQuantite);
 
         buttonRetour.setOnClickListener(this);
         buttonPhoto.setOnClickListener(this);
@@ -101,7 +141,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     }
     @Override
     public void onClick(View v) {
-
         if (v.getId() == R.id.buttonRetour) {
             startActivity(new Intent(pageProduit.this, pageInventaire.class));
         }
@@ -112,47 +151,57 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             askCameraPermissions();
         }
         else if (v.getId() == R.id.buttonProduit) {
-            Produit nouveauProduit = new Produit();
-            imageProduit.buildDrawingCache();
-
-            if (TextUtils.isEmpty(editNom.getText().toString()) || TextUtils.isEmpty(editPrix.getText().toString()) || TextUtils.isEmpty(editDescription.getText().toString())|| TextUtils.isEmpty(editQuantite.getText().toString())) {
-                showDialog();
-            }
-            else {
-
-                nouveauProduit.setNom(editNom.getText().toString());
-                nouveauProduit.setPrix(Float.valueOf(editPrix.getText().toString()));
-                nouveauProduit.setDescription(editDescription.getText().toString());
-                nouveauProduit.setQuantite(Integer.parseInt(editQuantite.getText().toString()));
-                nouveauProduit.setIdCategorie(spinnerCategorie.getSelectedItemPosition());
-                nouveauProduit.setPhoto(imageProduit.getDrawingCache());
-
-                sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
-                startActivity(new Intent(pageProduit.this, pageInventaire.class));
-            }
+            ajouterProduitDatabase();
         }
         else if (v.getId() == R.id.buttonModifier) {
             updaterProduit();
+            startActivity(new Intent(pageProduit.this, pageInventaire.class));
+        }
+        else if(v.getId() == R.id.buttonAjouterPanier) {
+            /*
+            ProduitCommande nouveauProduitCommande = new ProduitCommande();
+            nouveauProduitCommande.setIdProduit(idProduit);
+            nouveauProduitCommande.setIdClient(Bright.getIdClient());
+            sqLiteManager.ajouterProduitCommandeDatabase(sqLiteDatabase, nouveauProduitCommande);
+            */
         }
     }
-
     public void preparerSpinnerCategorie() {
-        ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Categorie.categorieArrayList);
+        ArrayAdapter<Categorie> categorieAdapter = new ArrayAdapter<>(this, R.layout.my_spinner_list, Categorie.categorieArrayList);
+        categorieAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerCategorie.setAdapter(categorieAdapter);
     }
-
-    public void preparerDb(){
+    public void loadFromDbToMemory(){
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteDatabase = sqLiteManager.getReadableDatabase();
+        sqLiteManager.populateCategorieListArray();
+        sqLiteManager.populateProduitListArray();
     }
+    public void ajouterProduitDatabase() {
+        Produit nouveauProduit = new Produit();
+        imageProduit.buildDrawingCache();
 
+        if (TextUtils.isEmpty(editNom.getText().toString()) || TextUtils.isEmpty(editPrix.getText().toString()) || TextUtils.isEmpty(editDescription.getText().toString())|| TextUtils.isEmpty(editQuantite.getText().toString())) {
+            showDialog();
+        }
+        else {
+
+            nouveauProduit.setNom(editNom.getText().toString());
+            nouveauProduit.setPrix(Float.valueOf(editPrix.getText().toString()));
+            nouveauProduit.setDescription(editDescription.getText().toString());
+            nouveauProduit.setQuantite(Integer.parseInt(editQuantite.getText().toString()));
+            nouveauProduit.setIdCategorie(spinnerCategorie.getSelectedItemPosition());
+            nouveauProduit.setPhoto(imageProduit.getDrawingCache());
+
+            sqLiteManager.ajouterProduitDatabase(sqLiteDatabase, nouveauProduit);
+            startActivity(new Intent(pageProduit.this, pageInventaire.class));
+        }
+    }
     private void askCameraPermissions() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
         }
-        else {
-            openCamera();
-        }
+        else {openCamera();}
     }
     private void openCamera() {
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -165,7 +214,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         gallery.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(gallery, "Select Picture"), GALLERY_REQUEST_CODE);
     }
-
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == CAMERA_PERM_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -174,7 +222,6 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             else {Toast.makeText(this, "Camera Permission is Required to use Camera", Toast.LENGTH_SHORT).show();}
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -205,9 +252,10 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
     }
     private void viewProduit() {
         Produit produit = Produit.getProduitById(idProduit);
-        buttonAjouterProduit.setVisibility(View.INVISIBLE);
-        buttonPhoto.setVisibility(View.INVISIBLE);
-        buttonGallerie.setVisibility(View.INVISIBLE);
+        buttonAjouterProduit.setVisibility(View.GONE);
+        buttonPhoto.setVisibility(View.GONE);
+        buttonGallerie.setVisibility(View.GONE);
+        buttonAjouterPanier.setVisibility(View.VISIBLE);
         buttonAjouterProduit.setEnabled(false);
         buttonPhoto.setEnabled(false);
         buttonGallerie.setEnabled(false);
@@ -222,7 +270,8 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
 
         spinnerCategorie.setVisibility(View.GONE);
         viewCategorie.setVisibility(View.VISIBLE);
-        viewCategorie.setText(Categorie.getCategorieById(produit.getIdCategorie()).toString());
+        viewCategorie.setText("test");
+        //viewCategorie.setText(Categorie.getCategorieById(produit.getIdCategorie()).toString());
 
         editDescription.setVisibility(View.GONE);
         viewDescription.setVisibility(View.VISIBLE);
@@ -239,16 +288,16 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
         editPrix.setHint(String.valueOf(produit.getPrix()));
         editNom.setHint(produit.getNom());
         spinnerCategorie.setSelection(produit.getIdCategorie());
+
         editDescription.setHint(produit.getDescription());
         editQuantite.setHint(String.valueOf(produit.getQuantite()));
         imageProduit.setImageBitmap(produit.getPhoto());
 
-        buttonAjouterProduit.setVisibility(View.INVISIBLE);
+        buttonAjouterProduit.setVisibility(View.GONE);
         buttonAjouterProduit.setEnabled(false);
         buttonModifier.setVisibility(View.VISIBLE);
         buttonModifier.setEnabled(true);
     }
-
     private void updaterProduit(){
         Produit vieuxProduit = Produit.getProduitById(idProduit);
         imageProduit.buildDrawingCache();
@@ -269,7 +318,7 @@ public class pageProduit extends AppCompatActivity implements View.OnClickListen
             if (editQuantite.getText().toString().isEmpty()) {produitUpdate.setQuantite(vieuxProduit.getQuantite());}
             else {produitUpdate.setQuantite(Integer.parseInt(editQuantite.getText().toString()));}
             //Categorie
-            if (spinnerCategorie.getSelectedItemPosition() == vieuxProduit.getIdCategorie()) {vieuxProduit.setIdCategorie(vieuxProduit.getIdCategorie());}
+            if (spinnerCategorie.getSelectedItemPosition() == vieuxProduit.getIdCategorie() && vieuxProduit.getIdCategorie() != 0) {produitUpdate.setIdCategorie(vieuxProduit.getIdCategorie());}
             else {produitUpdate.setIdCategorie(spinnerCategorie.getSelectedItemPosition());}
 
             produitUpdate.setPhoto(imageProduit.getDrawingCache());

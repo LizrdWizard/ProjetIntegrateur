@@ -2,13 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pageInventaire">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,7 +16,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="602dp"
+                android:layout_height="734dp"
                 android:orientation="vertical"
                 android:background="@color/maroon">
 
@@ -46,7 +43,8 @@
                                 android:textAlignment="textEnd"
                                 android:layout_gravity="center_vertical"
                                 android:theme="@style/textWhite"
-                                tools:ignore="RtlCompat">
+                                android:paddingStart="5dp"
+                                tools:ignore="RtlCompat,RtlSymmetry">
                             </TextView>
 
                             <Spinner
@@ -56,7 +54,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingStart="40dp"
                                 android:paddingEnd="5dp"
-                                android:layout_marginStart="20dp"
+                                android:layout_marginStart="15dp"
                                 android:background="@drawable/style_spinner"/>
 
                         </LinearLayout>
@@ -70,10 +68,11 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/showInventaire"
-                                android:textAlignment="textEnd"
+                                android:textAlignment="center"
                                 android:layout_gravity="center_vertical"
                                 android:theme="@style/textWhite"
-                                tools:ignore="RtlCompat">
+                                android:paddingStart="5dp"
+                                tools:ignore="RtlCompat,RtlSymmetry">
                             </TextView>
 
                             <CheckBox
@@ -81,8 +80,9 @@
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:layout_marginStart="20dp"
-                                android:buttonTint="@color/cyan"/>
+                                android:layout_marginStart="15dp"
+                                android:buttonTint="@color/cyan"
+                                tools:ignore="RtlHardcoded" />
 
                         </LinearLayout>
 
@@ -92,7 +92,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:background="@drawable/round_style">
+                        android:theme="@style/textWhite">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:orientation="horizontal"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="7dp">
@@ -163,9 +163,11 @@
                 <ListView
                     android:id="@+id/listInventaire"
                     android:layout_width="385dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="450dp"
                     android:dividerHeight="10dp"
-                    android:layout_marginStart="10dp">
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="true">
                 </ListView>
 
             </LinearLayout>
@@ -173,6 +175,5 @@
             <include layout="@layout/page_footer"/>
 
         </LinearLayout>
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

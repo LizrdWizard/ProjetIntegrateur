@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:background="@drawable/round_style">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,7 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/showNom"
-                android:layout_marginTop="3dp">
+                android:textColor="@color/white"
+                android:layout_marginTop="3dp"
+                android:textStyle="bold">
             </TextView>
 
             <TextView
@@ -30,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/showDescription"
                 android:layout_marginTop="3dp"
+                android:textColor="@color/white"
                 android:maxLines="2">
             </TextView>
 
@@ -43,6 +47,7 @@
                     android:id="@+id/rowID"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
+                    android:textColor="@color/white"
                     android:text="@string/showID">
                 </TextView>
 
@@ -52,6 +57,7 @@
                     android:layout_height="match_parent"
                     android:gravity="end"
                     android:layout_marginLeft="100dp"
+                    android:textColor="@color/white"
                     android:text="@string/showEtat">
                 </TextView>
 

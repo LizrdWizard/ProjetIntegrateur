@@ -36,6 +36,7 @@ import java.util.ArrayList;
 public class pageReparation extends AppCompatActivity implements View.OnClickListener{
     ListView reparationView;
     EditText IDReparation;
+    EditText editID;
     Spinner spinnerStatus;
     Button buttonAjouterReparation;
     Button buttonFiltrer;
@@ -87,7 +88,7 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
     }
     public void preparerSpinnerStatus() {
         ArrayList<Status> statusHolder = new ArrayList<>(Status.statusArrayList);
-        statusHolder.add(0, new Status(0, "Toutes"));
+        //statusHolder.add(0, new Status(0, "Toutes"));
         ArrayAdapter<Status> statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, statusHolder);
         statusAdapter.setDropDownViewResource(R.layout.my_spinner_list);
         spinnerStatus.setAdapter(statusAdapter);
@@ -95,13 +96,18 @@ public class pageReparation extends AppCompatActivity implements View.OnClickLis
 
     public ArrayList<Reparation> filtrerReparations() {
 
-        int idStatus = spinnerStatus.getSelectedItemPosition();
+        int idStatus = 0;
+        int id = 0;
 
         ArrayList<Reparation> listeFiltree = new ArrayList<>();
+        if (spinnerStatus.getSelectedItemPosition() != 1) {idStatus = spinnerStatus.getSelectedItemPosition() - 1;}
+        else {idStatus = 0;}
+        if (!editID.getText().toString().trim().isEmpty()){id = Integer.parseInt(editID.getText().toString());}
 
         for (Reparation reparation : Reparation.reparationArrayList) {
-                if(reparation.getIdStatus() == idStatus || reparation.getIdStatus() == 0) {
-            listeFiltree.add(reparation);}
+                if(reparation.getIdStatus() == idStatus || spinnerStatus.getSelectedItemPosition() == 0) {
+                    if (reparation.getId() == id) {listeFiltree.add(reparation);}
+                }
         }
         return listeFiltree;
     }
