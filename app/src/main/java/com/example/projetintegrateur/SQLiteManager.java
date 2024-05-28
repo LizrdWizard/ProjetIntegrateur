@@ -83,7 +83,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public static SQLiteManager instanceOfDatabase(Context context) {
         //Pour reset
-        //context.deleteDatabase(DATABASE_NAME);
+        context.deleteDatabase(DATABASE_NAME);
         if (sqLiteManager == null) {
             sqLiteManager = new SQLiteManager(context);
         }
@@ -323,21 +323,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" INT, ")
                 .append(NOM_FIELD)
                 .append(" TEXT );");
-        sqLiteDatabase.execSQL(sql.toString());
-
-        //Table ProduitCommande
-        sql = new StringBuilder()
-                .append("CREATE TABLE ")
-                .append(PRODUITCOMMANDE_TABLE_NAME)
-                .append("(")
-                .append(COUNTER)
-                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
-                .append(ID_FIELD)
-                .append(" INT, ")
-                .append(IDPRODUIT_FIELD)
-                .append(" INT, ")
-                .append(IDCOMMANDE_FIELD)
-                .append(" INT );");
         sqLiteDatabase.execSQL(sql.toString());
 
         ajouterStatusCommandeDatabase(sqLiteDatabase, new StatusCommande(1, "Pas commencée"));

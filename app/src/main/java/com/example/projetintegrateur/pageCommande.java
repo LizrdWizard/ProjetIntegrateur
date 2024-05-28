@@ -70,8 +70,9 @@ public class pageCommande extends AppCompatActivity implements View.OnClickListe
         sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteManager.populateProduitListArray();
         sqLiteManager.populateCommandeListArray();
-        sqLiteManager.ajouterProduitCommandeDatabase(sqLiteManager.getReadableDatabase(), new ProduitCommande(1,1,1));
         sqLiteManager.populateProduitCommandeListArray();
+        //sqLiteManager.ajouterProduitCommandeDatabase(sqLiteManager.getReadableDatabase(), new ProduitCommande(1,1,1));
+
     }
 
     private void setProduitCommandeAdapter(ArrayList<ProduitCommande> listeProduit) {
