@@ -14,6 +14,7 @@
 package com.example.projetintegrateur;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -201,7 +202,8 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
 
             if(code == 0)
             {
-                SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+                SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(getApplicationContext());
+
 
                 //insert into db
                 User user = new User(0,
@@ -216,7 +218,8 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
                         content.get(6),
                         0);
 
-                long retour = sqLiteManager.insertUser(user);
+
+                long retour = sqLiteManager.insertUser(null, user);
 
                 if(retour == -1)
                 {
@@ -240,7 +243,7 @@ public class pageCompteCreation extends AppCompatActivity implements View.OnClic
 
     private void loadFromDBToMemory()
     {
-        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(getApplicationContext());
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
 
         sqLiteManager.populateVilleListArray();
         sqLiteManager.populateProvListArray();

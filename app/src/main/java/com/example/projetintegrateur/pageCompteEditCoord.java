@@ -83,7 +83,7 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
         provSpin.setAdapter(provAdapter);
 
         Spinner villeSpin = (Spinner) findViewById(R.id.accCrea_spin_city);
-        ArrayAdapter<String> villeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, cityNames.get(0));
+        ArrayAdapter<String> villeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
 
 
         provSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -143,7 +143,7 @@ public class pageCompteEditCoord extends AppCompatActivity implements View.OnCli
 
         EditText name = (EditText) findViewById(R.id.acc_txtin_name);
         EditText surname = (EditText) findViewById(R.id.acc_txtin_surname);
-        EditText mail = (EditText) findViewById(R.id.accConn_txtin_mail);
+        EditText mail = (EditText) findViewById(R.id.accCrea_txtin_mail);
         EditText tel = (EditText) findViewById(R.id.accCrea_txtin_tel);
         EditText addr = (EditText) findViewById(R.id.accCrea_txtin_addr);
         EditText cp = (EditText) findViewById(R.id.accCrea_txtin_cp);

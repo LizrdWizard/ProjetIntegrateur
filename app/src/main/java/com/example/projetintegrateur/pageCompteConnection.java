@@ -13,12 +13,14 @@
 package com.example.projetintegrateur;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,10 +54,13 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
         Button cancelBtn = (Button) findViewById(R.id.accConn_btn_cancel);
         Button confBtn = (Button) findViewById(R.id.accConn_btn_conf);
         TextView redirect = (TextView) findViewById(R.id.accConn_lbl_redirect);
+        ImageButton footerConnect = (ImageButton) findViewById(R.id.boutonFooter2);
+
 
         cancelBtn.setOnClickListener(this);
         confBtn.setOnClickListener(this);
         redirect.setOnClickListener(this);
+        footerConnect.setOnClickListener(this);
     }
 
     public void onClick(View v)
@@ -118,6 +123,12 @@ public class pageCompteConnection extends AppCompatActivity implements View.OnCl
             }
         } else if (v.getId() == R.id.accConn_lbl_redirect) {
             Intent intent = new Intent(pageCompteConnection.this, pageCompteCreation.class);
+            finish();
+            startActivity(intent);
+        }
+        else if(v.getId() == R.id.boutonFooter2)
+        {
+            Intent intent = new Intent(pageCompteConnection.this, pageCompteConnection.class);
             finish();
             startActivity(intent);
         }

@@ -22,6 +22,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
+
+import java.io.File;
 import java.util.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -87,6 +89,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         if (sqLiteManager == null) {
             sqLiteManager = new SQLiteManager(context);
         }
+
+
         return sqLiteManager;
     }
 
@@ -330,13 +334,18 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        /*
         db.execSQL("DROP TABLE IF EXISTS " + PRODUIT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CATEGORIE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + STATUS_TABLE_NAME) ;
         db.execSQL("DROP TABLE IF EXISTS " + REPARATION_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + COMMANDE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + STATUSCOMMANDE_TABLE_NAME);
+
+
         onCreate(db);
+
+         */
     }
 
     public void insertProvince(SQLiteDatabase database, Province province)
@@ -490,11 +499,16 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
-    public long insertUser(User user)
+    public long insertUser(SQLiteDatabase database, User user)
     {
         long code = 0;
 
-        SQLiteDatabase database = this.getWritableDatabase();
+        if (database == null) {
+            database = this.getWritableDatabase();
+        }
+
+
+
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(NOM_FIELD, user.getNom());
@@ -509,7 +523,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(ADMIN_FIELD, user.isAdmin());
 
 
-        code = database.insert(USER_TABLE_NAME, null, contentValues);
+        code = database.insertOrThrow(USER_TABLE_NAME, null, contentValues);
 
         return code;
     }
