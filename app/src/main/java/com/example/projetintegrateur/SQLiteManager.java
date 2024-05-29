@@ -197,7 +197,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append("));");
         sqLiteDatabase.execSQL(sql.toString());
 
-
         //Table produitCommande
         sql = new StringBuilder()
                 .append("CREATE TABLE ")
@@ -208,7 +207,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(LIBELLE_FIELD)
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
-
 
         //Create Ville Table
         sql = new StringBuilder()
@@ -258,7 +256,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
         insertProvinceVille(sqLiteDatabase, 2, 1);
         insertProvinceVille(sqLiteDatabase, 3, 1);
         insertProvinceVille(sqLiteDatabase, 4, 1);
-
         insertProvinceVille(sqLiteDatabase, 5, 2);
         insertProvinceVille(sqLiteDatabase, 6, 2);
         insertProvinceVille(sqLiteDatabase, 7, 2);

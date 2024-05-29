@@ -17,13 +17,12 @@
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
 
-            <ImageButton
-
+            <ImageView
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp">
-            </ImageButton>
-
+                android:layout_marginStart="5dp"
+                android:src="@drawable/placeholder_minilogo">
+            </ImageView>
             <TextView
                 android:id="@+id/textHeader"
                 android:layout_width="300dp"
@@ -36,11 +35,12 @@
 
             <ImageButton
                 android:id="@+id/butttonImage"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_vertical"
                 android:gravity="right"
                 android:onClick="bRetour"
+                android:background="@drawable/button_exit"
                 android:layout_marginStart="-15dp">
             </ImageButton>
 
